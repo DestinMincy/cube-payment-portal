@@ -47,7 +47,7 @@ A comprehensive WordPress plugin that integrates Square's payment platform to pr
 2. Go to **Plugins → Add New → Upload Plugin**
 3. Upload the ZIP file and click **Install Now**
 4. Click **Activate Plugin**
-5. Navigate to **Settings → Cube Payment Portal**
+5. Navigate to **Cube Payment Portal → Settings**
 6. Click **Connect with Square** to authorize your account
 
 ---
@@ -57,7 +57,7 @@ A comprehensive WordPress plugin that integrates Square's payment platform to pr
 ### Initial Setup
 
 1. **Connect to Square**
-   - Go to **Settings → Cube Payment Portal**
+   - Go to **Cube Payment Portal → Settings**
    - Click **Connect with Square**
    - Authorize the plugin to access your Square account
    - Verify connection status shows "Connected"
