@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,32.9789,33)">
+        <path d="M185,60C185,40.683 169.317,25 150,25L60,25C40.683,25 25,40.683 25,60L25,150C25,169.317 40.683,185 60,185L150,185C169.317,185 185,169.317 185,150L185,60Z" style="fill:rgb(17,17,17);"/>
+        <g transform="matrix(1.14286,0,0,1.14286,-52.1006,-52.1429)">
+            <path d="M190,76.25C190,61.762 178.238,50 163.75,50L76.25,50C61.762,50 50,61.762 50,76.25L50,163.75C50,178.238 61.762,190 76.25,190L163.75,190C178.238,190 190,178.238 190,163.75L190,76.25Z" style="fill:white;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,15,15)">
+            <path d="M160,35C160,15.683 144.317,0 125,0L35,0C15.683,0 0,15.683 0,35L0,125C0,144.317 15.683,160 35,160L125,160C144.317,160 160,144.317 160,125L160,35Z" style="fill:rgb(51,51,51);"/>
+        </g>
+        <g transform="matrix(0.923077,0,0,0.923077,12.7046,21.1903)">
+            <g transform="matrix(1.37373,0,0,1.37373,89.2221,121.104)">
+                <text x="-34.15px" y="0px" style="font-family:'HackerNoonV2-Regular', 'Hacker Noon V2';font-size:100px;fill:white;">$</text>
+            </g>
+            <g transform="matrix(2.27859,0,0,2.27859,-240.54,-115.394)">
+                <text x="161.612px" y="65.653px" style="font-family:'HackerNoonV2-Regular', 'Hacker Noon V2';font-size:12px;fill:white;">3</text>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,206 @@
+/**
+ * Cube Payment Portal - Skeleton CSS
+ *
+ * Structural CSS only. Inherits theme styling.
+ * Uses CSS variables for easy customization.
+ */
+
+:root {
+    --spp-spacing-xs: 0.25rem;
+    --spp-spacing-sm: 0.5rem;
+    --spp-spacing-md: 1rem;
+    --spp-spacing-lg: 1.5rem;
+    --spp-spacing-xl: 2rem;
+    --spp-border-radius: inherit;
+    --spp-transition: 0.2s ease;
+}
+
+/* Portal Layout */
+.spp-portal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spp-spacing-lg);
+}
+
+.spp-portal-nav {
+    flex: 0 0 200px;
+}
+
+.spp-portal-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.spp-portal-nav li {
+    margin-bottom: var(--spp-spacing-xs);
+}
+
+.spp-portal-nav a {
+    display: block;
+    padding: var(--spp-spacing-sm) var(--spp-spacing-md);
+}
+
+.spp-portal-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Cards Grid */
+.spp-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spp-spacing-md);
+}
+
+/* Subscription Plans Grid */
+.spp-plans-grid {
+    display: grid;
+    gap: var(--spp-spacing-md);
+}
+
+.spp-plans-grid.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.spp-plans-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.spp-plans-grid.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Forms */
+.spp-form-row {
+    margin-bottom: var(--spp-spacing-md);
+}
+
+.spp-form-row label {
+    display: block;
+    margin-bottom: var(--spp-spacing-xs);
+}
+
+/* Card Container (Square SDK) */
+#spp-card-container {
+    min-height: 90px;
+    padding: var(--spp-spacing-md);
+    border: 1px solid currentColor;
+    border-radius: var(--spp-border-radius);
+    opacity: 0.3;
+}
+
+/* Tables */
+.spp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.spp-table th,
+.spp-table td {
+    padding: var(--spp-spacing-sm);
+    text-align: left;
+}
+
+/* Status Badges */
+.spp-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+/* Notifications */
+.spp-notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spp-spacing-md);
+    margin-bottom: var(--spp-spacing-md);
+    border-radius: var(--spp-border-radius);
+    animation: spp-slide-in 0.3s ease;
+}
+
+.spp-notification-error {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.spp-notification-success {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.spp-notification-warning {
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+}
+
+.spp-notification-message {
+    flex: 1;
+}
+
+.spp-notification-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 0 0 var(--spp-spacing-md);
+    opacity: 0.5;
+    transition: opacity var(--spp-transition);
+}
+
+.spp-notification-close:hover {
+    opacity: 1;
+}
+
+@keyframes spp-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Payment Error */
+.spp-payment-error {
+    padding: var(--spp-spacing-lg);
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: var(--spp-border-radius);
+    color: #991b1b;
+    text-align: center;
+}
+
+.spp-payment-error p {
+    margin: var(--spp-spacing-sm) 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .spp-portal {
+        flex-direction: column;
+    }
+
+    .spp-portal-nav {
+        flex: none;
+        width: 100%;
+    }
+
+    .spp-portal-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spp-spacing-sm);
+    }
+
+    .spp-plans-grid.columns-3,
+    .spp-plans-grid.columns-4 {
+        grid-template-columns: 1fr;
+    }
+}

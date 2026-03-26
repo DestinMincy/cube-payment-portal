@@ -1,0 +1,315 @@
+/**
+ * Menu Integration Styles
+ *
+ * Styles for the navbar Sign In/Sign Up buttons and logged-in user dropdown.
+ * Uses spp- prefix to avoid theme collisions.
+ *
+ * @package CubePaymentPortal
+ */
+
+/* ============================================================
+ * 1. Sign In & Sign Up Buttons (logged-out state)
+ * ============================================================ */
+
+.spp-nav-signin,
+.spp-nav-signup {
+    display: flex !important;
+    align-items: center;
+    line-height: normal !important;
+}
+
+.spp-nav-signup {
+    margin-left: 8px;
+}
+
+.spp-nav-signin-link,
+.spp-nav-signup-link {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px !important;
+    border-radius: 6px;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    text-decoration: none !important;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Sign In — outlined / subtle */
+.spp-nav-signin-link {
+    color: #1e293b !important;
+    background: transparent !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+.spp-nav-signin-link:hover {
+    color: #006aff !important;
+    border-color: #006aff !important;
+    background: rgba(0, 106, 255, 0.04) !important;
+}
+
+/* Sign Up — primary / filled */
+.spp-nav-signup-link {
+    color: #fff !important;
+    background: #006aff !important;
+    border: 1px solid #006aff !important;
+}
+
+.spp-nav-signup-link:hover {
+    background: #0055d4 !important;
+    border-color: #0055d4 !important;
+    box-shadow: 0 2px 8px rgba(0, 106, 255, 0.25);
+}
+
+/* ============================================================
+ * 2. Logged-In User Toggle
+ * ============================================================ */
+
+.spp-nav-user {
+    position: relative;
+    display: flex !important;
+    align-items: center;
+    align-self: center !important;
+    line-height: normal !important;
+}
+
+.spp-nav-user-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    align-self: center;
+    gap: 8px;
+    padding: 4px 10px !important;
+    height: auto !important;
+    border-radius: 999px;
+    text-decoration: none !important;
+    color: #1e293b !important;
+    transition: background 0.15s ease;
+    cursor: pointer;
+}
+
+.spp-nav-user-toggle:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.spp-nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.spp-nav-user-name {
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.spp-nav-dropdown-arrow {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.5;
+    transition: transform 0.2s ease;
+}
+
+.spp-nav-open .spp-nav-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* ============================================================
+ * 3. Dropdown Menu
+ * ============================================================ */
+
+.spp-nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 9999;
+    min-width: 170px;
+    margin-top: 4px;
+    padding: 4px 0;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
+    line-height: 1.3 !important;
+}
+
+/* Reset any theme-injected spacing inside the dropdown */
+.spp-nav-dropdown *,
+.spp-nav-dropdown *::before,
+.spp-nav-dropdown *::after {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-sizing: border-box;
+}
+
+.spp-nav-open .spp-nav-dropdown {
+    display: block;
+}
+
+/* Dropdown Items */
+.spp-nav-dropdown-item {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px !important;
+    color: #334155 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.3 !important;
+    text-decoration: none !important;
+    transition: background 0.1s ease, color 0.1s ease;
+    white-space: nowrap;
+}
+
+.spp-nav-dropdown-item:hover {
+    background: #f1f5f9 !important;
+    color: #006aff !important;
+}
+
+.spp-nav-dropdown-icon {
+    display: inline-flex;
+    align-items: center;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+.spp-nav-dropdown-item:hover .spp-nav-dropdown-icon {
+    color: #006aff;
+}
+
+.spp-nav-dropdown-label {
+    flex: 1;
+}
+
+/* Separator */
+.spp-nav-dropdown-separator {
+    height: 1px !important;
+    margin: 3px 12px !important;
+    background: #e2e8f0 !important;
+}
+
+/* Logout item */
+.spp-nav-dropdown-logout:hover {
+    color: #dc2626 !important;
+}
+
+.spp-nav-dropdown-logout:hover .spp-nav-dropdown-icon {
+    color: #dc2626;
+}
+
+/* ============================================================
+ * 4. Impersonation Notice
+ * ============================================================ */
+
+.spp-nav-impersonating .spp-nav-user-toggle {
+    border: 2px solid #f59e0b;
+    background: rgba(245, 158, 11, 0.06) !important;
+}
+
+.spp-nav-impersonation-notice {
+    padding: 8px 16px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #92400e;
+    background: #fef3c7;
+    border-bottom: 1px solid #fde68a;
+}
+
+.spp-nav-impersonation-notice strong {
+    font-weight: 600;
+}
+
+/* Exit view mode */
+.spp-nav-dropdown-exit-impersonation:hover {
+    color: #d97706 !important;
+}
+
+.spp-nav-dropdown-exit-impersonation:hover .spp-nav-dropdown-icon {
+    color: #d97706;
+}
+
+/* ============================================================
+ * 5. Responsive
+ * ============================================================ */
+
+/* Portal view links — visible in both desktop dropdown and mobile menu */
+
+@media (max-width: 768px) {
+    .spp-nav-dropdown-arrow {
+        display: none;
+    }
+
+    .spp-nav-signin,
+    .spp-nav-signup {
+        display: block !important;
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    .spp-nav-signin-link,
+    .spp-nav-signup-link {
+        display: block !important;
+        width: 100% !important;
+        padding: 12px 20px !important;
+        font-size: inherit !important;
+        font-weight: 400 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        color: inherit !important;
+        text-align: left !important;
+        box-shadow: none !important;
+    }
+
+    .spp-nav-signup-link {
+        font-weight: 600 !important;
+    }
+
+    /* Expand dropdown inline so it isn't clipped by theme overflow */
+    .spp-nav-user {
+        position: static !important;
+        flex-wrap: wrap;
+    }
+
+    .spp-nav-user-toggle {
+        padding: 10px 14px !important;
+    }
+
+    /* Inline dropdown — static position prevents overflow clipping */
+    .spp-nav-dropdown {
+        position: static !important;
+        top: auto !important;
+        right: auto !important;
+        z-index: auto !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        margin-top: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 0 !important;
+    }
+
+    .spp-nav-dropdown-item {
+        padding: 8px 14px 8px 24px !important;
+        font-size: 14px !important;
+    }
+
+    .spp-nav-dropdown-separator {
+        margin: 4px 14px 4px 24px !important;
+    }
+
+}

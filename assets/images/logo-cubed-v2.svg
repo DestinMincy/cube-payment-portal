@@ -1,0 +1,34 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Definition of the 'Cubed' Squircle shape -->
+    <!-- Front Face (A rounded square) -->
+    <rect x="50" y="50" width="140" height="140" rx="30" fill="#333333"/>
+    
+    <!-- Depth/Extrusion (Right and Bottom sides to make it 3D) -->
+    <!-- Not a true isometric, but a 'Perspective' extrusion for a modern app icon look -->
+    <!-- Bottom Shadow/Depth -->
+    <path d="M80 190 H190 C206.569 190 220 176.569 220 160 V80 L190 50 V160 C190 176.569 176.569 190 160 190 H80 L50 220 L80 190Z" fill="#1A1A1A"/>
+    
+    <!-- Right side is covered by the path above roughly, let's refine for a cleaner block look -->
+    <!-- Let's actually do a proper 3-part construct for cleanliness -->
+    
+    <!-- Clear previous and start 3D construct -->
+    <g transform="translate(28, 28)">
+        <!-- 3D Base (Darker) -->
+        <rect x="25" y="25" width="160" height="160" rx="35" fill="#111111"/>
+        
+        <!-- Main Face (Lighter/Brand Color) moved up-left -->
+        <rect x="0" y="0" width="160" height="160" rx="35" fill="#333333"/>
+        
+        <!-- The Dollar Sign (Negative Space / White) -->
+        <!-- Using a geometric, thick sans-serif style -->
+        <text x="80" y="105" 
+              font-family="Arial, sans-serif" 
+              font-size="100" 
+              font-weight="bold" 
+              fill="#FFFFFF" 
+              text-anchor="middle" 
+              dominant-baseline="central">
+              $
+        </text>
+    </g>
+</svg>

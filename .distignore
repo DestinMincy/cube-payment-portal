@@ -1,0 +1,66 @@
+# Distribution ignore file
+# Files and directories listed here are excluded from WordPress.org plugin builds.
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# CI/CD and Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+docker-entrypoint-custom.sh
+docker/
+
+# Development dependencies
+vendor/
+node_modules/
+composer.json
+composer.lock
+package.json
+package-lock.json
+
+# Testing
+tests/
+phpunit.xml
+.phpunit.result.cache
+
+# Static analysis and coding standards
+phpstan.neon
+phpstan-errors.txt
+.phpcs.xml
+.phpcs.xml.dist
+
+# IDE and editor files
+.idea/
+.vscode/
+.claude/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+nul
+
+# Documentation and planning (dev-only)
+docs/
+*.md
+!readme.txt
+
+# Dev artifacts
+*.sql
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Build artifacts
+build/
+build.sh
+build.ps1
+*.zip
+
+# Distribution ignore itself
+.distignore

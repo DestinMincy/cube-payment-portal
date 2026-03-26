@@ -1,0 +1,35 @@
+# Composer dependencies
+/vendor/
+
+# Node modules (if needed later)
+/node_modules/
+
+# IDE files
+/.idea/
+/.vscode/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+/coverage/
+.phpunit.result.cache
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Docker volumes (if local)
+/wordpress_data/
+/db_data/
+
+# Build artifacts
+*.zip
+
+# Claude Code
+.claude/

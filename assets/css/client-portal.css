@@ -1,0 +1,4189 @@
+﻿/**
+ * Cubed Payment Portal - Premium Client Portal CSS Framework
+ *
+ * A glassmorphism-inspired, theme-agnostic design system for the client portal.
+ * Uses BEM-like naming with .spp-portal prefix to avoid theme conflicts.
+ *
+ * Table of Contents:
+ * 1. CSS Custom Properties (Variables)
+ * 2. Font Imports & Typography
+ * 3. Base Container & Reset
+ * 4. Responsive Grid System
+ * 5. Glassmorphism Card Components
+ * 6. Buttons
+ * 7. Form Elements (Inputs, Selects)
+ * 8. Badges & Status Indicators
+ * 9. Modal Component
+ * 10. Avatar Component
+ * 11. Progress Circle
+ * 12. Loading Skeleton Animations
+ * 13. Utility Classes
+ * 14. Dark Mode Support
+ * 15. Responsive Breakpoints
+ */
+
+/* ==========================================================================
+   1. CSS Custom Properties (Variables)
+   ========================================================================== */
+
+:root {
+    /* Glassmorphism Backgrounds */
+    --spp-glass-bg: rgba(255, 255, 255, 0.7);
+    --spp-glass-bg-solid: rgba(255, 255, 255, 0.95);
+    --spp-glass-border: 1px solid rgba(255, 255, 255, 0.3);
+    --spp-glass-border-color: rgba(255, 255, 255, 0.3);
+    --spp-glass-blur: blur(10px);
+
+    /* Primary Gradient */
+    --spp-primary-gradient: linear-gradient(135deg, #006aff, #00d2ff);
+    --spp-primary-gradient-hover: linear-gradient(135deg, #0055cc, #00b8e6);
+
+    /* Brand Colors */
+    --spp-primary: #006aff;
+    --spp-primary-hover: #0055cc;
+    --spp-primary-light: rgba(0, 106, 255, 0.1);
+    --spp-secondary: #6c757d;
+    --spp-secondary-hover: #5a6268;
+
+    /* Status Colors */
+    --spp-success: #10b981;
+    --spp-success-bg: rgba(16, 185, 129, 0.1);
+    --spp-warning: #f59e0b;
+    --spp-warning-bg: rgba(245, 158, 11, 0.1);
+    --spp-error: #ef4444;
+    --spp-error-bg: rgba(239, 68, 68, 0.1);
+    --spp-info: #3b82f6;
+    --spp-info-bg: rgba(59, 130, 246, 0.1);
+
+    /* Text Colors */
+    --spp-text-main: #1a1a2e;
+    --spp-text-muted: #6b7280;
+    --spp-text-light: #9ca3af;
+    --spp-text-inverse: #ffffff;
+
+    /* Background Colors */
+    --spp-bg-primary: #ffffff;
+    --spp-bg-secondary: #f8fafc;
+    --spp-bg-tertiary: #f1f5f9;
+    --spp-bg-overlay: rgba(0, 0, 0, 0.5);
+
+    /* Border Colors */
+    --spp-border-light: #e5e7eb;
+    --spp-border-medium: #d1d5db;
+    --spp-border-dark: #9ca3af;
+
+    /* Shadows */
+    --spp-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --spp-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --spp-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --spp-shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --spp-shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --spp-shadow-glow: 0 0 20px rgba(0, 106, 255, 0.3);
+
+    /* Border Radius */
+    --spp-radius-sm: 4px;
+    --spp-radius-md: 8px;
+    --spp-radius-lg: 12px;
+    --spp-radius-xl: 16px;
+    --spp-radius-full: 9999px;
+
+    /* Spacing Scale */
+    --spp-space-1: 0.25rem;
+    --spp-space-2: 0.5rem;
+    --spp-space-3: 0.75rem;
+    --spp-space-4: 1rem;
+    --spp-space-5: 1.5rem;
+    --spp-space-6: 2rem;
+    --spp-space-8: 3rem;
+
+    /* Typography */
+    --spp-font-heading: 'Lexend', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --spp-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --spp-font-mono: 'SF Mono', 'Roboto Mono', 'Consolas', monospace;
+
+    /* Font Sizes */
+    --spp-text-xs: 0.75rem;
+    --spp-text-sm: 0.875rem;
+    --spp-text-base: 1rem;
+    --spp-text-lg: 1.125rem;
+    --spp-text-xl: 1.25rem;
+    --spp-text-2xl: 1.5rem;
+    --spp-text-3xl: 1.875rem;
+    --spp-text-4xl: 2.25rem;
+
+    /* Line Heights */
+    --spp-leading-tight: 1.25;
+    --spp-leading-normal: 1.5;
+    --spp-leading-relaxed: 1.75;
+
+    /* Transitions */
+    --spp-transition-fast: 0.15s ease;
+    --spp-transition-base: 0.2s ease;
+    --spp-transition-slow: 0.3s ease;
+
+    /* Z-Index Scale */
+    --spp-z-dropdown: 100;
+    --spp-z-sticky: 200;
+    --spp-z-modal-backdrop: 900;
+    --spp-z-modal: 1000;
+    --spp-z-tooltip: 1100;
+}
+
+/* ==========================================================================
+   2. Font Imports & Typography
+   ========================================================================== */
+
+/* Google Fonts Import - Lexend for headings, Inter for body */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap');
+
+/* Typography Classes */
+.spp-portal__title {
+    font-family: var(--spp-font-heading);
+    font-size: var(--spp-text-3xl);
+    font-weight: 600;
+    line-height: var(--spp-leading-tight);
+    color: var(--spp-text-main);
+    margin: 0 0 var(--spp-space-4) 0;
+    letter-spacing: -0.025em;
+}
+
+.spp-portal__title--lg {
+    font-size: var(--spp-text-4xl);
+}
+
+.spp-portal__title--sm {
+    font-size: var(--spp-text-2xl);
+}
+
+.spp-portal__subtitle {
+    font-family: var(--spp-font-heading);
+    font-size: var(--spp-text-xl);
+    font-weight: 500;
+    line-height: var(--spp-leading-tight);
+    color: var(--spp-text-main);
+    margin: 0 0 var(--spp-space-3) 0;
+}
+
+.spp-portal__text {
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-base);
+    line-height: var(--spp-leading-normal);
+    color: var(--spp-text-main);
+    margin: 0 0 var(--spp-space-4) 0;
+}
+
+.spp-portal__text--sm {
+    font-size: var(--spp-text-sm);
+}
+
+.spp-portal__text--lg {
+    font-size: var(--spp-text-lg);
+}
+
+.spp-portal__text--muted {
+    color: var(--spp-text-muted);
+}
+
+.spp-portal__text--light {
+    color: var(--spp-text-light);
+}
+
+.spp-portal__link {
+    color: var(--spp-primary);
+    text-decoration: none;
+    transition: color var(--spp-transition-fast);
+}
+
+.spp-portal__link:hover {
+    color: var(--spp-primary-hover);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   3. Base Container & Reset
+   ========================================================================== */
+
+.spp-portal {
+    /* Font reset to ensure consistent typography */
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-base);
+    line-height: var(--spp-leading-normal);
+    color: var(--spp-text-main);
+
+    /* Box model reset */
+    box-sizing: border-box;
+
+    /* Container styling */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spp-space-5);
+
+    /* Ensure all descendants inherit box-sizing */
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    /* Text rendering optimization */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.spp-portal--fullwidth {
+    max-width: none;
+}
+
+.spp-portal--compact {
+    max-width: 800px;
+}
+
+/* ==========================================================================
+   4. Responsive Grid System
+   ========================================================================== */
+
+.spp-portal__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spp-space-5);
+    width: 100%;
+}
+
+.spp-portal__grid--tight {
+    gap: var(--spp-space-3);
+}
+
+.spp-portal__grid--loose {
+    gap: var(--spp-space-6);
+}
+
+/* Column spans - Mobile first (default stacks) */
+.spp-portal__col--1 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--2 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--3 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--4 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--5 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--6 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--7 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--8 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--9 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--10 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--11 {
+    grid-column: span 12;
+}
+
+.spp-portal__col--12 {
+    grid-column: span 12;
+}
+
+/* Tablet breakpoint (768px) */
+@media (min-width: 768px) {
+    .spp-portal__col--1 {
+        grid-column: span 1;
+    }
+
+    .spp-portal__col--2 {
+        grid-column: span 2;
+    }
+
+    .spp-portal__col--3 {
+        grid-column: span 3;
+    }
+
+    .spp-portal__col--4 {
+        grid-column: span 4;
+    }
+
+    .spp-portal__col--5 {
+        grid-column: span 5;
+    }
+
+    .spp-portal__col--6 {
+        grid-column: span 6;
+    }
+
+    .spp-portal__col--7 {
+        grid-column: span 7;
+    }
+
+    .spp-portal__col--8 {
+        grid-column: span 8;
+    }
+
+    .spp-portal__col--9 {
+        grid-column: span 9;
+    }
+
+    .spp-portal__col--10 {
+        grid-column: span 10;
+    }
+
+    .spp-portal__col--11 {
+        grid-column: span 11;
+    }
+
+    .spp-portal__col--12 {
+        grid-column: span 12;
+    }
+
+    /* Tablet-specific columns */
+    .spp-portal__col--md-1 {
+        grid-column: span 1;
+    }
+
+    .spp-portal__col--md-2 {
+        grid-column: span 2;
+    }
+
+    .spp-portal__col--md-3 {
+        grid-column: span 3;
+    }
+
+    .spp-portal__col--md-4 {
+        grid-column: span 4;
+    }
+
+    .spp-portal__col--md-5 {
+        grid-column: span 5;
+    }
+
+    .spp-portal__col--md-6 {
+        grid-column: span 6;
+    }
+
+    .spp-portal__col--md-7 {
+        grid-column: span 7;
+    }
+
+    .spp-portal__col--md-8 {
+        grid-column: span 8;
+    }
+
+    .spp-portal__col--md-9 {
+        grid-column: span 9;
+    }
+
+    .spp-portal__col--md-10 {
+        grid-column: span 10;
+    }
+
+    .spp-portal__col--md-11 {
+        grid-column: span 11;
+    }
+
+    .spp-portal__col--md-12 {
+        grid-column: span 12;
+    }
+}
+
+/* Desktop breakpoint (1024px) */
+@media (min-width: 1024px) {
+    .spp-portal__col--lg-1 {
+        grid-column: span 1;
+    }
+
+    .spp-portal__col--lg-2 {
+        grid-column: span 2;
+    }
+
+    .spp-portal__col--lg-3 {
+        grid-column: span 3;
+    }
+
+    .spp-portal__col--lg-4 {
+        grid-column: span 4;
+    }
+
+    .spp-portal__col--lg-5 {
+        grid-column: span 5;
+    }
+
+    .spp-portal__col--lg-6 {
+        grid-column: span 6;
+    }
+
+    .spp-portal__col--lg-7 {
+        grid-column: span 7;
+    }
+
+    .spp-portal__col--lg-8 {
+        grid-column: span 8;
+    }
+
+    .spp-portal__col--lg-9 {
+        grid-column: span 9;
+    }
+
+    .spp-portal__col--lg-10 {
+        grid-column: span 10;
+    }
+
+    .spp-portal__col--lg-11 {
+        grid-column: span 11;
+    }
+
+    .spp-portal__col--lg-12 {
+        grid-column: span 12;
+    }
+}
+
+/* Wide desktop breakpoint (1280px) */
+@media (min-width: 1280px) {
+    .spp-portal__col--xl-1 {
+        grid-column: span 1;
+    }
+
+    .spp-portal__col--xl-2 {
+        grid-column: span 2;
+    }
+
+    .spp-portal__col--xl-3 {
+        grid-column: span 3;
+    }
+
+    .spp-portal__col--xl-4 {
+        grid-column: span 4;
+    }
+
+    .spp-portal__col--xl-5 {
+        grid-column: span 5;
+    }
+
+    .spp-portal__col--xl-6 {
+        grid-column: span 6;
+    }
+
+    .spp-portal__col--xl-7 {
+        grid-column: span 7;
+    }
+
+    .spp-portal__col--xl-8 {
+        grid-column: span 8;
+    }
+
+    .spp-portal__col--xl-9 {
+        grid-column: span 9;
+    }
+
+    .spp-portal__col--xl-10 {
+        grid-column: span 10;
+    }
+
+    .spp-portal__col--xl-11 {
+        grid-column: span 11;
+    }
+
+    .spp-portal__col--xl-12 {
+        grid-column: span 12;
+    }
+}
+
+/* Auto-fit grid for card layouts */
+.spp-portal__grid--auto {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.spp-portal__grid--auto-sm {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.spp-portal__grid--auto-lg {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* ==========================================================================
+   5. Glassmorphism Card Components
+   ========================================================================== */
+
+.spp-portal__card {
+    background: var(--spp-glass-bg);
+    backdrop-filter: var(--spp-glass-blur);
+    -webkit-backdrop-filter: var(--spp-glass-blur);
+    border: var(--spp-glass-border);
+    border-radius: var(--spp-radius-lg);
+    box-shadow: var(--spp-shadow-glass);
+    padding: var(--spp-space-5);
+    transition: transform var(--spp-transition-base), box-shadow var(--spp-transition-base);
+}
+
+.spp-portal__card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--spp-shadow-xl);
+}
+
+.spp-portal__card--solid {
+    background: var(--spp-glass-bg-solid);
+    backdrop-filter: none;
+}
+
+.spp-portal__card--flat {
+    box-shadow: none;
+    border: 1px solid var(--spp-border-light);
+}
+
+.spp-portal__card--flat:hover {
+    transform: none;
+    box-shadow: var(--spp-shadow-md);
+}
+
+.spp-portal__card--interactive {
+    cursor: pointer;
+}
+
+.spp-portal__card--interactive:hover {
+    border-color: var(--spp-primary);
+}
+
+.spp-portal__card--highlight {
+    border: 2px solid var(--spp-primary);
+    background: linear-gradient(135deg, rgba(0, 106, 255, 0.05), rgba(0, 210, 255, 0.05));
+}
+
+.spp-portal__card--gradient {
+    background: linear-gradient(135deg, rgba(0, 106, 255, 0.75), rgba(0, 210, 255, 0.75));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--spp-text-inverse);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.spp-portal__card--gradient .spp-portal__title,
+.spp-portal__card--gradient .spp-portal__subtitle,
+.spp-portal__card--gradient .spp-portal__text {
+    color: var(--spp-text-inverse);
+}
+
+/* Card sections */
+.spp-portal__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--spp-space-4);
+    margin-bottom: var(--spp-space-4);
+    border-bottom: 1px solid var(--spp-border-light);
+}
+
+.spp-portal__card-body {
+    padding: 0;
+}
+
+.spp-portal__card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spp-space-3);
+    padding-top: var(--spp-space-4);
+    margin-top: var(--spp-space-4);
+    border-top: 1px solid var(--spp-border-light);
+}
+
+/* Card size variations */
+.spp-portal__card--sm {
+    padding: var(--spp-space-4);
+}
+
+.spp-portal__card--lg {
+    padding: var(--spp-space-6);
+}
+
+/* Quick Action Pills */
+.spp-quick-actions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: var(--spp-space-8);
+}
+
+.spp-quick-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: var(--spp-glass-border);
+    border-radius: var(--spp-radius-lg);
+    background: var(--spp-glass-bg);
+    backdrop-filter: var(--spp-glass-blur);
+    -webkit-backdrop-filter: var(--spp-glass-blur);
+    color: var(--spp-text-main);
+    font-size: var(--spp-text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: var(--spp-shadow-sm);
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.spp-quick-action-btn:hover {
+    border-color: var(--spp-primary);
+    box-shadow: var(--spp-shadow-md);
+    transform: translateY(-1px);
+    color: var(--spp-text-main);
+}
+
+@media (max-width: 576px) {
+    .spp-quick-actions-grid {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .spp-quick-actions-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .spp-quick-action-btn {
+        flex-shrink: 0;
+    }
+}
+
+/* ==========================================================================
+   6. Buttons
+   ========================================================================== */
+
+.spp-portal__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spp-space-2);
+    padding: var(--spp-space-3) var(--spp-space-5);
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-sm);
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: var(--spp-radius-md);
+    cursor: pointer;
+    transition: all var(--spp-transition-base);
+    white-space: nowrap;
+    user-select: none;
+
+    /* Default styles (outlined) */
+    background: transparent;
+    color: var(--spp-text-main);
+    border-color: var(--spp-border-medium);
+}
+
+.spp-portal__btn:hover {
+    background: var(--spp-bg-tertiary);
+    border-color: var(--spp-border-dark);
+}
+
+.spp-portal__btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--spp-primary-light);
+}
+
+.spp-portal__btn:active {
+    transform: scale(0.98);
+}
+
+.spp-portal__btn:disabled,
+.spp-portal__btn--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Primary button */
+.spp-portal__btn--primary {
+    background: var(--spp-primary-gradient);
+    color: var(--spp-text-inverse);
+    border: none;
+    box-shadow: var(--spp-shadow-sm);
+}
+
+.spp-portal__btn--primary:hover {
+    background: var(--spp-primary-gradient-hover);
+    box-shadow: var(--spp-shadow-md), var(--spp-shadow-glow);
+    transform: translateY(-1px);
+}
+
+.spp-portal__btn--primary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Secondary button */
+.spp-portal__btn--secondary {
+    background: var(--spp-secondary);
+    color: var(--spp-text-inverse);
+    border: none;
+}
+
+.spp-portal__btn--secondary:hover {
+    background: var(--spp-secondary-hover);
+}
+
+/* Ghost button */
+.spp-portal__btn--ghost {
+    background: transparent;
+    color: var(--spp-primary);
+    border: none;
+}
+
+.spp-portal__btn--ghost:hover {
+    background: var(--spp-primary-light);
+}
+
+/* Danger button */
+.spp-portal__btn--danger {
+    background: var(--spp-error);
+    color: var(--spp-text-inverse);
+    border: none;
+}
+
+.spp-portal__btn--danger:hover {
+    background: #dc2626;
+}
+
+/* Success button */
+.spp-portal__btn--success {
+    background: var(--spp-success);
+    color: var(--spp-text-inverse);
+    border: none;
+}
+
+.spp-portal__btn--success:hover {
+    background: #059669;
+}
+
+/* Button sizes */
+.spp-portal__btn--sm {
+    padding: var(--spp-space-2) var(--spp-space-3);
+    font-size: var(--spp-text-xs);
+}
+
+.spp-portal__btn--lg {
+    padding: var(--spp-space-4) var(--spp-space-6);
+    font-size: var(--spp-text-base);
+}
+
+/* Full width button */
+.spp-portal__btn--full {
+    width: 100%;
+}
+
+/* Icon only button */
+.spp-portal__btn--icon {
+    padding: var(--spp-space-3);
+    border-radius: var(--spp-radius-full);
+}
+
+/* Button with loading state */
+.spp-portal__btn--loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.spp-portal__btn--loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spp-spin 0.6s linear infinite;
+}
+
+.spp-portal__btn--primary.spp-portal__btn--loading::after {
+    border-color: var(--spp-text-inverse);
+    border-right-color: transparent;
+}
+
+/* Button group */
+.spp-portal__btn-group {
+    display: inline-flex;
+    gap: 0;
+}
+
+.spp-portal__btn-group .spp-portal__btn {
+    border-radius: 0;
+}
+
+.spp-portal__btn-group .spp-portal__btn:first-child {
+    border-radius: var(--spp-radius-md) 0 0 var(--spp-radius-md);
+}
+
+.spp-portal__btn-group .spp-portal__btn:last-child {
+    border-radius: 0 var(--spp-radius-md) var(--spp-radius-md) 0;
+}
+
+.spp-portal__btn-group .spp-portal__btn:not(:last-child) {
+    border-right: none;
+}
+
+/* ==========================================================================
+   7. Form Elements (Inputs, Selects)
+   ========================================================================== */
+
+.spp-portal__form-group {
+    margin-bottom: var(--spp-space-4);
+}
+
+.spp-portal__label {
+    display: block;
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-sm);
+    font-weight: 500;
+    color: var(--spp-text-main);
+    margin-bottom: var(--spp-space-2);
+}
+
+.spp-portal__label--required::after {
+    content: ' *';
+    color: var(--spp-error);
+}
+
+.spp-portal__input {
+    display: block;
+    width: 100%;
+    padding: var(--spp-space-3) var(--spp-space-4);
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-base);
+    line-height: var(--spp-leading-normal);
+    color: var(--spp-text-main);
+    background: var(--spp-bg-primary);
+    border: 1px solid var(--spp-border-medium);
+    border-radius: var(--spp-radius-md);
+    transition: border-color var(--spp-transition-fast), box-shadow var(--spp-transition-fast);
+}
+
+.spp-portal__input::placeholder {
+    color: var(--spp-text-light);
+}
+
+.spp-portal__input:hover {
+    border-color: var(--spp-border-dark);
+}
+
+.spp-portal__input:focus {
+    outline: none;
+    border-color: var(--spp-primary);
+    box-shadow: 0 0 0 3px var(--spp-primary-light);
+}
+
+.spp-portal__input:disabled {
+    background: var(--spp-bg-tertiary);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.spp-portal__input--error {
+    border-color: var(--spp-error);
+}
+
+.spp-portal__input--error:focus {
+    box-shadow: 0 0 0 3px var(--spp-error-bg);
+}
+
+.spp-portal__input--success {
+    border-color: var(--spp-success);
+}
+
+.spp-portal__input--glass {
+    background: var(--spp-glass-bg);
+    backdrop-filter: var(--spp-glass-blur);
+    border: var(--spp-glass-border);
+}
+
+/* Input sizes */
+.spp-portal__input--sm {
+    padding: var(--spp-space-2) var(--spp-space-3);
+    font-size: var(--spp-text-sm);
+}
+
+.spp-portal__input--lg {
+    padding: var(--spp-space-4) var(--spp-space-5);
+    font-size: var(--spp-text-lg);
+}
+
+/* Select element */
+.spp-portal__select {
+    display: block;
+    width: 100%;
+    padding: 10px var(--spp-space-4);
+    padding-right: 2.5rem;
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-base);
+    line-height: 1.5;
+    color: var(--spp-text-main);
+    background-color: var(--spp-bg-primary);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    border: 1px solid var(--spp-border-medium);
+    border-radius: var(--spp-radius-md);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-sizing: border-box;
+    min-height: 44px;
+    transition: border-color var(--spp-transition-fast), box-shadow var(--spp-transition-fast);
+}
+
+.spp-portal__select:hover {
+    border-color: var(--spp-border-dark);
+}
+
+.spp-portal__select:focus {
+    outline: none;
+    border-color: var(--spp-primary);
+    box-shadow: 0 0 0 3px var(--spp-primary-light);
+}
+
+.spp-portal__select:disabled {
+    background-color: var(--spp-bg-tertiary);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Select sizes */
+.spp-portal__select--sm {
+    padding: var(--spp-space-2) var(--spp-space-3);
+    padding-right: var(--spp-space-8);
+    font-size: var(--spp-text-sm);
+    min-height: 36px;
+    background-position: right var(--spp-space-3) center;
+}
+
+.spp-portal__select--lg {
+    padding: var(--spp-space-4) var(--spp-space-5);
+    padding-right: var(--spp-space-8);
+    font-size: var(--spp-text-lg);
+    min-height: 52px;
+}
+
+/* Textarea */
+.spp-portal__textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Form help text */
+.spp-portal__help-text {
+    display: block;
+    margin-top: var(--spp-space-2);
+    font-size: var(--spp-text-sm);
+    color: var(--spp-text-muted);
+}
+
+.spp-portal__help-text--error {
+    color: var(--spp-error);
+}
+
+/* Input with icon */
+.spp-portal__input-wrapper {
+    position: relative;
+}
+
+.spp-portal__input-wrapper .spp-portal__input {
+    padding-left: var(--spp-space-8);
+}
+
+.spp-portal__input-icon {
+    position: absolute;
+    left: var(--spp-space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--spp-text-muted);
+    pointer-events: none;
+}
+
+/* Checkbox and Radio */
+.spp-portal__checkbox,
+.spp-portal__radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spp-space-2);
+    cursor: pointer;
+    user-select: none;
+}
+
+.spp-portal__checkbox input,
+.spp-portal__radio input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--spp-primary);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   8. Badges & Status Indicators
+   ========================================================================== */
+
+.spp-portal__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spp-space-1);
+    padding: var(--spp-space-1) var(--spp-space-3);
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-xs);
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    border-radius: var(--spp-radius-full);
+    white-space: nowrap;
+
+    /* Default style */
+    background: var(--spp-bg-tertiary);
+    color: var(--spp-text-muted);
+}
+
+.spp-portal__badge--success {
+    background: var(--spp-success-bg);
+    color: var(--spp-success);
+}
+
+.spp-portal__badge--warning {
+    background: var(--spp-warning-bg);
+    color: var(--spp-warning);
+}
+
+.spp-portal__badge--error {
+    background: var(--spp-error-bg);
+    color: var(--spp-error);
+}
+
+.spp-portal__badge--info {
+    background: var(--spp-info-bg);
+    color: var(--spp-info);
+}
+
+.spp-portal__badge--primary {
+    background: var(--spp-primary-light);
+    color: var(--spp-primary);
+}
+
+/* Solid badge variants */
+.spp-portal__badge--solid {
+    background: var(--spp-text-muted);
+    color: var(--spp-text-inverse);
+}
+
+.spp-portal__badge--solid.spp-portal__badge--success {
+    background: var(--spp-success);
+    color: var(--spp-text-inverse);
+}
+
+.spp-portal__badge--solid.spp-portal__badge--warning {
+    background: var(--spp-warning);
+    color: var(--spp-text-inverse);
+}
+
+.spp-portal__badge--solid.spp-portal__badge--error {
+    background: var(--spp-error);
+    color: var(--spp-text-inverse);
+}
+
+/* Badge with dot indicator */
+.spp-portal__badge--dot::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+/* Badge sizes */
+.spp-portal__badge--sm {
+    padding: 2px var(--spp-space-2);
+    font-size: 10px;
+}
+
+.spp-portal__badge--lg {
+    padding: var(--spp-space-2) var(--spp-space-4);
+    font-size: var(--spp-text-sm);
+}
+
+/* ==========================================================================
+   9. Modal Component
+   ========================================================================== */
+
+.spp-portal__modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: var(--spp-bg-overlay);
+    backdrop-filter: blur(4px);
+    z-index: var(--spp-z-modal-backdrop);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--spp-transition-base), visibility var(--spp-transition-base);
+}
+
+.spp-portal__modal-backdrop--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spp-portal__modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: var(--spp-z-modal);
+    width: 90%;
+    max-width: 560px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--spp-glass-bg-solid);
+    backdrop-filter: var(--spp-glass-blur);
+    border: var(--spp-glass-border);
+    border-radius: var(--spp-radius-xl);
+    box-shadow: var(--spp-shadow-xl);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--spp-transition-base), visibility var(--spp-transition-base), transform var(--spp-transition-base);
+}
+
+.spp-portal__modal--active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.spp-portal__modal--sm {
+    max-width: 400px;
+}
+
+.spp-portal__modal--lg {
+    max-width: 800px;
+}
+
+.spp-portal__modal--fullscreen {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+}
+
+.spp-portal__modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spp-space-5);
+    border-bottom: 1px solid var(--spp-border-light);
+}
+
+.spp-portal__modal-title {
+    font-family: var(--spp-font-heading);
+    font-size: var(--spp-text-xl);
+    font-weight: 600;
+    color: var(--spp-text-main);
+    margin: 0;
+}
+
+.spp-portal__modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--spp-radius-full);
+    color: var(--spp-text-muted);
+    cursor: pointer;
+    transition: background var(--spp-transition-fast), color var(--spp-transition-fast);
+}
+
+.spp-portal__modal-close:hover {
+    background: var(--spp-bg-tertiary);
+    color: var(--spp-text-main);
+}
+
+.spp-portal__modal-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.spp-portal__modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spp-space-5);
+}
+
+.spp-portal__modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spp-space-3);
+    padding: var(--spp-space-4) var(--spp-space-5);
+    border-top: 1px solid var(--spp-border-light);
+    background: var(--spp-bg-secondary);
+    border-radius: 0 0 var(--spp-radius-xl) var(--spp-radius-xl);
+}
+
+/* ==========================================================================
+   10. Avatar Component
+   ========================================================================== */
+
+.spp-portal__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--spp-radius-full);
+    background: var(--spp-primary-gradient);
+    color: var(--spp-text-inverse);
+    font-family: var(--spp-font-heading);
+    font-weight: 600;
+    font-size: var(--spp-text-sm);
+    text-transform: uppercase;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.spp-portal__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Avatar sizes */
+.spp-portal__avatar--xs {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+}
+
+.spp-portal__avatar--sm {
+    width: 32px;
+    height: 32px;
+    font-size: var(--spp-text-xs);
+}
+
+.spp-portal__avatar--lg {
+    width: 56px;
+    height: 56px;
+    font-size: var(--spp-text-lg);
+}
+
+.spp-portal__avatar--xl {
+    width: 80px;
+    height: 80px;
+    font-size: var(--spp-text-2xl);
+}
+
+/* Avatar with status indicator */
+.spp-portal__avatar-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+.spp-portal__avatar-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--spp-bg-primary);
+    background: var(--spp-text-muted);
+}
+
+.spp-portal__avatar-status--online {
+    background: var(--spp-success);
+}
+
+.spp-portal__avatar-status--offline {
+    background: var(--spp-text-light);
+}
+
+.spp-portal__avatar-status--busy {
+    background: var(--spp-error);
+}
+
+/* Avatar group */
+.spp-portal__avatar-group {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.spp-portal__avatar-group .spp-portal__avatar {
+    margin-left: -12px;
+    border: 2px solid var(--spp-bg-primary);
+}
+
+.spp-portal__avatar-group .spp-portal__avatar:last-child {
+    margin-left: 0;
+}
+
+/* ==========================================================================
+   11. Progress Circle
+   ========================================================================== */
+
+.spp-portal__progress-circle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.spp-portal__progress-circle svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.spp-portal__progress-circle__bg {
+    fill: none;
+    stroke: var(--spp-border-light);
+    stroke-width: 8;
+}
+
+.spp-portal__progress-circle__progress {
+    fill: none;
+    stroke: url(#spp-progress-gradient);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 226;
+    stroke-dashoffset: 226;
+    transition: stroke-dashoffset 0.6s ease;
+}
+
+.spp-portal__progress-circle__value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--spp-font-heading);
+    font-size: var(--spp-text-lg);
+    font-weight: 600;
+    color: var(--spp-text-main);
+}
+
+/* Progress circle sizes */
+.spp-portal__progress-circle--sm {
+    width: 48px;
+    height: 48px;
+}
+
+.spp-portal__progress-circle--sm .spp-portal__progress-circle__value {
+    font-size: var(--spp-text-sm);
+}
+
+.spp-portal__progress-circle--sm .spp-portal__progress-circle__bg,
+.spp-portal__progress-circle--sm .spp-portal__progress-circle__progress {
+    stroke-width: 6;
+}
+
+.spp-portal__progress-circle--lg {
+    width: 120px;
+    height: 120px;
+}
+
+.spp-portal__progress-circle--lg .spp-portal__progress-circle__value {
+    font-size: var(--spp-text-2xl);
+}
+
+/* Progress bar (linear) */
+.spp-portal__progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--spp-border-light);
+    border-radius: var(--spp-radius-full);
+    overflow: hidden;
+}
+
+.spp-portal__progress-bar__fill {
+    height: 100%;
+    background: var(--spp-primary-gradient);
+    border-radius: var(--spp-radius-full);
+    transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   12. Loading Skeleton Animations
+   ========================================================================== */
+
+.spp-portal__skeleton {
+    position: relative;
+    overflow: hidden;
+    background: var(--spp-bg-tertiary);
+    border-radius: var(--spp-radius-md);
+}
+
+.spp-portal__skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 100%);
+    animation: spp-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes spp-skeleton-shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Skeleton variations */
+.spp-portal__skeleton--text {
+    height: 16px;
+    border-radius: var(--spp-radius-sm);
+}
+
+.spp-portal__skeleton--title {
+    height: 24px;
+    width: 60%;
+    border-radius: var(--spp-radius-sm);
+}
+
+.spp-portal__skeleton--avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--spp-radius-full);
+}
+
+.spp-portal__skeleton--button {
+    height: 40px;
+    width: 120px;
+    border-radius: var(--spp-radius-md);
+}
+
+.spp-portal__skeleton--card {
+    height: 200px;
+    border-radius: var(--spp-radius-lg);
+}
+
+.spp-portal__skeleton--image {
+    height: 180px;
+    border-radius: var(--spp-radius-md);
+}
+
+/* Spinner animation */
+@keyframes spp-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spp-portal__spinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--spp-border-light);
+    border-top-color: var(--spp-primary);
+    border-radius: 50%;
+    animation: spp-spin 0.8s linear infinite;
+}
+
+.spp-portal__spinner--sm {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+}
+
+.spp-portal__spinner--lg {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+}
+
+/* Pulse animation */
+@keyframes spp-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.spp-portal__pulse {
+    animation: spp-pulse 2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   13. Utility Classes
+   ========================================================================== */
+
+/* Text alignment */
+.spp-text-left {
+    text-align: left;
+}
+
+.spp-text-center {
+    text-align: center;
+}
+
+.spp-text-right {
+    text-align: right;
+}
+
+/* Display utilities */
+.spp-hidden {
+    display: none !important;
+}
+
+.spp-visible {
+    display: block;
+}
+
+.spp-invisible {
+    visibility: hidden;
+}
+
+.spp-flex {
+    display: flex;
+}
+
+.spp-inline-flex {
+    display: inline-flex;
+}
+
+.spp-grid {
+    display: grid;
+}
+
+.spp-block {
+    display: block;
+}
+
+.spp-inline {
+    display: inline;
+}
+
+.spp-inline-block {
+    display: inline-block;
+}
+
+/* Flexbox utilities */
+.spp-flex-row {
+    flex-direction: row;
+}
+
+.spp-flex-col {
+    flex-direction: column;
+}
+
+.spp-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.spp-items-start {
+    align-items: flex-start;
+}
+
+.spp-items-center {
+    align-items: center;
+}
+
+.spp-items-end {
+    align-items: flex-end;
+}
+
+.spp-justify-start {
+    justify-content: flex-start;
+}
+
+.spp-justify-center {
+    justify-content: center;
+}
+
+.spp-justify-end {
+    justify-content: flex-end;
+}
+
+.spp-justify-between {
+    justify-content: space-between;
+}
+
+.spp-flex-1 {
+    flex: 1;
+}
+
+.spp-flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+/* Gap utilities */
+.spp-gap-1 {
+    gap: var(--spp-space-1);
+}
+
+.spp-gap-2 {
+    gap: var(--spp-space-2);
+}
+
+.spp-gap-3 {
+    gap: var(--spp-space-3);
+}
+
+.spp-gap-4 {
+    gap: var(--spp-space-4);
+}
+
+.spp-gap-5 {
+    gap: var(--spp-space-5);
+}
+
+/* Margin Top utilities */
+.spp-mt-0 {
+    margin-top: 0;
+}
+
+.spp-mt-1 {
+    margin-top: var(--spp-space-1);
+}
+
+.spp-mt-2 {
+    margin-top: var(--spp-space-2);
+}
+
+.spp-mt-3 {
+    margin-top: var(--spp-space-3);
+}
+
+.spp-mt-4 {
+    margin-top: var(--spp-space-4);
+}
+
+.spp-mt-5 {
+    margin-top: var(--spp-space-5);
+}
+
+.spp-mt-6 {
+    margin-top: var(--spp-space-6);
+}
+
+.spp-mt-8 {
+    margin-top: var(--spp-space-8);
+}
+
+/* Margin Bottom utilities */
+.spp-mb-0 {
+    margin-bottom: 0;
+}
+
+.spp-mb-1 {
+    margin-bottom: var(--spp-space-1);
+}
+
+.spp-mb-2 {
+    margin-bottom: var(--spp-space-2);
+}
+
+.spp-mb-3 {
+    margin-bottom: var(--spp-space-3);
+}
+
+.spp-mb-4 {
+    margin-bottom: var(--spp-space-4);
+}
+
+.spp-mb-5 {
+    margin-bottom: var(--spp-space-5);
+}
+
+.spp-mb-6 {
+    margin-bottom: var(--spp-space-6);
+}
+
+.spp-mb-8 {
+    margin-bottom: var(--spp-space-8);
+}
+
+/* Margin Left utilities */
+.spp-ml-0 {
+    margin-left: 0;
+}
+
+.spp-ml-1 {
+    margin-left: var(--spp-space-1);
+}
+
+.spp-ml-2 {
+    margin-left: var(--spp-space-2);
+}
+
+.spp-ml-3 {
+    margin-left: var(--spp-space-3);
+}
+
+.spp-ml-4 {
+    margin-left: var(--spp-space-4);
+}
+
+.spp-ml-5 {
+    margin-left: var(--spp-space-5);
+}
+
+/* Margin Right utilities */
+.spp-mr-0 {
+    margin-right: 0;
+}
+
+.spp-mr-1 {
+    margin-right: var(--spp-space-1);
+}
+
+.spp-mr-2 {
+    margin-right: var(--spp-space-2);
+}
+
+.spp-mr-3 {
+    margin-right: var(--spp-space-3);
+}
+
+.spp-mr-4 {
+    margin-right: var(--spp-space-4);
+}
+
+.spp-mr-5 {
+    margin-right: var(--spp-space-5);
+}
+
+/* Margin auto utilities */
+.spp-mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.spp-ml-auto {
+    margin-left: auto;
+}
+
+.spp-mr-auto {
+    margin-right: auto;
+}
+
+/* Padding utilities */
+.spp-p-0 {
+    padding: 0;
+}
+
+.spp-p-1 {
+    padding: var(--spp-space-1);
+}
+
+.spp-p-2 {
+    padding: var(--spp-space-2);
+}
+
+.spp-p-3 {
+    padding: var(--spp-space-3);
+}
+
+.spp-p-4 {
+    padding: var(--spp-space-4);
+}
+
+.spp-p-5 {
+    padding: var(--spp-space-5);
+}
+
+.spp-p-6 {
+    padding: var(--spp-space-6);
+}
+
+.spp-px-1 {
+    padding-left: var(--spp-space-1);
+    padding-right: var(--spp-space-1);
+}
+
+.spp-px-2 {
+    padding-left: var(--spp-space-2);
+    padding-right: var(--spp-space-2);
+}
+
+.spp-px-3 {
+    padding-left: var(--spp-space-3);
+    padding-right: var(--spp-space-3);
+}
+
+.spp-px-4 {
+    padding-left: var(--spp-space-4);
+    padding-right: var(--spp-space-4);
+}
+
+.spp-px-5 {
+    padding-left: var(--spp-space-5);
+    padding-right: var(--spp-space-5);
+}
+
+.spp-py-1 {
+    padding-top: var(--spp-space-1);
+    padding-bottom: var(--spp-space-1);
+}
+
+.spp-py-2 {
+    padding-top: var(--spp-space-2);
+    padding-bottom: var(--spp-space-2);
+}
+
+.spp-py-3 {
+    padding-top: var(--spp-space-3);
+    padding-bottom: var(--spp-space-3);
+}
+
+.spp-py-4 {
+    padding-top: var(--spp-space-4);
+    padding-bottom: var(--spp-space-4);
+}
+
+.spp-py-5 {
+    padding-top: var(--spp-space-5);
+    padding-bottom: var(--spp-space-5);
+}
+
+/* Width utilities */
+.spp-w-full {
+    width: 100%;
+}
+
+.spp-w-auto {
+    width: auto;
+}
+
+.spp-w-1\/2 {
+    width: 50%;
+}
+
+.spp-w-1\/3 {
+    width: 33.333333%;
+}
+
+.spp-w-2\/3 {
+    width: 66.666667%;
+}
+
+.spp-w-1\/4 {
+    width: 25%;
+}
+
+.spp-w-3\/4 {
+    width: 75%;
+}
+
+/* Height utilities */
+.spp-h-full {
+    height: 100%;
+}
+
+.spp-h-auto {
+    height: auto;
+}
+
+.spp-h-screen {
+    height: 100vh;
+}
+
+/* Border utilities */
+.spp-border {
+    border: 1px solid var(--spp-border-light);
+}
+
+.spp-border-0 {
+    border: 0;
+}
+
+.spp-border-t {
+    border-top: 1px solid var(--spp-border-light);
+}
+
+.spp-border-b {
+    border-bottom: 1px solid var(--spp-border-light);
+}
+
+.spp-rounded {
+    border-radius: var(--spp-radius-md);
+}
+
+.spp-rounded-lg {
+    border-radius: var(--spp-radius-lg);
+}
+
+.spp-rounded-full {
+    border-radius: var(--spp-radius-full);
+}
+
+/* Shadow utilities */
+.spp-shadow-none {
+    box-shadow: none;
+}
+
+.spp-shadow-sm {
+    box-shadow: var(--spp-shadow-sm);
+}
+
+.spp-shadow-md {
+    box-shadow: var(--spp-shadow-md);
+}
+
+.spp-shadow-lg {
+    box-shadow: var(--spp-shadow-lg);
+}
+
+/* Overflow utilities */
+.spp-overflow-hidden {
+    overflow: hidden;
+}
+
+.spp-overflow-auto {
+    overflow: auto;
+}
+
+.spp-overflow-x-auto {
+    overflow-x: auto;
+}
+
+.spp-overflow-y-auto {
+    overflow-y: auto;
+}
+
+/* Position utilities */
+.spp-relative {
+    position: relative;
+}
+
+.spp-absolute {
+    position: absolute;
+}
+
+.spp-fixed {
+    position: fixed;
+}
+
+.spp-sticky {
+    position: sticky;
+}
+
+/* Cursor utilities */
+.spp-cursor-pointer {
+    cursor: pointer;
+}
+
+.spp-cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+/* Truncate text */
+.spp-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Screen reader only */
+.spp-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ==========================================================================
+   14. Dark Mode Support
+   ========================================================================== */
+
+/* Manual dark mode class for JavaScript toggling */
+.spp-portal--dark {
+    /* Dark mode glassmorphism */
+    --spp-glass-bg: rgba(30, 30, 46, 0.8);
+    --spp-glass-bg-solid: rgba(30, 30, 46, 0.95);
+    --spp-glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --spp-glass-border-color: rgba(255, 255, 255, 0.1);
+
+    /* Dark mode text colors */
+    --spp-text-main: #f0f0f0;
+    --spp-text-muted: #a0a0a0;
+    --spp-text-light: #6b6b6b;
+
+    /* Dark mode backgrounds */
+    --spp-bg-primary: #1e1e2e;
+    --spp-bg-secondary: #262638;
+    --spp-bg-tertiary: #2d2d44;
+    --spp-bg-overlay: rgba(0, 0, 0, 0.7);
+
+    /* Dark mode borders */
+    --spp-border-light: #3d3d55;
+    --spp-border-medium: #4d4d66;
+    --spp-border-dark: #5d5d77;
+
+    /* Dark mode shadows */
+    --spp-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --spp-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --spp-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --spp-shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --spp-shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    /* Dark mode status colors */
+    --spp-success-bg: rgba(16, 185, 129, 0.15);
+    --spp-warning-bg: rgba(245, 158, 11, 0.15);
+    --spp-error-bg: rgba(239, 68, 68, 0.15);
+    --spp-info-bg: rgba(59, 130, 246, 0.15);
+    --spp-primary-light: rgba(0, 106, 255, 0.2);
+}
+
+.spp-portal--dark .spp-portal__skeleton::after {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 100%);
+}
+
+.spp-portal--dark .spp-portal__input,
+.spp-portal--dark .spp-portal__select {
+    background-color: var(--spp-bg-secondary);
+}
+
+.spp-portal--dark .spp-portal__select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Inline field validation */
+.spp-portal__input--error,
+.spp-portal__select--error {
+    border-color: var(--spp-error) !important;
+}
+.spp-field-error {
+    color: var(--spp-error);
+    font-size: var(--spp-text-xs);
+    margin-top: 4px;
+    display: block;
+}
+
+/* Result counts */
+.spp-result-count {
+    margin-left: auto;
+    white-space: nowrap;
+    align-self: center;
+}
+
+/* Dark mode — opt-in only via .spp-portal--dark class.
+   To enable, add the "spp-portal--dark" class to the portal container.
+   Auto-detection via prefers-color-scheme is intentionally disabled to
+   avoid mismatch with WordPress themes that do not support dark mode. */
+.spp-portal--dark {
+    --spp-glass-bg: rgba(30, 30, 46, 0.8);
+    --spp-glass-bg-solid: rgba(30, 30, 46, 0.95);
+    --spp-glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --spp-glass-border-color: rgba(255, 255, 255, 0.1);
+    --spp-text-main: #f0f0f0;
+    --spp-text-muted: #a0a0a0;
+    --spp-text-light: #6b6b6b;
+    --spp-bg-primary: #1e1e2e;
+    --spp-bg-secondary: #262638;
+    --spp-bg-tertiary: #2d2d44;
+    --spp-bg-overlay: rgba(0, 0, 0, 0.7);
+    --spp-border-light: #3d3d55;
+    --spp-border-medium: #4d4d66;
+    --spp-border-dark: #5d5d77;
+    --spp-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --spp-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --spp-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --spp-shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --spp-shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --spp-success-bg: rgba(16, 185, 129, 0.15);
+    --spp-warning-bg: rgba(245, 158, 11, 0.15);
+    --spp-error-bg: rgba(239, 68, 68, 0.15);
+    --spp-info-bg: rgba(59, 130, 246, 0.15);
+    --spp-primary-light: rgba(0, 106, 255, 0.2);
+}
+
+.spp-portal--dark .spp-portal__skeleton::after {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 100%);
+}
+
+.spp-portal--dark .spp-portal__input,
+.spp-portal--dark .spp-portal__select {
+    background-color: var(--spp-bg-secondary);
+}
+
+.spp-portal--dark .spp-portal__select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   15. Responsive Breakpoints
+   ========================================================================== */
+
+/* Mobile-first approach: styles apply to all sizes, then override for larger screens */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .spp-portal {
+        padding: var(--spp-space-6);
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .spp-portal__title {
+        font-size: var(--spp-text-4xl);
+    }
+
+    .spp-portal__modal {
+        max-width: 560px;
+    }
+
+    /* Show/hide responsive utilities */
+    .spp-hidden-md-up {
+        display: none !important;
+    }
+
+    .spp-visible-md-up {
+        display: block;
+    }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+    .spp-portal {
+        padding: var(--spp-space-8);
+    }
+
+    .spp-portal__modal--lg {
+        max-width: 800px;
+    }
+
+    /* Show/hide responsive utilities */
+    .spp-hidden-lg-up {
+        display: none !important;
+    }
+
+    .spp-visible-lg-up {
+        display: block;
+    }
+}
+
+/* Extra large devices (large desktops, 1280px and up) */
+@media (min-width: 1280px) {
+    .spp-portal {
+        max-width: 1600px;
+    }
+
+    /* Show/hide responsive utilities */
+    .spp-hidden-xl-up {
+        display: none !important;
+    }
+
+    .spp-visible-xl-up {
+        display: block;
+    }
+}
+
+/* Mobile-only utilities (below 768px) */
+@media (max-width: 767px) {
+    .spp-hidden-mobile {
+        display: none !important;
+    }
+
+    .spp-visible-mobile {
+        display: block;
+    }
+
+    /* Stack buttons on mobile */
+    .spp-portal__btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .spp-portal__btn-group .spp-portal__btn {
+        width: 100%;
+        border-radius: var(--spp-radius-md);
+        border-right: 1px solid var(--spp-border-medium);
+    }
+
+    .spp-portal__btn-group .spp-portal__btn:not(:last-child) {
+        margin-bottom: var(--spp-space-2);
+    }
+
+    /* Full-width modal on mobile */
+    .spp-portal__modal {
+        width: 100%;
+        max-width: none;
+        max-height: 100%;
+        border-radius: 0;
+        top: 0;
+        left: 0;
+        transform: translateY(100%);
+    }
+
+    .spp-portal__modal--active {
+        transform: translateY(0);
+    }
+
+    /* Smaller card padding on mobile */
+    .spp-portal__card {
+        padding: var(--spp-space-4);
+    }
+}
+
+/* ==========================================================================
+   Utility Classes (Grid, Flex, Spacing, Typography)
+   ========================================================================== */
+
+/* Grid System */
+.spp-portal__grid {
+    display: grid;
+    gap: var(--spp-space-4);
+}
+
+.spp-portal__grid--auto {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.spp-portal__grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.spp-portal__grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 767px) {
+
+    .spp-portal__grid--auto,
+    .spp-portal__grid--2,
+    .spp-portal__grid--3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Flex Utilities */
+.spp-flex {
+    display: flex;
+}
+
+.spp-flex-col {
+    flex-direction: column;
+}
+
+.spp-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.spp-items-center {
+    align-items: center;
+}
+
+.spp-items-start {
+    align-items: flex-start;
+}
+
+.spp-justify-between {
+    justify-content: space-between;
+}
+
+.spp-justify-center {
+    justify-content: center;
+}
+
+.spp-flex-1 {
+    flex: 1;
+}
+
+/* Gap Utilities */
+.spp-gap-1 {
+    gap: var(--spp-space-1);
+}
+
+.spp-gap-2 {
+    gap: var(--spp-space-2);
+}
+
+.spp-gap-3 {
+    gap: var(--spp-space-3);
+}
+
+.spp-gap-4 {
+    gap: var(--spp-space-4);
+}
+
+.spp-gap-5 {
+    gap: var(--spp-space-5);
+}
+
+.spp-gap-6 {
+    gap: var(--spp-space-6);
+}
+
+/* Margin Bottom Utilities */
+.spp-mb-0 {
+    margin-bottom: 0;
+}
+
+.spp-mb-1 {
+    margin-bottom: var(--spp-space-1);
+}
+
+.spp-mb-2 {
+    margin-bottom: var(--spp-space-2);
+}
+
+.spp-mb-3 {
+    margin-bottom: var(--spp-space-3);
+}
+
+.spp-mb-4 {
+    margin-bottom: var(--spp-space-4);
+}
+
+.spp-mb-5 {
+    margin-bottom: var(--spp-space-5);
+}
+
+.spp-mb-6 {
+    margin-bottom: var(--spp-space-6);
+}
+
+/* Margin Top Utilities */
+.spp-mt-0 {
+    margin-top: 0;
+}
+
+.spp-mt-4 {
+    margin-top: var(--spp-space-4);
+}
+
+.spp-mt-6 {
+    margin-top: var(--spp-space-6);
+}
+
+/* Text Utilities */
+.spp-portal__text--muted {
+    color: var(--spp-text-muted);
+}
+
+.spp-portal__text--sm {
+    font-size: var(--spp-text-sm);
+}
+
+.spp-portal__text--xs {
+    font-size: var(--spp-text-xs);
+}
+
+.spp-portal__text--center {
+    text-align: center;
+}
+
+.spp-portal__text--right {
+    text-align: right;
+}
+
+/* Title & Subtitle */
+.spp-portal__subtitle {
+    font-family: var(--spp-font-heading);
+    font-size: var(--spp-text-lg);
+    font-weight: 600;
+    color: var(--spp-text-main);
+}
+
+.spp-portal__card-title {
+    font-family: var(--spp-font-heading);
+    font-size: var(--spp-text-base);
+    font-weight: 600;
+    color: var(--spp-text-main);
+}
+
+/* Print styles */
+@media print {
+    .spp-portal {
+        background: white;
+        color: black;
+    }
+
+    .spp-portal__card {
+        background: white;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+
+    .spp-portal__btn,
+    .spp-portal__modal-backdrop,
+    .spp-portal__modal {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   SVG Gradient Definition (for progress circles)
+   Include this in your HTML once:
+   <svg width="0" height="0" style="position: absolute;">
+     <defs>
+       <linearGradient id="spp-progress-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+         <stop offset="0%" style="stop-color:#006aff"/>
+         <stop offset="100%" style="stop-color:#00d2ff"/>
+       </linearGradient>
+     </defs>
+   </svg>
+   ========================================================================== */
+
+/* ==========================================================================
+   16. Portal Layout (Sidebar + Content)
+   ========================================================================== */
+
+.spp-portal {
+    display: flex;
+    min-height: 80vh;
+    gap: 0;
+    position: relative;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   17. Sidebar Navigation
+   ========================================================================== */
+
+.spp-portal-nav {
+    width: 260px;
+    min-width: 260px;
+    background: var(--spp-glass-bg-solid);
+    backdrop-filter: var(--spp-glass-blur);
+    border-right: 1px solid var(--spp-border-light);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 32px;
+    /* WordPress admin bar height */
+    height: calc(100vh - 32px);
+    overflow-y: auto;
+    z-index: 10;
+    transition: transform var(--spp-transition-base);
+}
+
+/* User card at top of sidebar */
+.spp-portal-nav__user {
+    display: flex;
+    align-items: center;
+    gap: var(--spp-space-3);
+    padding: var(--spp-space-5);
+    border-bottom: 1px solid var(--spp-border-light);
+}
+
+.spp-portal-nav__user-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.spp-portal-nav__user-name {
+    font-family: var(--spp-font-heading);
+    font-weight: 600;
+    font-size: var(--spp-text-sm);
+    color: var(--spp-text-main);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.spp-portal-nav__user-role {
+    font-size: 11px;
+    color: var(--spp-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Navigation list */
+.spp-portal-nav .spp-portal-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: var(--spp-space-3) 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.spp-portal-nav .spp-portal-nav__item {
+    margin: 0;
+    padding: 0 var(--spp-space-3);
+    list-style: none;
+    display: block;
+    width: 100%;
+}
+
+.spp-portal-nav a.spp-portal-nav__link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spp-space-3);
+    padding: 10px var(--spp-space-3);
+    border-radius: var(--spp-radius-md);
+    color: var(--spp-text-muted);
+    text-decoration: none;
+    font-size: var(--spp-text-sm);
+    font-weight: 500;
+    transition: all var(--spp-transition-fast);
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.spp-portal-nav a.spp-portal-nav__link:hover {
+    color: var(--spp-text-main);
+    background: var(--spp-bg-tertiary);
+    text-decoration: none;
+}
+
+.spp-portal-nav .spp-portal-nav__item--active a.spp-portal-nav__link {
+    color: var(--spp-primary, #006aff);
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.1));
+    font-weight: 600;
+}
+
+.spp-portal-nav .spp-portal-nav__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.spp-portal-nav .spp-portal-nav__icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.spp-portal-nav .spp-portal-nav__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Sidebar footer (logout) */
+.spp-portal-nav .spp-portal-nav__footer {
+    padding: var(--spp-space-3);
+    border-top: 1px solid var(--spp-border-light);
+    margin-top: auto;
+}
+
+.spp-portal-nav a.spp-portal-nav__link--logout {
+    color: var(--spp-error, #ef4444);
+}
+
+.spp-portal-nav a.spp-portal-nav__link--logout:hover {
+    color: var(--spp-error, #ef4444);
+    background: var(--spp-error-bg, rgba(239, 68, 68, 0.1));
+}
+
+/* Mobile navigation bar */
+.spp-portal-nav__toggle {
+    position: sticky;
+    top: 32px;
+    z-index: 2;
+    display: none;
+    align-items: center;
+    gap: var(--spp-space-3);
+    width: 100%;
+    padding: 10px var(--spp-space-4);
+    background: var(--spp-glass-bg-solid);
+    border: none;
+    border-bottom: 1px solid var(--spp-border-light);
+    color: var(--spp-text-main);
+    cursor: pointer;
+    font-family: var(--spp-font-body);
+    font-size: var(--spp-text-sm);
+    font-weight: 600;
+    box-shadow: var(--spp-shadow-sm);
+    transition: background var(--spp-transition-fast);
+}
+
+body:not(.admin-bar) .spp-portal-nav__toggle {
+    top: 0;
+}
+
+@media (max-width: 782px) {
+    .admin-bar .spp-portal-nav__toggle {
+        top: 46px;
+    }
+}
+
+.spp-portal-nav__toggle:hover {
+    background: var(--spp-bg-tertiary);
+}
+
+.spp-portal-nav__toggle-label {
+    flex: 1;
+    text-align: left;
+}
+
+.spp-portal-nav__toggle-chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.spp-portal-nav__toggle--open .spp-portal-nav__toggle-chevron {
+    transform: rotate(180deg);
+}
+
+/* Hide toggle behind overlay when drawer is open */
+.spp-portal-nav__toggle--open {
+    z-index: 0;
+}
+
+/* Mobile overlay */
+.spp-portal-nav__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.spp-portal-nav__overlay--visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Drawer header (mobile only) */
+.spp-portal-nav__header {
+    display: none;
+}
+
+.spp-portal-nav__header-title {
+    font-family: var(--spp-font-heading);
+    font-weight: 700;
+    font-size: var(--spp-text-base);
+    color: var(--spp-text-main);
+    letter-spacing: -0.01em;
+}
+
+/* Close button */
+.spp-portal-nav__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--spp-radius-md);
+    cursor: pointer;
+    color: var(--spp-text-muted);
+    transition: color var(--spp-transition-fast), background var(--spp-transition-fast);
+}
+
+.spp-portal-nav__close:hover {
+    color: var(--spp-text-main);
+    background: var(--spp-bg-tertiary);
+}
+
+/* ==========================================================================
+   18. Main Content Area
+   ========================================================================== */
+
+.spp-portal-content {
+    flex: 1;
+    min-width: 0;
+    padding: var(--spp-space-8) var(--spp-space-6);
+}
+
+/* SPA view transition */
+.spp-portal-content.spp-is-loading {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+/* Section spacing within views */
+.spp-portal__section {
+    animation: spp-fade-in 0.3s ease;
+}
+
+@keyframes spp-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   19. Interactive Elements (Quick Action Buttons)
+   ========================================================================== */
+
+.spp-portal__card--interactive {
+    cursor: pointer;
+    transition: border-color var(--spp-transition-fast), box-shadow var(--spp-transition-fast), background var(--spp-transition-fast);
+}
+
+.spp-portal__card--interactive:hover {
+    border-color: var(--spp-primary, #006aff);
+    box-shadow: 0 1px 4px rgba(0, 106, 255, 0.12);
+    background: var(--spp-bg-secondary, #f8fafc);
+}
+
+.spp-portal__card--interactive:active {
+    box-shadow: none;
+    background: var(--spp-bg-tertiary, #f1f5f9);
+}
+
+button.spp-portal__card--interactive:focus-visible {
+    outline: 2px solid var(--spp-primary, #006aff);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   20. Gradient Card (Welcome Banner)
+   ========================================================================== */
+
+.spp-portal__card--gradient {
+    background: linear-gradient(135deg, rgba(0, 106, 255, 0.75), rgba(0, 210, 255, 0.75)) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: var(--spp-text-inverse, #ffffff);
+}
+
+.spp-portal__card--lg {
+    padding: var(--spp-space-6);
+}
+
+/* ==========================================================================
+   21. Link Styles
+   ========================================================================== */
+
+.spp-portal__link {
+    color: var(--spp-primary, #006aff);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--spp-transition-fast);
+}
+
+.spp-portal__link:hover {
+    color: var(--spp-primary-dark, #0055cc);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   22. Button Variants (Outline, Ghost, Danger)
+   ========================================================================== */
+
+.spp-portal__btn--outline {
+    background: transparent;
+    border: 1px solid var(--spp-border-medium);
+    color: var(--spp-text-main);
+}
+
+.spp-portal__btn--outline:hover {
+    background: var(--spp-bg-tertiary);
+    border-color: var(--spp-border-dark);
+}
+
+.spp-portal__btn--ghost {
+    background: transparent;
+    border: none;
+    color: var(--spp-text-muted);
+    padding: var(--spp-space-2) var(--spp-space-3);
+}
+
+.spp-portal__btn--ghost:hover {
+    color: var(--spp-text-main);
+    background: var(--spp-bg-tertiary);
+}
+
+.spp-portal__btn--danger {
+    color: var(--spp-error, #ef4444);
+    border-color: var(--spp-error, #ef4444);
+}
+
+.spp-portal__btn--danger:hover {
+    background: var(--spp-error-bg, rgba(239, 68, 68, 0.1));
+    color: var(--spp-error, #ef4444);
+}
+
+/* ==========================================================================
+   23. Card Form Container (Square SDK)
+   ========================================================================== */
+
+.spp-card-container {
+    min-height: 56px;
+    padding: var(--spp-space-3);
+    border: 1px solid var(--spp-border-medium);
+    border-radius: var(--spp-radius-md);
+    background: var(--spp-bg-secondary, #f8f9fa);
+    transition: border-color var(--spp-transition-fast);
+}
+
+.spp-card-container:focus-within {
+    border-color: var(--spp-primary, #006aff);
+    box-shadow: 0 0 0 3px rgba(0, 106, 255, 0.15);
+}
+
+/* ==========================================================================
+   24. Portal-Specific Responsive Overrides
+   ========================================================================== */
+
+@media (max-width: 767px) {
+    .spp-portal {
+        flex-direction: column;
+    }
+
+    /* Mobile drawer */
+    .spp-portal-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        min-width: auto;
+        height: 100%;
+        transform: translateX(-100%);
+        z-index: 101;
+        box-shadow: none;
+        background: var(--spp-bg-primary);
+        border-right: none;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .spp-portal-nav.spp-portal-nav--open {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Show drawer header on mobile */
+    .spp-portal-nav__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--spp-space-4) var(--spp-space-5);
+        border-bottom: 1px solid var(--spp-border-light);
+        flex-shrink: 0;
+    }
+
+    /* Hide user card on mobile (toggle bar shows current view) */
+    .spp-portal-nav__user {
+        display: none;
+    }
+
+    /* Tighter, polished nav items */
+    .spp-portal-nav .spp-portal-nav__list {
+        padding: var(--spp-space-2) 0;
+        overflow-y: auto;
+    }
+
+    .spp-portal-nav .spp-portal-nav__item {
+        padding: 2px var(--spp-space-3);
+    }
+
+    .spp-portal-nav a.spp-portal-nav__link {
+        padding: 10px var(--spp-space-4);
+        border-radius: var(--spp-radius-lg);
+        font-size: 0.9rem;
+    }
+
+    /* Show toggle bar */
+    .spp-portal-nav__toggle {
+        display: flex;
+    }
+
+    /* Offset drawer below WordPress admin bar (46px on mobile ≤782px) */
+    .admin-bar .spp-portal-nav {
+        top: 46px;
+        height: calc(100% - 46px);
+    }
+
+    .spp-portal-content {
+        padding: var(--spp-space-4);
+    }
+
+    /* ── Section headers: stack title + actions vertically ── */
+    .spp-portal__section > .spp-flex.spp-justify-between {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spp-space-3);
+    }
+
+    /* ── Filter dropdowns: full width on mobile ── */
+    .spp-portal__section .spp-portal__select--sm {
+        min-width: 0 !important;
+        flex: 1;
+    }
+
+    /* ── Booking cards: stack date/time row and badge ── */
+    .spp-portal__card .spp-flex.spp-justify-between.spp-items-start {
+        flex-direction: column;
+        gap: var(--spp-space-2);
+    }
+
+    .spp-portal__card .spp-flex.spp-justify-between.spp-items-start > div[style*="text-align: right"] {
+        text-align: left !important;
+        margin-left: 0 !important;
+    }
+
+    /* Date/time + badge row: wrap to prevent overflow */
+    .spp-portal__card .spp-flex.spp-items-center.spp-gap-3 {
+        flex-wrap: wrap;
+    }
+
+    /* ── Sub-card headers (invoices/subscriptions): wrap on mobile ── */
+    .spp-sub-card__header {
+        flex-wrap: wrap !important;
+    }
+
+    .spp-sub-card__header > div[style*="flex: 1"] {
+        flex-basis: 100% !important;
+        margin-bottom: var(--spp-space-2);
+    }
+
+    .spp-sub-card__title {
+        font-size: 15px !important;
+    }
+
+    /* Title + badge row */
+    .spp-sub-card__header .spp-flex.spp-items-center.spp-gap-3 {
+        flex-wrap: wrap;
+        gap: var(--spp-space-2) !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .spp-portal-nav {
+        width: 220px;
+        min-width: 220px;
+    }
+}
+
+/* When admin bar is not present (front-end logged out or non-admin) */
+body:not(.admin-bar) .spp-portal-nav {
+    top: 0;
+    height: 100vh;
+}
+
+/* ==========================================================================
+   Avatar
+   ========================================================================== */
+
+.spp-portal__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--spp-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: var(--spp-text-sm);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.spp-portal__avatar--xl {
+    width: 64px;
+    height: 64px;
+    font-size: var(--spp-text-xl);
+}
+
+.spp-portal__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* ==========================================================================
+   Avatar Upload
+   ========================================================================== */
+
+.spp-avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.spp-avatar-upload__preview {
+    position: relative;
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+}
+
+.spp-avatar-upload__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    color: #fff;
+}
+
+.spp-avatar-upload__preview:hover .spp-avatar-upload__overlay {
+    opacity: 1;
+}
+
+.spp-avatar-upload__input {
+    display: none;
+}
+
+.spp-avatar-upload__remove {
+    font-size: 12px;
+    color: var(--spp-text-muted);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.spp-avatar-upload__remove:hover {
+    color: var(--spp-danger, #dc2626);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Skeleton Loading
+   ========================================================================== */
+
+@keyframes spp-skeleton-pulse {
+    0% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
+
+.spp-loading-skeleton {
+    padding: var(--spp-space-2) 0;
+}
+
+.spp-skeleton-line {
+    background: linear-gradient(90deg, var(--spp-border-light) 0%, var(--spp-bg-secondary) 50%, var(--spp-border-light) 100%);
+    background-size: 200% 100%;
+    border-radius: var(--spp-radius-sm);
+    height: 14px;
+    animation: spp-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.spp-skeleton-title {
+    margin-bottom: var(--spp-space-5);
+}
+
+.spp-skeleton-card {
+    background: var(--spp-bg-main, #fff);
+    border-radius: var(--spp-radius-lg);
+    border: 1px solid var(--spp-border-light);
+    padding: var(--spp-space-5);
+    margin-bottom: var(--spp-space-4);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.spp-skeleton-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spp-space-3);
+}
+
+.spp-skeleton-divider {
+    height: 1px;
+    background: var(--spp-border-light);
+    margin: var(--spp-space-4) 0;
+}
+
+/* Stagger animation for cards */
+.spp-skeleton-card:nth-child(2) .spp-skeleton-line {
+    animation-delay: 0.15s;
+}
+
+.spp-skeleton-card:nth-child(3) .spp-skeleton-line {
+    animation-delay: 0.3s;
+}
+
+.spp-skeleton-card:nth-child(4) .spp-skeleton-line {
+    animation-delay: 0.45s;
+}
+
+/* ==========================================================================
+   Subscription Expandable Cards
+   ========================================================================== */
+
+/* Card container */
+.spp-sub-card {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+/* Header button â€” must override theme button styles */
+.spp-portal .spp-sub-card__header,
+.spp-portal-content .spp-sub-card__header,
+button.spp-sub-card__header {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--spp-space-3) !important;
+    width: 100% !important;
+    padding: var(--spp-space-5) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    color: var(--spp-text-main, #1a1a2e) !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    transition: background-color 0.15s ease !important;
+}
+
+.spp-portal .spp-sub-card__header:hover,
+button.spp-sub-card__header:hover {
+    background-color: var(--spp-bg-secondary, #f8f9fa) !important;
+}
+
+/* Invoice header row: hover covers the full width including Pay Now button */
+.spp-inv-card__header-row {
+    transition: background-color 0.15s ease;
+}
+
+.spp-inv-card__header-row:hover {
+    background-color: var(--spp-bg-secondary, #f8f9fa);
+}
+
+.spp-inv-card__header-row:hover > .spp-sub-card__header {
+    background-color: transparent !important;
+}
+
+.spp-portal .spp-sub-card__header:focus,
+button.spp-sub-card__header:focus {
+    outline: 2px solid var(--spp-primary) !important;
+    outline-offset: -2px !important;
+}
+
+.spp-sub-card__title {
+    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    color: var(--spp-text-main, #1a1a2e) !important;
+}
+
+.spp-sub-card__meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 4px 8px !important;
+    font-size: 13px !important;
+    color: var(--spp-text-muted, #6b7280) !important;
+    margin-top: 4px !important;
+}
+
+.spp-sub-card__meta-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+.spp-sub-card__meta-item strong {
+    color: var(--spp-text-main, #1a1a2e) !important;
+    font-weight: 600 !important;
+}
+
+.spp-sub-card__meta-sep {
+    color: var(--spp-border-medium, #d1d5db) !important;
+    font-size: 10px !important;
+}
+
+/* Chevron rotation */
+.spp-sub-card__chevron {
+    flex-shrink: 0 !important;
+    transition: transform 0.25s ease !important;
+    color: var(--spp-text-muted, #6b7280) !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+button.spp-sub-card__header[aria-expanded="true"] .spp-sub-card__chevron,
+.spp-sub-card__header[aria-expanded="true"] .spp-sub-card__chevron {
+    transform: rotate(180deg) !important;
+}
+
+/* Expandable body â€” COLLAPSED by default */
+.spp-sub-card__body {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.35s ease !important;
+}
+
+/* EXPANDED state */
+.spp-sub-card__body.spp-sub-card__body--open {
+    max-height: 1500px !important;
+    overflow: visible !important;
+}
+
+.spp-sub-card__details {
+    padding: var(--spp-space-4) var(--spp-space-5) var(--spp-space-5) !important;
+    border-top: 1px solid var(--spp-border-light, #e5e7eb) !important;
+}
+
+/* Detail grid â€” 2 columns */
+.spp-sub-card__grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px 24px !important;
+}
+
+@media (max-width: 600px) {
+    .spp-sub-card__grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.spp-sub-card__detail {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+}
+
+.spp-sub-card__detail-label {
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    color: var(--spp-text-muted, #6b7280) !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+}
+
+.spp-sub-card__detail-value {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: var(--spp-text-main, #1a1a2e) !important;
+}
+
+.spp-sub-card__detail-code {
+    font-size: 11px !important;
+    background: var(--spp-bg-tertiary, #f3f4f6) !important;
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
+    word-break: break-all !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    color: var(--spp-text-main, #1a1a2e) !important;
+}
+
+/* ==========================================================================
+   Modal Dialog
+   ========================================================================== */
+
+.spp-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 100000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.spp-modal.spp-modal-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spp-modal-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+}
+
+.spp-modal-container {
+    position: relative !important;
+    z-index: 1 !important;
+    background: var(--spp-bg-main, #fff) !important;
+    border-radius: var(--spp-radius-lg, 12px) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
+    max-width: 480px !important;
+    width: calc(100% - 32px) !important;
+    max-height: calc(100vh - 64px) !important;
+    overflow-y: auto !important;
+    transform: translateY(12px);
+    transition: transform 0.25s ease;
+}
+
+.spp-modal.spp-modal-visible .spp-modal-container {
+    transform: translateY(0);
+}
+
+/* Size variants */
+.spp-modal-small .spp-modal-container {
+    max-width: 360px !important;
+}
+
+.spp-modal-large .spp-modal-container {
+    max-width: 640px !important;
+}
+
+.spp-modal-full .spp-modal-container {
+    max-width: 90vw !important;
+}
+
+/* Header */
+.spp-modal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: var(--spp-space-5) var(--spp-space-5) 0 !important;
+    gap: var(--spp-space-3) !important;
+}
+
+.spp-modal-title {
+    margin: 0 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: var(--spp-text-main, #1a1a2e) !important;
+    line-height: 1.3 !important;
+}
+
+/* Close button */
+.spp-modal-close,
+button.spp-modal-close {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    border: none !important;
+    border-radius: 50% !important;
+    background: var(--spp-bg-tertiary, #f3f4f6) !important;
+    color: var(--spp-text-muted, #6b7280) !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    flex-shrink: 0 !important;
+    transition: background 0.15s ease !important;
+}
+
+.spp-modal-close:hover,
+button.spp-modal-close:hover {
+    background: var(--spp-border-light, #e5e7eb) !important;
+    color: var(--spp-text-main, #1a1a2e) !important;
+}
+
+.spp-modal-close-float {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+}
+
+/* Content */
+.spp-modal-content {
+    padding: var(--spp-space-5) !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: var(--spp-text-main, #333) !important;
+}
+
+/* Footer */
+.spp-modal-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: var(--spp-space-3) !important;
+    padding: 0 var(--spp-space-5) var(--spp-space-5) !important;
+}
+
+/* Modal buttons â€” override theme styles */
+.spp-modal-footer .spp-btn,
+.spp-modal-footer button.spp-btn-primary,
+.spp-modal-footer button.spp-btn-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 20px !important;
+    border-radius: var(--spp-radius-md, 8px) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    border: 1px solid transparent !important;
+    transition: all 0.15s ease !important;
+    line-height: 1.4 !important;
+    text-decoration: none !important;
+}
+
+.spp-modal-footer .spp-btn-primary,
+.spp-modal-footer button.spp-btn-primary {
+    background: var(--spp-primary, #3b82f6) !important;
+    color: #fff !important;
+}
+
+.spp-modal-footer .spp-btn-primary:hover,
+.spp-modal-footer button.spp-btn-primary:hover {
+    opacity: 0.9 !important;
+}
+
+.spp-modal-footer .spp-btn-secondary,
+.spp-modal-footer button.spp-btn-secondary {
+    background: transparent !important;
+    color: var(--spp-text-main, #333) !important;
+    border-color: var(--spp-border-light, #e5e7eb) !important;
+}
+
+.spp-modal-footer .spp-btn-secondary:hover,
+.spp-modal-footer button.spp-btn-secondary:hover {
+    background: var(--spp-bg-secondary, #f8f9fa) !important;
+}
+
+/* Prevent body scroll when modal open */
+body.spp-modal-open {
+    overflow: hidden !important;
+}
+
+/* ==========================================================================
+   Gift Card Purchase Form (Modal)
+   ========================================================================== */
+
+.spp-gc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.spp-gc-form__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.spp-gc-form__label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--spp-text-muted, #6b7280);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Amount chip grid */
+.spp-gc-amount-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.spp-gc-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--spp-font-body);
+    color: var(--spp-text-main, #333);
+    background: var(--spp-bg-primary, #fff);
+    border: 1.5px solid var(--spp-border-medium, #e5e7eb);
+    border-radius: var(--spp-radius-md, 8px);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.spp-gc-chip:hover {
+    border-color: var(--spp-primary, #006aff);
+    color: var(--spp-primary, #006aff);
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.05));
+}
+
+.spp-gc-chip--active,
+.spp-gc-chip--active:hover {
+    background: var(--spp-primary, #006aff);
+    border-color: var(--spp-primary, #006aff);
+    color: #fff;
+}
+
+/* Custom amount with dollar sign */
+.spp-gc-custom-amount {
+    position: relative;
+}
+
+.spp-gc-custom-amount__symbol {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--spp-text-muted, #6b7280);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.spp-gc-custom-amount .spp-portal__input {
+    padding-left: 30px;
+}
+
+/* Recipient toggle (segmented control) */
+.spp-gc-toggle {
+    display: flex;
+    background: var(--spp-bg-tertiary, #f3f4f6);
+    border-radius: var(--spp-radius-md, 8px);
+    padding: 3px;
+    gap: 3px;
+}
+
+.spp-gc-toggle__option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--spp-text-muted, #6b7280);
+    border-radius: calc(var(--spp-radius-md, 8px) - 2px);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.spp-gc-toggle__option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.spp-gc-toggle__option:hover {
+    color: var(--spp-text-main, #333);
+}
+
+.spp-gc-toggle__option--active {
+    background: #fff;
+    color: var(--spp-text-main, #1a1a2e);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+}
+
+/* Recipient email/name fields â€” hidden by default, slide in */
+.spp-gc-recipient-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.25s ease;
+    margin-top: 0;
+}
+
+.spp-gc-recipient-fields--visible {
+    max-height: 120px;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+/* Card picker (radio-based styled cards) */
+.spp-gc-card-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spp-gc-card-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--spp-bg-primary, #fff);
+    border: 1.5px solid var(--spp-border-medium, #e5e7eb);
+    border-radius: var(--spp-radius-md, 8px);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.spp-gc-card-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.spp-gc-card-option:hover {
+    border-color: var(--spp-primary, #006aff);
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.03));
+}
+
+.spp-gc-card-option--active {
+    border-color: var(--spp-primary, #006aff);
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.05));
+}
+
+.spp-gc-card-option__icon {
+    color: var(--spp-text-muted, #6b7280);
+    flex-shrink: 0;
+}
+
+.spp-gc-card-option--active .spp-gc-card-option__icon {
+    color: var(--spp-primary, #006aff);
+}
+
+.spp-gc-card-option__details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.spp-gc-card-option__brand {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--spp-text-main, #1a1a2e);
+    line-height: 1.3;
+}
+
+.spp-gc-card-option__number {
+    font-size: 12px;
+    color: var(--spp-text-muted, #6b7280);
+    line-height: 1.3;
+}
+
+.spp-gc-card-option__expiry {
+    font-size: 12px;
+    color: var(--spp-text-light, #9ca3af);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.spp-gc-card-option__check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--spp-border-medium, #e5e7eb);
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+    color: transparent;
+}
+
+.spp-gc-card-option--active .spp-gc-card-option__check {
+    background: var(--spp-primary, #006aff);
+    border-color: var(--spp-primary, #006aff);
+    color: #fff;
+}
+
+/* Error display */
+.spp-gc-form__errors {
+    font-size: 13px;
+    color: var(--spp-error, #ef4444);
+    min-height: 0;
+    transition: min-height 0.15s ease;
+}
+
+.spp-gc-form__errors:not(:empty) {
+    min-height: 20px;
+    padding: 8px 12px;
+    background: var(--spp-error-bg, rgba(239, 68, 68, 0.08));
+    border-radius: var(--spp-radius-sm, 6px);
+}
+
+/* ==========================================================================
+   Appointment Booking Modal
+   ========================================================================== */
+
+/* Loading state */
+.spp-booking-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: var(--spp-space-6) var(--spp-space-4);
+    color: var(--spp-text-muted, #6b7280);
+    font-size: 14px;
+}
+
+/* Step indicator */
+.spp-booking-step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--spp-border-light, #f0f0f0);
+}
+
+.spp-booking-step {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--spp-text-light, #9ca3af);
+    background: none;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 20px;
+    cursor: default;
+    font-family: var(--spp-font-body);
+}
+
+.spp-booking-step--active {
+    color: var(--spp-primary, #006aff);
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.1));
+}
+
+.spp-booking-step--done {
+    color: var(--spp-success, #10b981);
+    cursor: pointer;
+}
+
+.spp-booking-step--done:hover {
+    text-decoration: underline;
+}
+
+.spp-booking-step+.spp-booking-step::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: var(--spp-border-medium, #e5e7eb);
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+/* Selected service tag */
+.spp-booking-selected-service {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--spp-primary, #006aff);
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.08));
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin: 0 0 16px 0;
+}
+
+/* Service list */
+.spp-booking-service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spp-booking-service-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--spp-bg-primary, #fff);
+    border: 1.5px solid var(--spp-border-medium, #e5e7eb);
+    border-radius: var(--spp-radius-md, 8px);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    font-family: var(--spp-font-body);
+}
+
+.spp-booking-service-card:hover {
+    border-color: var(--spp-primary, #006aff);
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.03));
+}
+
+.spp-booking-service-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.spp-booking-service-card__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--spp-text-main, #1a1a2e);
+}
+
+.spp-booking-service-card__desc {
+    font-size: 12px;
+    color: var(--spp-text-muted, #6b7280);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spp-booking-service-card__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.spp-booking-service-card__price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--spp-primary, #006aff);
+}
+
+.spp-booking-service-card__duration {
+    font-size: 11px;
+    color: var(--spp-text-muted, #6b7280);
+}
+
+/* Staff picker avatar */
+.spp-booking-staff-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--spp-primary-light, rgba(0, 106, 255, 0.08));
+}
+
+.spp-booking-staff-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.spp-booking-staff-initials {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--spp-primary, #006aff);
+}
+
+/* Time slots grid */
+.spp-booking-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* Confirmation summary card */
+.spp-booking-confirm-card {
+    background: var(--spp-bg-secondary, #f8f9fa);
+    border-radius: var(--spp-radius-md, 8px);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+}
+
+.spp-booking-confirm-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.spp-booking-confirm-row+.spp-booking-confirm-row {
+    border-top: 1px solid var(--spp-border-light, #f0f0f0);
+}
+
+.spp-booking-confirm-label {
+    font-size: 13px;
+    color: var(--spp-text-muted, #6b7280);
+}
+
+.spp-booking-confirm-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--spp-text-main, #1a1a2e);
+}
+
+/* ==========================================================================
+   Notifications (Toasts)
+   ========================================================================== */
+
+.spp-notification {
+    position: fixed !important;
+    top: 24px !important;
+    right: 24px !important;
+    z-index: 100000 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    background: var(--spp-bg-main, #fff) !important;
+    border-radius: var(--spp-radius-md, 8px) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+    border-left: 4px solid var(--spp-primary, #3b82f6) !important;
+    min-width: 280px !important;
+    max-width: 400px !important;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0.3s ease;
+}
+
+.spp-notification.spp-notification-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.spp-notification-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+}
+
+/* Success */
+.spp-notification-success {
+    border-left-color: var(--spp-success, #10b981) !important;
+}
+
+.spp-notification-success .spp-notification-icon {
+    background: var(--spp-success, #10b981) !important;
+    color: #fff !important;
+}
+
+.spp-notification-success .spp-notification-icon::before {
+    content: 'âœ“';
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Error */
+.spp-notification-error {
+    border-left-color: var(--spp-error, #ef4444) !important;
+}
+
+.spp-notification-error .spp-notification-icon {
+    background: var(--spp-error, #ef4444) !important;
+    color: #fff !important;
+}
+
+.spp-notification-error .spp-notification-icon::before {
+    content: '!';
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Info */
+.spp-notification-info {
+    border-left-color: var(--spp-primary, #3b82f6) !important;
+}
+
+.spp-notification-info .spp-notification-icon {
+    background: var(--spp-primary, #3b82f6) !important;
+    color: #fff !important;
+}
+
+.spp-notification-info .spp-notification-icon::before {
+    content: 'i';
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: serif;
+}
+
+.spp-notification-message {
+    flex: 1 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: var(--spp-text-main, #111827) !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+}
+
+.spp-notification-close {
+    background: transparent !important;
+    border: none !important;
+    color: var(--spp-text-muted, #9ca3af) !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: color 0.15s ease !important;
+}
+
+.spp-notification-close:hover {
+    color: var(--spp-text-main, #111827) !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .spp-notification {
+        top: 16px !important;
+        right: 16px !important;
+        left: 16px !important;
+        min-width: 0 !important;
+        max-width: none !important;
+    }
+}
+
+/* ==========================================================================
+   List link rows (clickable widget items)
+   ========================================================================== */
+
+.spp-portal__list-link {
+    cursor: pointer;
+    border-radius: var(--spp-radius-sm, 4px);
+    margin: 0 -4px;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+    transition: background var(--spp-transition-fast, 0.15s ease);
+}
+
+.spp-portal__list-link:hover {
+    background: var(--spp-bg-secondary, #f9fafb);
+}
+
+.spp-portal__list-link:active {
+    background: var(--spp-bg-tertiary, #f3f4f6);
+}
+
+/* ─── Toggle Switch ─── */
+.spp-toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.spp-toggle__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.spp-toggle__slider {
+    position: absolute;
+    inset: 0;
+    background: var(--spp-border, #d1d5db);
+    border-radius: 24px;
+    transition: background 0.2s ease;
+}
+
+.spp-toggle__slider::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.spp-toggle__input:checked+.spp-toggle__slider {
+    background: var(--spp-primary, #006aff);
+}
+
+.spp-toggle__input:checked+.spp-toggle__slider::before {
+    transform: translateX(20px);
+}
+
+.spp-toggle__input:focus-visible+.spp-toggle__slider {
+    outline: 2px solid var(--spp-primary, #006aff);
+    outline-offset: 2px;
+}
+
+.spp-toggle__input:disabled+.spp-toggle__slider {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

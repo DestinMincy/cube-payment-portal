@@ -1,0 +1,654 @@
+/**
+ * Cube Payment Portal - Login Page Styles
+ *
+ * Premium glassmorphism design for the login page.
+ * Theme-agnostic with scoped CSS variables.
+ */
+
+/* CSS Variables for Login */
+:root {
+    --spp-login-bg: #f1f5f9;
+    --spp-login-card-bg: #ffffff;
+    --spp-login-glass-blur: 20px;
+    --spp-login-glass-border: rgba(0, 0, 0, 0.06);
+    --spp-login-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --spp-login-radius: 16px;
+    --spp-login-input-radius: 8px;
+    --spp-login-text: #1a1a2e;
+    --spp-login-text-muted: #64748b;
+    --spp-login-primary: #006aff;
+    --spp-login-primary-hover: #0052cc;
+    --spp-login-primary-gradient: linear-gradient(135deg, #006aff 0%, #00d2ff 100%);
+    --spp-login-error: #dc2626;
+    --spp-login-error-bg: #fef2f2;
+    --spp-login-success: #16a34a;
+    --spp-login-border: #e2e8f0;
+    --spp-login-input-bg: #f8fafc;
+    --spp-login-focus-ring: rgba(0, 106, 255, 0.4);
+    --spp-login-transition: 0.2s ease;
+    --spp-login-card-width: 420px;
+}
+
+/* Main Wrapper */
+.spp-portal-wrapper.spp-login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    background: var(--spp-login-bg);
+    border-radius: var(--spp-login-radius);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Login Container */
+.spp-login-container {
+    width: 100%;
+    max-width: var(--spp-login-card-width);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Glassmorphism Card */
+.spp-login-card {
+    background: var(--spp-login-card-bg);
+    backdrop-filter: blur(var(--spp-login-glass-blur));
+    -webkit-backdrop-filter: blur(var(--spp-login-glass-blur));
+    border-radius: var(--spp-login-radius);
+    border: 1px solid var(--spp-login-glass-border);
+    box-shadow: var(--spp-login-shadow);
+    padding: 40px;
+    animation: spp-login-fadeIn 0.4s ease;
+}
+
+@keyframes spp-login-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Logo */
+.spp-login-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.spp-login-logo-img {
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.spp-login-site-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--spp-login-text);
+    letter-spacing: -0.02em;
+}
+
+/* Header */
+.spp-login-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.spp-login-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--spp-login-text);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.spp-login-subtitle {
+    font-size: 14px;
+    color: var(--spp-login-text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Error Message */
+.spp-login-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--spp-login-error-bg);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    border-radius: var(--spp-login-input-radius);
+    margin-bottom: 24px;
+    animation: spp-login-shake 0.4s ease;
+}
+
+@keyframes spp-login-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.spp-login-error-icon {
+    flex-shrink: 0;
+    color: var(--spp-login-error);
+    line-height: 1;
+}
+
+.spp-login-error-icon svg {
+    display: block;
+}
+
+.spp-login-error-text {
+    font-size: 14px;
+    color: var(--spp-login-error);
+    line-height: 1.5;
+}
+
+/* Form */
+.spp-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Form Group */
+.spp-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.spp-form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--spp-login-text);
+}
+
+/* Input Wrapper */
+.spp-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Input Icons */
+.spp-input-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--spp-login-text-muted);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.spp-input-icon svg {
+    display: block;
+}
+
+.spp-input-icon-left {
+    left: 14px;
+}
+
+.spp-input-icon-right {
+    right: 14px;
+    pointer-events: auto;
+}
+
+/* Form Input */
+.spp-login-card .spp-form-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--spp-login-text);
+    background: var(--spp-login-input-bg);
+    border: 1px solid var(--spp-login-border);
+    border-radius: var(--spp-login-input-radius);
+    outline: none;
+    transition:
+        border-color var(--spp-login-transition),
+        box-shadow var(--spp-login-transition),
+        background-color var(--spp-login-transition);
+    box-sizing: border-box;
+}
+
+.spp-login-card .spp-form-input::placeholder {
+    color: var(--spp-login-text-muted);
+    opacity: 0.7;
+}
+
+.spp-login-card .spp-form-input:hover {
+    border-color: var(--spp-login-primary);
+}
+
+.spp-login-card .spp-form-input:focus {
+    border-color: var(--spp-login-primary);
+    box-shadow: 0 0 0 3px var(--spp-login-focus-ring);
+    background: #fff;
+}
+
+.spp-login-card .spp-form-input.spp-input-with-icon {
+    padding-left: 44px;
+}
+
+.spp-login-card .spp-form-input.spp-input-password {
+    padding-right: 44px;
+}
+
+/* Password Toggle Button */
+.spp-password-toggle {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--spp-login-text-muted);
+    transition: color var(--spp-login-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spp-password-toggle:hover {
+    color: var(--spp-login-primary);
+}
+
+.spp-password-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--spp-login-focus-ring, rgba(0, 106, 255, 0.3));
+    color: var(--spp-login-primary);
+}
+
+/* Form Row Flex */
+.spp-form-row-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Checkbox */
+.spp-login-card .spp-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--spp-login-text);
+    user-select: none;
+    position: relative;
+}
+
+.spp-login-card .spp-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+}
+
+.spp-login-card .spp-checkbox-custom {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    border: 2px solid var(--spp-login-border);
+    border-radius: 4px;
+    background: var(--spp-login-input-bg);
+    transition:
+        background-color var(--spp-login-transition),
+        border-color var(--spp-login-transition);
+    position: relative;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.spp-login-card .spp-checkbox:checked + .spp-checkbox-custom {
+    background: var(--spp-login-primary);
+    border-color: var(--spp-login-primary);
+}
+
+.spp-login-card .spp-checkbox:checked + .spp-checkbox-custom::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.spp-login-card .spp-checkbox:focus + .spp-checkbox-custom {
+    box-shadow: 0 0 0 3px var(--spp-login-focus-ring);
+}
+
+.spp-checkbox-text {
+    line-height: 1;
+}
+
+/* Forgot Password Link */
+.spp-forgot-password {
+    font-size: 14px;
+    color: var(--spp-login-primary);
+    text-decoration: none;
+    transition: color var(--spp-login-transition);
+}
+
+.spp-forgot-password:hover {
+    color: var(--spp-login-primary-hover);
+    text-decoration: underline;
+}
+
+/* Button */
+.spp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--spp-login-input-radius);
+    cursor: pointer;
+    transition:
+        background-color var(--spp-login-transition),
+        transform var(--spp-login-transition),
+        box-shadow var(--spp-login-transition);
+    outline: none;
+}
+
+.spp-btn:focus {
+    box-shadow: 0 0 0 3px var(--spp-login-focus-ring);
+}
+
+.spp-btn-primary {
+    background: var(--spp-login-primary-gradient);
+    color: #fff;
+}
+
+.spp-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 106, 255, 0.4);
+}
+
+.spp-btn-primary:active {
+    transform: translateY(0);
+}
+
+.spp-btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.spp-btn-full {
+    width: 100%;
+}
+
+/* Button Loading State */
+.spp-btn-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Spinner */
+.spp-spinner {
+    animation: spp-spin 1s linear infinite;
+}
+
+.spp-spinner-track {
+    opacity: 0.25;
+}
+
+.spp-spinner-head {
+    opacity: 0.75;
+}
+
+@keyframes spp-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Login Footer */
+.spp-login-footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--spp-login-border);
+}
+
+.spp-login-register,
+.spp-login-contact {
+    font-size: 14px;
+    color: var(--spp-login-text-muted);
+    margin: 0;
+}
+
+.spp-login-register a,
+.spp-login-contact a {
+    color: var(--spp-login-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.spp-login-register a:hover,
+.spp-login-contact a:hover {
+    text-decoration: underline;
+}
+
+/* Branding */
+.spp-login-branding {
+    text-align: center;
+}
+
+.spp-powered-by {
+    font-size: 12px;
+    color: var(--spp-login-text-muted);
+    margin: 0;
+}
+
+.spp-powered-by strong {
+    font-weight: 600;
+}
+
+/* Redirect Message */
+.spp-login-redirect {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--spp-login-card-bg);
+    border-radius: var(--spp-login-radius);
+    box-shadow: var(--spp-login-shadow);
+}
+
+.spp-login-redirect p {
+    margin: 0 0 12px 0;
+    color: var(--spp-login-text);
+}
+
+.spp-login-redirect a {
+    color: var(--spp-login-primary);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .spp-portal-wrapper.spp-login-wrapper {
+        padding: 16px;
+        min-height: auto;
+        align-items: flex-start;
+        padding-top: 40px;
+    }
+
+    .spp-login-card {
+        padding: 28px 24px;
+    }
+
+    .spp-login-title {
+        font-size: 20px;
+    }
+
+    .spp-login-subtitle {
+        font-size: 13px;
+    }
+
+    .spp-form-row-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .spp-form-row-flex .spp-forgot-password {
+        align-self: flex-end;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .spp-form-input {
+        border-width: 2px;
+    }
+
+    .spp-checkbox-custom {
+        border-width: 2px;
+    }
+
+    .spp-login-error {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .spp-login-card,
+    .spp-form-input,
+    .spp-btn,
+    .spp-checkbox-custom,
+    .spp-password-toggle {
+        transition: none;
+    }
+
+    .spp-login-card {
+        animation: none;
+    }
+
+    .spp-login-error {
+        animation: none;
+    }
+
+    .spp-spinner {
+        animation: none;
+    }
+}
+
+/* ============================================================
+ * Registration Form Extensions
+ * ============================================================ */
+
+/* Two-column name row */
+.spp-form-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 480px) {
+    .spp-form-row-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Registration form layout */
+.spp-register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Password hint */
+.spp-form-hint {
+    font-size: 12px;
+    color: var(--spp-login-text-muted);
+    margin: 4px 0 0 0;
+    line-height: 1.4;
+}
+
+/* Success message */
+.spp-register-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #f0fdf4;
+    border: 1px solid rgba(22, 163, 74, 0.2);
+    border-radius: var(--spp-login-input-radius);
+    margin-bottom: 24px;
+}
+
+.spp-register-success-icon {
+    flex-shrink: 0;
+    color: var(--spp-login-success);
+    line-height: 1;
+}
+
+.spp-register-success-icon svg {
+    display: block;
+}
+
+.spp-register-success-text {
+    font-size: 14px;
+    color: var(--spp-login-success);
+    line-height: 1.5;
+}
+
+/* Password strength meter */
+.spp-password-strength {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.spp-password-strength__bar {
+    height: 4px;
+    border-radius: 2px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    flex: 0 0 auto;
+}
+.spp-password-strength__label {
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.spp-password-strength--weak {
+    background-color: #ef4444;
+}
+.spp-password-strength--fair {
+    background-color: #f59e0b;
+}
+.spp-password-strength--good {
+    background-color: #3b82f6;
+}
+.spp-password-strength--strong {
+    background-color: #10b981;
+}

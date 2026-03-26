@@ -1,0 +1,46 @@
+<svg width="200" height="230" viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main Group centered -->
+    <g transform="translate(10, 15)">
+        <!-- Isometric Cube Shape -->
+        <!-- We use thick strokes and rounded joins to match Square's 'Squircle' aesthetic but in 3D form -->
+        
+        <!-- Outer Hexagon shape simulating the cube outline -->
+        <path d="M90 5.7735C93.094 3.9873 96.906 3.9873 100 5.7735L169.282 45.7735C172.376 47.5597 174.282 50.8607 174.282 54.4338V134.434C174.282 138.007 172.376 141.308 169.282 143.094L100 183.094C96.906 184.88 93.094 184.88 90 183.094L20.718 143.094C17.624 141.308 15.718 138.007 15.718 134.434V54.4338C15.718 50.8607 17.624 47.5597 20.718 45.7735L90 5.7735Z" 
+              stroke="#333333" 
+              stroke-width="14" 
+              stroke-linejoin="round"
+              fill="none"/>
+              
+        <!-- Internal Y shape to define the 3 faces -->
+        <path d="M95 94.5 L95 183" 
+              stroke="#333333" 
+              stroke-width="14" 
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+              
+        <path d="M95 94.5 L22 52" 
+              stroke="#333333" 
+              stroke-width="14" 
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+              
+        <path d="M95 94.5 L168 52" 
+              stroke="#333333" 
+              stroke-width="14" 
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+              
+        <!-- Floating Dollar Sign above the cube (or inside the top face). 
+             Let's place it floating slightly above/in-front to emphasize 'Payment' -->
+        <text x="95" y="150" 
+              font-family="'Lexend', sans-serif" 
+              font-size="60" 
+              font-weight="700" 
+              fill="#333333" 
+              text-anchor="middle"
+              transform="matrix(1, -0.5, 0, 1, 0, 0)" 
+              style="filter: drop-shadow(2px 4px 0px rgba(0,0,0,0.1));">
+              $
+        </text>
+    </g>
+</svg>

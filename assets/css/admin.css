@@ -1,0 +1,2062 @@
+/**
+ * Cube Payment Portal - Admin Styles
+ *
+ * Minimal admin styling.
+ */
+
+.spp-admin-wrap {
+    max-width: 1200px;
+}
+
+.spp-admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.spp-admin-card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.spp-admin-card h2 {
+    margin-top: 0;
+}
+
+/* Status Badges */
+.spp-status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.spp-status-active,
+.spp-status-completed,
+.spp-status-paid {
+    background: #d4edda;
+    color: #155724;
+}
+
+.spp-status-pending,
+.spp-status-unpaid {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.spp-status-failed,
+.spp-status-canceled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.spp-status-draft {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.spp-status-overdue {
+    background: #f8d7da;
+    color: #721c24;
+    font-weight: 700;
+}
+
+/* Customer Link with Tooltip */
+.spp-customer-link {
+    position: relative;
+    display: inline-block;
+    color: #2271b1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.spp-customer-link:hover {
+    color: #135e96;
+    text-decoration: underline;
+}
+
+.spp-customer-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #1d2327;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e4e7;
+}
+
+.spp-customer-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #fff;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08));
+}
+
+/* Tooltip shows via JavaScript with 1-second delay */
+.spp-customer-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spp-customer-tooltip .tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+/* High specificity to override WP default dashicon styles without !important */
+.spp-customer-tooltip .tooltip-row span.dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #2271b1;
+    opacity: 1;
+}
+
+/* Left-aligned tooltip for first columns */
+.spp-customer-tooltip.spp-tooltip-left {
+    left: 0;
+    transform: translateX(0);
+}
+
+.spp-customer-tooltip.spp-tooltip-left::after {
+    left: 20px;
+    transform: translateX(0);
+}
+
+
+.spp-connection-status {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.spp-connection-status.connected {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.spp-connection-status.disconnected {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+/* Modal Styles */
+.spp-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spp-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.spp-modal-content {
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.spp-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e2e4e7;
+}
+
+.spp-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.spp-modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.spp-modal-close:hover {
+    background: #f0f0f1;
+    color: #1d2327;
+}
+
+.spp-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Spin animation for refresh buttons */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.dashicons.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Tab Navigation */
+.spp-tabs {
+    display: flex;
+    gap: 5px;
+    border-bottom: 2px solid #e2e4e7;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+}
+
+.spp-tab {
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+}
+
+.spp-tab:hover {
+    color: #2271b1;
+    background: #f6f7f7;
+}
+
+.spp-tab.active {
+    color: #2271b1;
+    border-bottom-color: #2271b1;
+    background: transparent;
+}
+
+/* Modal Account Header (Gradient) */
+.spp-modal-account-header {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: #fff;
+}
+
+.spp-modal-account-header .account-info {
+    flex: 1;
+}
+
+.spp-modal-account-header .account-label {
+    font-size: 11px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spp-modal-account-header .account-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.spp-modal-account-header .account-detail {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+.spp-modal-account-header .account-balance {
+    text-align: right;
+}
+
+.spp-modal-account-header .balance-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.spp-modal-account-header .balance-label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+/* Form Sections in Modals */
+.spp-form-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e2e4e7;
+}
+
+.spp-form-section h4 {
+    margin: 0 0 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.spp-form-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 15px;
+    align-items: start;
+}
+
+.spp-form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #1d2327;
+    font-size: 13px;
+}
+
+.spp-form-group input[type="text"],
+.spp-form-group input[type="number"],
+.spp-form-group input[type="email"],
+.spp-form-group textarea,
+.spp-form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.spp-form-group input:focus,
+.spp-form-group select:focus,
+.spp-form-group textarea:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+.spp-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Modal Footer */
+.spp-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #e2e4e7;
+    background: #f6f7f7;
+}
+
+/* Empty Table State */
+.spp-table-empty {
+    text-align: center;
+    color: #666;
+    padding: 40px 20px;
+}
+
+.spp-table-empty .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+/* Invoice-specific Styles */
+.spp-invoice-filters {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+}
+
+.spp-invoice-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.spp-invoice-table tbody tr:hover {
+    background-color: #f0f0f1 !important;
+}
+
+.spp-invoice-table tbody tr[style*="cursor: pointer"] {
+    cursor: pointer;
+}
+
+/* Invoice Detail Page */
+.spp-invoice-detail-header {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.spp-invoice-detail-header h1 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
+}
+
+/* Responsive Design for Invoice Detail Grid */
+@media (max-width: 782px) {
+    .spp-invoice-detail-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .spp-invoice-detail-header>div:last-child {
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .spp-invoice-detail-header>div:last-child a {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Form table improvements */
+.form-table th {
+    width: 30%;
+    font-weight: 600;
+}
+
+/* Empty state styling */
+.spp-admin-card .dashicons {
+    opacity: 0.3;
+}
+
+.spp-admin-card h2 {
+    color: #50575e;
+}
+
+/* Pagination styling */
+.tablenav-pages {
+    margin: 20px 0;
+}
+
+.tablenav-pages .displaying-num {
+    color: #50575e;
+    font-size: 13px;
+}
+
+/* Refunded status badge */
+.spp-status-refunded {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Transactions Page Styles */
+.spp-transactions-filters {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+}
+
+.spp-transactions-filters .spp-filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.spp-transactions-filters .spp-filter-group label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #50575e;
+}
+
+.spp-transactions-filters input[type="search"],
+.spp-transactions-filters input[type="date"],
+.spp-transactions-filters select {
+    height: 32px;
+    line-height: 32px;
+}
+
+.spp-transactions-table tbody tr:hover {
+    background-color: #f0f0f1 !important;
+}
+
+.spp-transactions-table .spp-status-badge {
+    white-space: nowrap;
+}
+
+/* Summary bar */
+.spp-summary-bar {
+    background: #f0f0f1;
+    border-left: 4px solid #2271b1;
+    padding: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .spp-transactions-filters form {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    .spp-transactions-filters .spp-filter-group {
+        width: 100%;
+    }
+
+    .spp-transactions-filters input[type="search"],
+    .spp-transactions-filters input[type="date"],
+    .spp-transactions-filters select {
+        width: 100% !important;
+        min-width: auto !important;
+    }
+}
+
+/* Pagination button styles */
+.spp-page-link {
+    margin: 0 2px;
+}
+
+.tablenav-pages-navspan.disabled {
+    color: #a0a5aa;
+}
+
+.paging-input {
+    font-size: 13px;
+    margin: 0 5px;
+}
+
+/* Spin animation for sync button */
+.dashicons.spin {
+    animation: spp-spin 1s linear infinite;
+}
+
+@keyframes spp-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Feature Grid Layout - Transforms standard WP form-table into a grid */
+.spp-features-grid-wrapper .form-table {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.spp-features-grid-wrapper .form-table tbody {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.spp-features-grid-wrapper .form-table tr {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0px !important;
+    /* Fix WP default margin */
+}
+
+.spp-features-grid-wrapper .form-table tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05) !important;
+    background: #fff !important;
+    /* Override standard WP striping/hover */
+    border-color: #2271b1;
+}
+
+/* Hide the standard table header/cell behavior */
+.spp-features-grid-wrapper .form-table th,
+.spp-features-grid-wrapper .form-table td {
+    padding: 0 !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Feature Title (from th) */
+.spp-features-grid-wrapper .form-table th {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1d2327;
+}
+
+/* Feature Description and Toggle (from td) */
+.spp-features-grid-wrapper .form-table td {
+    flex-grow: 1;
+    display: flex !important;
+    /* override block */
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.spp-feature-desc {
+    font-size: 13px;
+    color: #646970;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    line-height: 1.5;
+}
+
+/* Modern Toggle Switch */
+.spp-switch {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    margin-top: auto;
+    /* Push to bottom */
+}
+
+.spp-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.spp-slider {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 24px;
+    transition: .3s;
+    margin-right: 10px;
+}
+
+.spp-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .3s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.spp-switch input:checked+.spp-slider {
+    background-color: #2271b1;
+}
+
+.spp-switch input:focus+.spp-slider {
+    box-shadow: 0 0 1px #2271b1;
+}
+
+.spp-switch input:checked+.spp-slider:before {
+    transform: translateX(20px);
+}
+
+.spp-toggle-label {
+    font-weight: 500;
+    color: #2c3338;
+}
+
+.spp-switch input:checked~.spp-toggle-label {
+    color: #2271b1;
+}
+
+/* Modals */
+.spp-modal {
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    /* Hidden by default */
+}
+
+.spp-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+}
+
+.spp-modal-content {
+    position: relative;
+    background: #fff;
+    margin: 10vh auto;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+
+.spp-modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fcfcfc;
+    border-radius: 8px 8px 0 0;
+}
+
+.spp-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #23282d;
+}
+
+.spp-modal-close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #72777c;
+    line-height: 1;
+}
+
+.spp-modal-close:hover {
+    color: #d63638;
+}
+
+.spp-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.spp-modal-body p.description {
+    margin-top: 5px;
+    font-style: italic;
+    color: #646970;
+}
+
+/* =====================================================
+   Gift Cards Page Styles
+   ===================================================== */
+
+/* Header */
+.spp-gift-cards-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.spp-header-left h1 {
+    margin: 0 0 5px 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.spp-header-subtitle {
+    margin: 0;
+    color: #646970;
+    font-size: 14px;
+}
+
+.spp-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.spp-header-actions .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.spp-header-actions .button .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Insights Section */
+.spp-gift-cards-insights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.spp-insight-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e4e7;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.spp-insight-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.spp-insight-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.spp-insight-icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #fff;
+}
+
+.spp-insight-total-balance .spp-insight-icon {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.spp-insight-active .spp-insight-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.spp-insight-pending .spp-insight-icon {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.spp-insight-customers .spp-insight-icon {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.spp-insight-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.spp-insight-label {
+    font-size: 12px;
+    color: #646970;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.spp-insight-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1d2327;
+    line-height: 1;
+}
+
+/* Filters */
+.spp-gift-cards-filters {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e4e7;
+    margin-bottom: 25px;
+}
+
+.spp-gift-cards-filters form {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.spp-gift-cards-filters .spp-filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 160px;
+    max-width: 250px;
+}
+
+.spp-gift-cards-filters .spp-filter-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #50575e;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spp-gift-cards-filters select,
+.spp-gift-cards-filters input[type="text"] {
+    height: 38px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    padding: 0 12px;
+    font-size: 14px;
+}
+
+.spp-gift-cards-filters select:focus,
+.spp-gift-cards-filters input[type="text"]:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+.spp-filter-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.spp-filter-actions .button {
+    height: 38px;
+    padding: 0 16px;
+}
+
+/* Loading State */
+.spp-gift-cards-loading {
+    text-align: center;
+    padding: 80px 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.spp-gift-cards-loading .spinner {
+    float: none;
+    margin: 0 auto 15px;
+}
+
+.spp-gift-cards-loading p {
+    color: #666;
+    margin: 0;
+}
+
+/* Empty State */
+.spp-gift-cards-empty {
+    text-align: center;
+    padding: 80px 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e4e7;
+}
+
+.spp-empty-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.spp-empty-icon .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+}
+
+.spp-gift-cards-empty h2 {
+    margin: 0 0 10px;
+    color: #1d2327;
+    font-size: 22px;
+}
+
+.spp-gift-cards-empty p {
+    color: #646970;
+    margin: 0 0 25px;
+    font-size: 15px;
+}
+
+.spp-gift-cards-empty .button-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Gift Cards Grid */
+.spp-gift-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* Individual Gift Card */
+.spp-gift-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e4e7;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.spp-gift-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.spp-gift-card-active {
+    border-top: 3px solid #11998e;
+}
+
+.spp-gift-card-pending {
+    border-top: 3px solid #ffb347;
+}
+
+.spp-gift-card-deactivated {
+    border-top: 3px solid #999;
+}
+
+.spp-gc-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.spp-gc-balance {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d2327;
+    letter-spacing: -0.5px;
+}
+
+.spp-gc-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spp-gc-status-active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.spp-gc-status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.spp-gc-status-deactivated {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.spp-gc-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.spp-gc-gan {
+    font-family: 'Roboto Mono', 'SF Mono', 'Consolas', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d2327;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.spp-gc-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spp-gc-type,
+.spp-gc-customer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #50575e;
+}
+
+.spp-gc-type .dashicons,
+.spp-gc-customer .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #2271b1;
+}
+
+.spp-gc-no-customer {
+    color: #999;
+}
+
+.spp-gc-no-customer .dashicons {
+    color: #ccc;
+}
+
+/* Card Actions */
+.spp-gc-actions {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.spp-gc-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #50575e;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.spp-gc-action-btn:hover {
+    background: #f0f0f1;
+    border-color: #c3c4c7;
+}
+
+.spp-gc-action-btn .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.spp-gc-action-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+
+.spp-gc-action-primary:hover {
+    background: #135e96;
+    border-color: #135e96;
+}
+
+.spp-gc-action-danger {
+    color: #d63638;
+    border-color: #d63638;
+}
+
+.spp-gc-action-danger:hover {
+    background: #d63638;
+    color: #fff;
+}
+
+/* Load More */
+.spp-load-more {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.spp-load-more .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    height: auto;
+}
+
+/* Form Fields in Modals */
+.spp-form-field {
+    margin-bottom: 20px;
+}
+
+.spp-form-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1d2327;
+}
+
+.spp-form-field .description {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #646970;
+    font-style: normal;
+}
+
+.spp-input-group {
+    display: flex;
+    align-items: center;
+}
+
+.spp-input-prefix {
+    background: #f0f0f1;
+    padding: 0 12px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    color: #50575e;
+    font-weight: 500;
+}
+
+.spp-input-group input {
+    flex: 1;
+    height: 38px;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid #ddd;
+    padding: 0 12px;
+    font-size: 16px;
+}
+
+.spp-input-group input:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+/* Card Type Selector */
+.spp-card-type-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.spp-card-type-option {
+    padding: 20px;
+    border: 2px solid #e2e4e7;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.spp-card-type-option:hover {
+    border-color: #2271b1;
+    background: #f0f7fc;
+}
+
+.spp-card-type-option.selected {
+    border-color: #2271b1;
+    background: #f0f7fc;
+}
+
+.spp-card-type-option input {
+    display: none;
+}
+
+.spp-card-type-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spp-card-type-icon .dashicons {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    color: #fff;
+}
+
+.spp-card-type-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.spp-card-type-desc {
+    font-size: 12px;
+    color: #646970;
+}
+
+/* Modal Actions */
+.spp-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f1;
+}
+
+/* History Table */
+.spp-history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.spp-history-table th {
+    text-align: left;
+    padding: 12px;
+    background: #f8f9fa;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #50575e;
+    border-bottom: 2px solid #e2e4e7;
+}
+
+.spp-history-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f1;
+    font-size: 14px;
+}
+
+.spp-history-table tr:hover td {
+    background: #f8f9fa;
+}
+
+.spp-activity-type {
+    text-transform: capitalize;
+    font-size: 13px;
+}
+
+.spp-history-table .spp-amount {
+    text-align: right;
+    font-weight: 600;
+    font-family: 'Roboto Mono', 'SF Mono', monospace;
+}
+
+.spp-history-table .spp-amount.positive {
+    color: #155724;
+}
+
+.spp-history-table .spp-amount.negative {
+    color: #c62828;
+}
+
+.spp-history-table .spp-amount.neutral {
+    color: #666;
+}
+
+.spp-history-loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.spp-history-loading .spinner {
+    float: none;
+    margin: 0 auto 10px;
+}
+
+.spp-no-data {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.spp-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .spp-gift-cards-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .spp-header-actions {
+        justify-content: flex-start;
+    }
+
+    .spp-gift-cards-insights {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .spp-gift-cards-filters form {
+        flex-direction: column;
+    }
+
+    .spp-gift-cards-filters .spp-filter-group {
+        max-width: none;
+    }
+
+    .spp-gift-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .spp-card-type-selector {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dashboard Refined Styles v2 */
+:root {
+    --spp-primary: #006AFF;
+    --spp-success: #10B981;
+    --spp-warning: #F59E0B;
+    --spp-danger: #EF4444;
+    --spp-text: #1F2937;
+    --spp-text-light: #6B7280;
+    --spp-bg-card: #FFFFFF;
+    --spp-border: #E5E7EB;
+}
+
+.wrap.spp-admin-wrap {
+    max-width: 1200px;
+    margin: 20px auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Alert Banner */
+.spp-alert-banner {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #991B1B;
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.banner-icon {
+    background: #FEE2E2;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-icon .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #DC2626;
+}
+
+.banner-content {
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+.banner-action {
+    font-weight: 600;
+    color: #991B1B;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.banner-action:hover {
+    text-decoration: underline;
+}
+
+/* Metrics Grid */
+.spp-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.spp-metric-card {
+    background: var(--spp-bg-card);
+    border: 1px solid var(--spp-border);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.spp-metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.spp-metric-card.border-red-left {
+    border-left: 4px solid var(--spp-danger);
+}
+
+.metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 8px;
+}
+
+.metric-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--spp-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-icon {
+    color: var(--spp-text-light);
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.icon-green {
+    color: var(--spp-success);
+}
+
+.icon-blue {
+    color: var(--spp-primary);
+}
+
+.icon-orange {
+    color: var(--spp-warning);
+}
+
+.icon-red {
+    color: var(--spp-danger);
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--spp-text);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.metric-value.text-red {
+    color: var(--spp-danger);
+}
+
+.metric-trend {
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.trend-up {
+    color: var(--spp-success);
+}
+
+.trend-down {
+    color: var(--spp-danger);
+}
+
+.trend-label {
+    color: var(--spp-text-light);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.metric-subtext {
+    font-size: 13px;
+    color: var(--spp-text-light);
+    margin-top: 4px;
+}
+
+.text-red {
+    color: var(--spp-danger);
+}
+
+/* Dashboard Layout */
+.spp-dashboard-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.spp-card {
+    background: var(--spp-bg-card);
+    border: 1px solid var(--spp-border);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    /* overflow: hidden; - Removed to allow tooltips to show */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.tooltip-row:last-child {
+    margin-bottom: 0;
+}
+
+.card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--spp-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--spp-text);
+}
+
+/* Tabs */
+.spp-tabs-header {
+    display: flex;
+    border-bottom: 1px solid var(--spp-border);
+    background: #FAFAFA;
+    align-items: center;
+}
+
+.spp-tab-btn {
+    background: none;
+    border: none;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--spp-text-light);
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.spp-tab-btn:hover {
+    color: var(--spp-text);
+}
+
+.spp-tab-btn.active {
+    color: var(--spp-primary);
+    border-bottom-color: var(--spp-primary);
+    background: #FFF;
+    font-weight: 600;
+}
+
+.view-all-link {
+    margin-left: auto;
+    margin-right: 20px;
+    font-size: 13px;
+    color: var(--spp-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.spp-tab-content {
+    display: none;
+}
+
+.spp-tab-content.active {
+    display: block;
+    animation: fadeEffect 0.2s;
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Tables */
+.spp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.spp-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #F3F4F6;
+    vertical-align: middle;
+}
+
+.spp-table tr:last-child td {
+    border-bottom: none;
+}
+
+.spp-table .row-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--spp-text);
+    margin-bottom: 2px;
+}
+
+.spp-table .row-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.spp-table .row-title a:hover {
+    color: var(--spp-primary);
+}
+
+.spp-table .row-meta {
+    font-size: 12px;
+    color: var(--spp-text-light);
+}
+
+.spp-table .text-right {
+    text-align: right;
+}
+
+.spp-table .row-amount {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--spp-text);
+}
+
+.spp-table .row-status {
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 99px;
+    background: #F3F4F6;
+    color: var(--spp-text-light);
+    margin-top: 2px;
+}
+
+/* Status Colors */
+.status-completed,
+.status-active,
+.status-paid {
+    background: #ECFDF5;
+    color: #059669;
+}
+
+.status-pending,
+.status-processed,
+.status-sent {
+    background: #FFFBEB;
+    color: #D97706;
+}
+
+.status-failed,
+.status-canceled,
+.status-overdue {
+    background: #FEF2F2;
+    color: #DC2626;
+}
+
+/* Buttons & Actions */
+.spp-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #FFF;
+    border: 1px solid var(--spp-border);
+    border-radius: 6px;
+    color: var(--spp-text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.spp-button:hover {
+    background: #F9FAFB;
+    border-color: #D1D5DB;
+}
+
+.spp-button .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: var(--spp-text-light);
+}
+
+.spp-button.icon-only {
+    padding: 8px;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 40px;
+    text-align: center;
+    color: var(--spp-text-light);
+    font-size: 14px;
+}
+
+/* Connection Status Pill */
+.connection-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 100px;
+}
+
+.connection-status.connected {
+    background: #ECFDF5;
+    color: #059669;
+}
+
+.connection-status.disconnected {
+    background: #FEF2F2;
+    color: #991B1B;
+}
+
+/* Tooltips */
+.spp-customer-link {
+    position: relative;
+}
+
+.spp-customer-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1F2937;
+    color: #FFF;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+}
+
+.spp-customer-link:hover .spp-customer-tooltip {
+    display: block;
+}
+
+.spp-customer-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #1F2937 transparent transparent transparent;
+}
+
+.spp-customer-tooltip .dashicons {
+    color: #9CA3AF;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .spp-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .spp-dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .spp-metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Widget Order Sortable */
+.spp-widget-sortable {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 400px;
+}
+
+.spp-widget-sortable li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-bottom: 4px;
+    background: #fff;
+    border: 1px solid var(--spp-border, #E5E7EB);
+    border-radius: 6px;
+    cursor: grab;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--spp-text, #1F2937);
+    transition: box-shadow 0.15s, border-color 0.15s;
+    user-select: none;
+}
+
+.spp-widget-sortable li:hover {
+    border-color: var(--spp-primary, #006AFF);
+}
+
+.spp-widget-sortable li:active,
+.spp-widget-sortable .ui-sortable-helper {
+    cursor: grabbing;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    border-color: var(--spp-primary, #006AFF);
+    z-index: 10;
+}
+
+.spp-widget-sortable .ui-sortable-placeholder {
+    visibility: visible !important;
+    border: 2px dashed #c3c4c7;
+    background: #f6f7f7;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    height: 40px;
+}
+
+.spp-drag-handle {
+    color: #9CA3AF;
+    font-size: 16px;
+    letter-spacing: -3px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 14px;
+    text-align: center;
+}
+
+/* Bookings Detail Styles */
+.spp-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.spp-detail-section {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+}
+
+.spp-detail-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.spp-detail-full {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.spp-detail-full h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* Responsive Bookings */
+@media (max-width: 782px) {
+    .spp-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.spp-card-body {
+    padding: 20px;
+}

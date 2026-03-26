@@ -1,0 +1,50 @@
+# Docker and development files
+docker-compose.yml
+Dockerfile
+.dockerignore
+.dockerignore
+
+# Dependencies
+vendor/
+node_modules/
+composer.lock
+package-lock.json
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-*
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+tests/
+phpunit.xml
+coverage/
+.phpunit.result.cache
+
+# Documentation (not needed in plugin)
+docs/
+*.md
+!README.md
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Development files
+.env
+.env.local
+.editorconfig
+.eslintrc*
+.prettierrc*
+
+# Build artifacts
+*.log
+*.cache

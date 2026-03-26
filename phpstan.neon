@@ -1,0 +1,30 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - api/
+        - includes/
+        - admin/
+        - public/
+        - sync/
+        - database/
+        - cube-payment-portal.php
+    excludePaths:
+        - vendor/
+        - tests/
+        - woocommerce/
+    bootstrapFiles:
+        - vendor/autoload.php
+        - tests/bootstrap.php
+    scanDirectories:
+        - vendor/szepeviktor/phpstan-wordpress/
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Missing client portal partials (not yet implemented)
+        - '#Path in include\(\) ".+" is not a file or it does not exist\.#'
+        # Methods reserved for future webhook/cron use
+        - '#Method SPP_Invoices::update_local_status\(\) is unused\.#'
+

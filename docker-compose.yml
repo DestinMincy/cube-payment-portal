@@ -1,0 +1,83 @@
+# Cube Payment Portal - Docker Development Environment with HTTPS
+#
+# Usage:
+#   docker-compose up -d --build
+#   Access WordPress HTTP at http://localhost:8080
+#   Access WordPress HTTPS at https://localhost:8443 (accept self-signed cert warning)
+#   Access phpMyAdmin at http://localhost:8081
+#
+# For Square OAuth testing:
+#   Use https://localhost:8443/wp-admin/admin.php?page=spp-settings as redirect URL
+
+services:
+  # WordPress with PHP and HTTPS
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spp-wordpress
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define('SPP_SKIP_SSL_CHECK', true);
+        if (isset($$_SERVER['HTTPS']) && $$_SERVER['HTTPS'] === 'on') {
+          $$_SERVER['REQUEST_SCHEME'] = 'https';
+        }
+    volumes:
+      # Mount the plugin directory
+      - .:/var/www/html/wp-content/plugins/cube-payment-portal
+      # Persist WordPress installation
+      - wordpress_data:/var/www/html
+    networks:
+      - spp-network
+    restart: unless-stopped
+
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: spp-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - spp-network
+
+  # phpMyAdmin (optional database management)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: spp-phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: wordpress
+      PMA_PASSWORD: wordpress
+    networks:
+      - spp-network
+
+volumes:
+  wordpress_data:
+  db_data:
+
+
+networks:
+  spp-network:
+    driver: bridge

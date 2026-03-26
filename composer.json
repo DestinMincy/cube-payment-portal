@@ -1,0 +1,51 @@
+{
+    "name": "cube-payment-portal/cube-payment-portal",
+    "description": "WordPress plugin integrating Square for payment portal functionality",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "wp-coding-standards/wpcs": "^3.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "yoast/phpunit-polyfills": "^2.0",
+        "mockery/mockery": "^1.6",
+        "phpstan/phpstan": "^2.1",
+        "szepeviktor/phpstan-wordpress": "^2.0"
+    },
+    "autoload": {
+        "classmap": [
+            "includes/",
+            "api/",
+            "admin/",
+            "public/",
+            "sync/",
+            "database/",
+            "woocommerce/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SPP\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:unit": "phpunit --testsuite unit",
+        "test:integration": "phpunit --testsuite integration",
+        "test:coverage": "phpunit --coverage-html coverage/",
+        "phpcs": "phpcs --standard=WordPress-Extra .",
+        "phpcbf": "phpcbf --standard=WordPress .",
+        "phpstan": "phpstan analyse --memory-limit=512M",
+        "analyze": ["@phpcs", "@phpstan"],
+        "check": ["@phpcs", "@phpstan", "@test"],
+        "build": "powershell -ExecutionPolicy Bypass -File build.ps1"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
