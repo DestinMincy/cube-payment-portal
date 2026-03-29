@@ -114,7 +114,7 @@ class SPP_Webhooks {
      * @return bool True if valid.
      */
     public function verify_signature( $body, $signature ) {
-        $environment = get_option( 'spp_environment', 'sandbox' );
+        $environment = get_option( 'spp_environment', 'production' );
 
         // If a signature is provided, always verify it (even in sandbox).
         if ( ! empty( $signature ) ) {

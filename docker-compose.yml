@@ -29,6 +29,7 @@ services:
       WORDPRESS_DEBUG: 1
       WORDPRESS_CONFIG_EXTRA: |
         define('SPP_SKIP_SSL_CHECK', true);
+        define('SPP_DEVELOPER_MODE', true);
         if (isset($$_SERVER['HTTPS']) && $$_SERVER['HTTPS'] === 'on') {
           $$_SERVER['REQUEST_SCHEME'] = 'https';
         }

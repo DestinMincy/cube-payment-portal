@@ -136,7 +136,7 @@ if ( ! function_exists( 'spp_format_square_money' ) ) {
 // Get Square Dashboard URL for this invoice.
 $square_dashboard_url = '';
 if ( ! empty( $invoice['square_invoice_id'] ) ) {
-	$environment = get_option( 'spp_environment', 'sandbox' );
+	$environment = get_option( 'spp_environment', 'production' );
 	$base_url = ( 'production' === $environment ) ? 'https://squareup.com' : 'https://squareupsandbox.com';
 	$square_dashboard_url = $base_url . '/dashboard/invoices/' . $invoice['square_invoice_id'];
 }

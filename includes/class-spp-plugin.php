@@ -93,6 +93,9 @@ class SPP_Plugin {
         require_once SPP_PLUGIN_DIR . 'public/class-spp-public.php';
         require_once SPP_PLUGIN_DIR . 'public/class-spp-client-portal.php';
 
+        // GitHub updater (WordPress.org first, GitHub fallback).
+        require_once SPP_PLUGIN_DIR . 'includes/class-spp-github-updater.php';
+
         // Menu integration.
         require_once SPP_PLUGIN_DIR . 'includes/class-spp-menu-integration.php';
 
@@ -136,6 +139,10 @@ class SPP_Plugin {
 
         // Security and compatibility notices.
         $this->loader->add_action( 'admin_notices', $this, 'show_security_notices' );
+
+        // GitHub updater: check WordPress.org first, fall back to GitHub.
+        $github_updater = new SPP_GitHub_Updater();
+        $github_updater->init();
 
         // Auto-update control.
         $this->loader->add_filter( 'auto_update_plugin', $this, 'control_auto_update', 10, 2 );
@@ -738,7 +745,7 @@ class SPP_Plugin {
         }
 
         // Check for OpenSSL in production mode.
-        $environment = get_option( 'spp_environment', 'sandbox' );
+        $environment = get_option( 'spp_environment', 'production' );
         if ( 'production' === $environment && ! function_exists( 'openssl_encrypt' ) ) {
             echo '<div class="notice notice-error"><p>';
             echo '<strong>' . esc_html__( 'Cube Payment Portal Security Warning:', 'cube-payment-portal' ) . '</strong> ';

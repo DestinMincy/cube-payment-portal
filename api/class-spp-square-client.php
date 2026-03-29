@@ -72,7 +72,7 @@ class SPP_Square_Client {
     public function __construct( $access_token = '', $sandbox_mode = null, $location_id = '' ) {
         // Determine sandbox mode.
         if ( is_null( $sandbox_mode ) ) {
-            $sandbox_mode = get_option( 'spp_environment', 'sandbox' ) === 'sandbox';
+            $sandbox_mode = get_option( 'spp_environment', 'production' ) === 'sandbox';
         }
         $this->sandbox_mode = $sandbox_mode;
 

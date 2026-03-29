@@ -166,7 +166,7 @@ class SPP_Gift_Cards {
      */
     public function activate_gift_card( $gift_card_id, $amount, $location_id, $currency = 'USD', $buyer_payment_instrument_id = '' ) {
         // For sandbox mode without a payment instrument, use the test card nonce.
-        $is_sandbox = get_option( 'spp_environment', 'sandbox' ) === 'sandbox';
+        $is_sandbox = get_option( 'spp_environment', 'production' ) === 'sandbox';
         if ( empty( $buyer_payment_instrument_id ) && $is_sandbox ) {
             // Square sandbox test card nonce.
             $buyer_payment_instrument_id = 'cnon:card-nonce-ok';
@@ -216,7 +216,7 @@ class SPP_Gift_Cards {
      */
     public function load_gift_card( $gift_card_id, $amount, $location_id, $currency = 'USD', $buyer_payment_instrument_id = '' ) {
         // For sandbox mode without a payment instrument, use the test card nonce.
-        $is_sandbox = get_option( 'spp_environment', 'sandbox' ) === 'sandbox';
+        $is_sandbox = get_option( 'spp_environment', 'production' ) === 'sandbox';
         if ( empty( $buyer_payment_instrument_id ) && $is_sandbox ) {
             // Square sandbox test card nonce.
             $buyer_payment_instrument_id = 'cnon:card-nonce-ok';

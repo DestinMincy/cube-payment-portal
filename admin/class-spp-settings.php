@@ -24,11 +24,13 @@ class SPP_Settings {
         // API Configuration.
         register_setting( 'spp_api_settings', 'spp_environment', array(
             'sanitize_callback' => array( $this, 'sanitize_environment' ),
-            'default'           => 'sandbox',
+            'default'           => 'production',
         ) );
         register_setting( 'spp_api_settings', 'spp_application_id', array( 'sanitize_callback' => 'sanitize_text_field' ) );
         register_setting( 'spp_api_settings', 'spp_application_secret', array( 'sanitize_callback' => 'sanitize_text_field' ) );
-        register_setting( 'spp_api_settings', 'spp_sandbox_access_token', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+        if ( defined( 'SPP_DEVELOPER_MODE' ) && SPP_DEVELOPER_MODE ) {
+            register_setting( 'spp_api_settings', 'spp_sandbox_access_token', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+        }
 
         // General Settings.
         register_setting( 'spp_general_settings', 'spp_client_portal_page', array( 'sanitize_callback' => 'absint' ) );
@@ -430,7 +432,7 @@ class SPP_Settings {
      * Render environment select field.
      */
     public function render_environment_field() {
-        $value = get_option( 'spp_environment', 'sandbox' );
+        $value = get_option( 'spp_environment', 'production' );
         ?>
         <select name="spp_environment" id="spp_environment">
             <option value="sandbox" <?php selected( $value, 'sandbox' ); ?>>

@@ -98,10 +98,14 @@ if ( isset( $_GET['error'] ) && sanitize_text_field( wp_unslash( $_GET['error'] 
 
             <form method="post" action="options.php">
                 <?php settings_fields( 'spp_api_settings' ); ?>
-                
+
                 <table class="form-table">
+                    <?php if ( defined( 'SPP_DEVELOPER_MODE' ) && SPP_DEVELOPER_MODE ) : ?>
                     <tr>
-                        <th scope="row"><?php esc_html_e( 'Environment', 'cube-payment-portal' ); ?></th>
+                        <th scope="row">
+                            <?php esc_html_e( 'Environment', 'cube-payment-portal' ); ?>
+                            <span class="spp-badge" style="background: #d63638; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">DEV</span>
+                        </th>
                         <td>
                             <select name="spp_environment">
                                 <option value="sandbox" <?php selected( get_option( 'spp_environment' ), 'sandbox' ); ?>>
@@ -113,23 +117,26 @@ if ( isset( $_GET['error'] ) && sanitize_text_field( wp_unslash( $_GET['error'] 
                             </select>
                         </td>
                     </tr>
+                    <?php endif; ?>
                     <tr>
                         <th scope="row"><?php esc_html_e( 'Application ID', 'cube-payment-portal' ); ?></th>
                         <td>
                             <input type="text" name="spp_application_id" value="<?php echo esc_attr( get_option( 'spp_application_id' ) ); ?>" class="regular-text">
+                            <p class="description"><?php esc_html_e( 'Your Square Application ID from the Square Developer Console.', 'cube-payment-portal' ); ?></p>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"><?php esc_html_e( 'Application Secret', 'cube-payment-portal' ); ?></th>
                         <td>
                             <input type="password" name="spp_application_secret" value="<?php echo esc_attr( get_option( 'spp_application_secret' ) ); ?>" class="regular-text">
-                            <p class="description"><?php esc_html_e( 'Used for OAuth authentication (production).', 'cube-payment-portal' ); ?></p>
+                            <p class="description"><?php esc_html_e( 'Your Square Application Secret, used for OAuth authentication.', 'cube-payment-portal' ); ?></p>
                         </td>
                     </tr>
-                    <tr class="spp-sandbox-token-row" <?php echo get_option( 'spp_environment', 'sandbox' ) !== 'sandbox' ? 'style="display:none;"' : ''; ?>>
+                    <?php if ( defined( 'SPP_DEVELOPER_MODE' ) && SPP_DEVELOPER_MODE && get_option( 'spp_environment', 'production' ) === 'sandbox' ) : ?>
+                    <tr class="spp-sandbox-token-row">
                         <th scope="row">
                             <?php esc_html_e( 'Sandbox Access Token', 'cube-payment-portal' ); ?>
-                            <span class="spp-badge" style="background: #2271b1; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">DEV</span>
+                            <span class="spp-badge" style="background: #d63638; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">DEV</span>
                         </th>
                         <td>
                             <input type="password" name="spp_sandbox_access_token" value="<?php echo esc_attr( get_option( 'spp_sandbox_access_token' ) ); ?>" class="regular-text">
@@ -137,15 +144,26 @@ if ( isset( $_GET['error'] ) && sanitize_text_field( wp_unslash( $_GET['error'] 
                                 <?php esc_html_e( 'Paste your Sandbox access token from Square Developer Console for direct testing (bypasses OAuth).', 'cube-payment-portal' ); ?>
                                 <br>
                                 <a href="https://developer.squareup.com/console/en/sandbox-test-accounts" target="_blank">
-                                    <?php esc_html_e( 'Get your sandbox access token →', 'cube-payment-portal' ); ?>
+                                    <?php esc_html_e( 'Get your sandbox access token', 'cube-payment-portal' ); ?> &rarr;
                                 </a>
                             </p>
                         </td>
                     </tr>
+                    <?php endif; ?>
                 </table>
 
                 <?php submit_button(); ?>
             </form>
+
+            <?php if ( ! $is_connected ) : ?>
+            <div style="margin-top: 10px; padding: 20px; background: #f0f6fc; border: 1px solid #c3c4c7; border-left: 4px solid #2271b1;">
+                <h3 style="margin-top: 0;"><?php esc_html_e( 'Connect to Square', 'cube-payment-portal' ); ?></h3>
+                <p><?php esc_html_e( 'After saving your Application ID and Secret above, click the button below to connect your Square account via OAuth.', 'cube-payment-portal' ); ?></p>
+                <button type="button" class="button button-primary button-hero spp-connect-button">
+                    <?php esc_html_e( 'Connect to Square', 'cube-payment-portal' ); ?>
+                </button>
+            </div>
+            <?php endif; ?>
 
         <?php elseif ( $active_tab === 'general' ) : ?>
             

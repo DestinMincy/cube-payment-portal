@@ -53,7 +53,7 @@ class SPP_Public {
             return;
         }
 
-        $sandbox = get_option( 'spp_environment', 'sandbox' ) === 'sandbox';
+        $sandbox = get_option( 'spp_environment', 'production' ) === 'sandbox';
         $square_domain = $sandbox ? 'sandbox.web.squarecdn.com' : 'web.squarecdn.com';
         $connect_domain = $sandbox ? 'connect.squareupsandbox.com' : 'connect.squareup.com';
 
@@ -185,7 +185,7 @@ class SPP_Public {
         }
 
         // Square Web Payments SDK.
-        $sandbox = get_option( 'spp_environment', 'sandbox' ) === 'sandbox';
+        $sandbox = get_option( 'spp_environment', 'production' ) === 'sandbox';
         $sdk_url = $sandbox
             ? 'https://sandbox.web.squarecdn.com/v1/square.js'
             : 'https://web.squarecdn.com/v1/square.js';
@@ -214,7 +214,7 @@ class SPP_Public {
                 'nonce'         => wp_create_nonce( 'spp_public_nonce' ),
                 'applicationId' => get_option( 'spp_application_id', '' ),
                 'locationId'    => get_option( 'spp_default_location_id', '' ),
-                'sandbox'       => get_option( 'spp_environment', 'sandbox' ) === 'sandbox',
+                'sandbox'       => get_option( 'spp_environment', 'production' ) === 'sandbox',
                 'portalTitle'   => get_option( 'spp_portal_title', '' ) ?: __( 'Client Portal', 'cube-payment-portal' ),
                 'itemsPerPage'     => (int) get_option( 'spp_portal_items_per_page', 25 ),
                 'sessionTimeout'   => (int) get_option( 'spp_portal_session_timeout', 30 ),

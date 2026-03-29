@@ -3,7 +3,7 @@ Contributors: destinmincy
 Tags: square, payments, invoices, subscriptions, client-portal
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,13 @@ Yes. You can select your default location in **Settings > General**, and the adm
 
 == Changelog ==
 
+= 1.1.6 =
+* Changed: Default environment switched from Sandbox to Production for end users.
+* Added: `SPP_DEVELOPER_MODE` constant to gate sandbox and developer-only settings.
+* Improved: Streamlined API Configuration tab with prominent "Connect to Square" OAuth button.
+* Improved: Environment selector and sandbox token fields hidden unless developer mode is enabled.
+* Fixed: Docker entrypoint now wired up for automatic plugin activation on first install.
+
 = 1.1.5 =
 * Security: Added Subresource Integrity (SRI) hashes for all CDN-loaded scripts.
 * Security: Fixed potential XSS in error message display (switched .html() to .text()).
@@ -187,6 +194,9 @@ Yes. You can select your default location in **Settings > General**, and the adm
 * Sandbox mode for testing.
 
 == Upgrade Notice ==
+
+= 1.1.6 =
+Production-first OAuth flow. Sandbox settings now require SPP_DEVELOPER_MODE. Admins just enter credentials and click "Connect to Square".
 
 = 1.1.5 =
 Security and UX improvements. Adds SRI integrity checks for CDN scripts, fixes XSS in error messages, and introduces auto-update controls.

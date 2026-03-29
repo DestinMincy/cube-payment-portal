@@ -61,7 +61,7 @@ class SPP_OAuth {
     public function __construct( $application_id = '', $application_secret = '' ) {
         $this->application_id     = $application_id ?: get_option( 'spp_application_id', '' );
         $this->application_secret = $application_secret ?: get_option( 'spp_application_secret', '' );
-        $this->sandbox            = get_option( 'spp_environment', 'sandbox' ) === 'sandbox';
+        $this->sandbox            = get_option( 'spp_environment', 'production' ) === 'sandbox';
     }
 
     /**
@@ -324,7 +324,7 @@ class SPP_OAuth {
      */
     public function encrypt_token( $token ) {
         if ( ! function_exists( 'openssl_encrypt' ) ) {
-            $environment = get_option( 'spp_environment', 'sandbox' );
+            $environment = get_option( 'spp_environment', 'production' );
             
             // In production, require proper encryption.
             if ( 'production' === $environment ) {

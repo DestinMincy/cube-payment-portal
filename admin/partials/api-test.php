@@ -500,7 +500,7 @@ if ( isset( $_POST['spp_test_action'] ) && wp_verify_nonce( $_POST['spp_test_non
             
             <p style="margin-top: 15px;">
                 <strong><?php esc_html_e( 'Environment:', 'cube-payment-portal' ); ?></strong> 
-                <?php echo esc_html( get_option( 'spp_environment', 'sandbox' ) === 'sandbox' ? 'Sandbox (Testing)' : 'Production' ); ?>
+                <?php echo esc_html( get_option( 'spp_environment', 'production' ) === 'sandbox' ? 'Sandbox (Testing)' : 'Production' ); ?>
             </p>
             
             <?php 

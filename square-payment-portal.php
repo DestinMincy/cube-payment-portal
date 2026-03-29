@@ -3,7 +3,7 @@
  * Plugin Name: Cube Payment Portal
  * Plugin URI: https://destinlmincy.com/cube-payment-portal
  * Description: A comprehensive payment portal integrating Square for client payments, subscriptions, and invoicing.
- * Version: 1.1.5
+ * Version: 1.1.6
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Author: Destin L. Mincy
@@ -25,7 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Plugin version.
  */
-define( 'SPP_VERSION', '1.1.5' );
+define( 'SPP_VERSION', '1.1.6' );
 
 /**
  * Plugin directory path.

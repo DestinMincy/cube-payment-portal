@@ -494,6 +494,13 @@ A: Enable Sandbox Mode in settings and use Square's test card numbers.
 
 ## Changelog
 
+### 1.1.6
+- Changed: Default environment switched from Sandbox to Production for end users
+- Added: `SPP_DEVELOPER_MODE` constant to gate sandbox/developer settings
+- Improved: Streamlined API Configuration tab with prominent "Connect to Square" OAuth button
+- Improved: Environment selector and sandbox token fields hidden unless developer mode is enabled
+- Fixed: Docker entrypoint now wired up for automatic plugin activation on first install
+
 ### 1.1.5
 - Security: Added Subresource Integrity (SRI) hashes for all CDN-loaded scripts
 - Security: Fixed potential XSS in error message display (switched .html() to .text())
