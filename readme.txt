@@ -3,7 +3,7 @@ Contributors: destinmincy
 Tags: square, payments, invoices, subscriptions, client-portal
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,22 @@ Yes. You can select your default location in **Settings > General**, and the adm
 
 == Changelog ==
 
+= 1.1.7 =
+* Fixed: Renamed main plugin file to `cube-payment-portal.php` for WordPress.org compliance (directory/file name must match).
+* Fixed: GitHub auto-updater excluded from WordPress.org build via `.distignore`; plugin loader guards against its absence gracefully.
+* Fixed: WooCommerce payment gateway now performs real Square payment processing — previous stub accepted all orders without charging.
+* Fixed: WooCommerce refund handler now submits actual refund requests to Square instead of always returning true.
+* Fixed: Removed unsupported WooCommerce Subscriptions feature declarations from gateway `$supports` array.
+* Security: Webhook signature bypass closed — sandbox mode no longer skips HMAC verification when a signature key is configured.
+* Security: Impersonation audit logs now write unconditionally (not only when WP_DEBUG is enabled).
+* Security: IP detection hardened against header spoofing — only `REMOTE_ADDR` is trusted by default; `X-Forwarded-For` is opt-in via `SPP_TRUSTED_PROXY_IP` constant.
+* Security: Fixed XSS in admin bookings-services template — raw echo replaced with `if/endif` and `esc_html_e()`.
+* Security: Fixed XSS in admin dispute-detail, loyalty, and gift-cards templates — raw API data no longer injected via `.html()`; DOM nodes built safely with `.text()` and `$()`.
+* Security: `extract()` replaced with explicit variable assignments in client portal shortcode renderer.
+* Security: `console.error` / `console.warn` calls in client-portal.js and admin-calendar.js gated behind `sppPublic.debug` / `sppCalendar.debug` (set from `WP_DEBUG`).
+* Improved: `phpcs:disable` / `phpcs:enable` block added around DDL migration queries for clean PHPCS output.
+* Improved: `request_with_retry()` sleep capped at 10 s (rate-limit) and 5 s (backoff) to prevent PHP execution timeout on shared hosts.
+
 = 1.1.6 =
 * Changed: Default environment switched from Sandbox to Production for end users.
 * Added: `SPP_DEVELOPER_MODE` constant to gate sandbox and developer-only settings.
@@ -194,6 +210,9 @@ Yes. You can select your default location in **Settings > General**, and the adm
 * Sandbox mode for testing.
 
 == Upgrade Notice ==
+
+= 1.1.7 =
+Pre-launch security and compliance release. Renames main plugin file for WordPress.org submission, implements real WooCommerce payment processing, and closes several security issues. Upgrade before publishing.
 
 = 1.1.6 =
 Production-first OAuth flow. Sandbox settings now require SPP_DEVELOPER_MODE. Admins just enter credentials and click "Connect to Square".

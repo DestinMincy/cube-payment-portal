@@ -165,9 +165,15 @@ class SPP_Client_Portal {
 
         ob_start();
 
-        // Extract vars for template.
-        // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-        extract( $template_vars );
+        // Assign template variables explicitly (avoids extract()).
+        $redirect_to   = $template_vars['redirect_to'];
+        $show_logo     = $template_vars['show_logo'];
+        $show_remember = $template_vars['show_remember'];
+        $show_register = $template_vars['show_register'];
+        $contact_url   = $template_vars['contact_url'];
+        $logo_url      = $template_vars['logo_url'];
+        $login_error   = $template_vars['login_error'];
+        $lost_password = $template_vars['lost_password'];
 
         include SPP_PLUGIN_DIR . 'public/partials/portal-login.php';
 
@@ -226,8 +232,12 @@ class SPP_Client_Portal {
 
         ob_start();
 
-        // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-        extract( $template_vars );
+        // Assign template variables explicitly (avoids extract()).
+        $redirect_to    = $template_vars['redirect_to'];
+        $show_logo      = $template_vars['show_logo'];
+        $logo_url       = $template_vars['logo_url'];
+        $login_url      = $template_vars['login_url'];
+        $register_error = $template_vars['register_error'];
 
         include SPP_PLUGIN_DIR . 'public/partials/portal-register.php';
 

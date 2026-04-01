@@ -394,10 +394,9 @@ class SPP_Permissions {
             self::get_client_ip()
         );
 
-        // Log to WordPress debug log if enabled.
-        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-            error_log( $message );
-        }
+        // Always log impersonation events — these are security-sensitive audit records
+        // regardless of whether WP_DEBUG is enabled.
+        error_log( $message );
 
         /**
          * Fires when an impersonation event is logged.
@@ -413,32 +412,32 @@ class SPP_Permissions {
     /**
      * Get the client IP address safely.
      *
+     * Uses REMOTE_ADDR only — proxy/forwarding headers (X-Forwarded-For, etc.)
+     * are trivially forgeable by any client and must not be trusted for
+     * security-sensitive decisions like rate limiting or audit logging.
+     * If your deployment sits behind a trusted reverse proxy, filter the
+     * trusted proxy IP via the `spp_trusted_proxy_ip` constant and this
+     * function will read X-Forwarded-For only when REMOTE_ADDR matches.
+     *
      * @return string The client IP address.
      */
     private static function get_client_ip() {
-        $ip = '';
+        $remote_addr = isset( $_SERVER['REMOTE_ADDR'] )
+            ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
+            : '';
 
-        // Check for proxy headers first.
-        $headers = array(
-            'HTTP_CLIENT_IP',
-            'HTTP_X_FORWARDED_FOR',
-            'HTTP_X_FORWARDED',
-            'HTTP_X_CLUSTER_CLIENT_IP',
-            'HTTP_FORWARDED_FOR',
-            'HTTP_FORWARDED',
-            'REMOTE_ADDR',
-        );
-
-        foreach ( $headers as $header ) {
-            if ( ! empty( $_SERVER[ $header ] ) ) {
-                $ip = sanitize_text_field( wp_unslash( $_SERVER[ $header ] ) );
-                // Handle comma-separated IPs (from proxies).
-                if ( strpos( $ip, ',' ) !== false ) {
-                    $ips = explode( ',', $ip );
-                    $ip = trim( $ips[0] );
-                }
-                break;
-            }
+        // Optionally trust a single known reverse-proxy IP.
+        if (
+            defined( 'SPP_TRUSTED_PROXY_IP' ) &&
+            SPP_TRUSTED_PROXY_IP === $remote_addr &&
+            ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] )
+        ) {
+            $forwarded = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
+            // X-Forwarded-For may be comma-separated; the leftmost IP is the client.
+            $parts = explode( ',', $forwarded );
+            $ip    = trim( $parts[0] );
+        } else {
+            $ip = $remote_addr;
         }
 
         // Validate IP format.

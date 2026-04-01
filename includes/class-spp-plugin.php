@@ -94,7 +94,10 @@ class SPP_Plugin {
         require_once SPP_PLUGIN_DIR . 'public/class-spp-client-portal.php';
 
         // GitHub updater (WordPress.org first, GitHub fallback).
-        require_once SPP_PLUGIN_DIR . 'includes/class-spp-github-updater.php';
+        // Excluded from WordPress.org builds via .distignore — load only when present.
+        if ( file_exists( SPP_PLUGIN_DIR . 'includes/class-spp-github-updater.php' ) ) {
+            require_once SPP_PLUGIN_DIR . 'includes/class-spp-github-updater.php';
+        }
 
         // Menu integration.
         require_once SPP_PLUGIN_DIR . 'includes/class-spp-menu-integration.php';
@@ -141,8 +144,11 @@ class SPP_Plugin {
         $this->loader->add_action( 'admin_notices', $this, 'show_security_notices' );
 
         // GitHub updater: check WordPress.org first, fall back to GitHub.
-        $github_updater = new SPP_GitHub_Updater();
-        $github_updater->init();
+        // Class absent in WordPress.org builds (see .distignore).
+        if ( class_exists( 'SPP_GitHub_Updater' ) ) {
+            $github_updater = new SPP_GitHub_Updater();
+            $github_updater->init();
+        }
 
         // Auto-update control.
         $this->loader->add_filter( 'auto_update_plugin', $this, 'control_auto_update', 10, 2 );

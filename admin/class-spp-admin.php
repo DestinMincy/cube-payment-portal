@@ -475,6 +475,7 @@ class SPP_Admin {
                     array(
                         'ajaxUrl' => admin_url( 'admin-ajax.php' ),
                         'nonce'   => wp_create_nonce( 'spp_admin_nonce' ),
+                        'debug'   => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
                     )
                 );
             }

@@ -62,5 +62,12 @@ build.sh
 build.ps1
 *.zip
 
+# Old main plugin file (renamed to cube-payment-portal.php for WP.org compliance)
+square-payment-portal.php
+
+# GitHub updater — prohibited by WordPress.org plugin guidelines.
+# Keep in the GitHub repo but exclude from the .org submission package.
+includes/class-spp-github-updater.php
+
 # Distribution ignore itself
 .distignore

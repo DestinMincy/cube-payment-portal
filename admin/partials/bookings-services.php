@@ -137,7 +137,11 @@ if ( is_wp_error( $services ) ) {
                                         <div>
                                             <?php echo esc_html( $item_data['name'] ); ?>
                                             <div style="font-size: 12px; color: #666; margin-top: 2px;">
-                                                <?php echo $bookable ? '<span style="color: #28a745;">&#10003; Online Booking</span>' : '<span style="color: #999;">Not Bookable Online</span>'; ?>
+                                                <?php if ( $bookable ) : ?>
+                                    <span style="color: #28a745;">&#10003; <?php esc_html_e( 'Online Booking', 'cube-payment-portal' ); ?></span>
+                                <?php else : ?>
+                                    <span style="color: #999;"><?php esc_html_e( 'Not Bookable Online', 'cube-payment-portal' ); ?></span>
+                                <?php endif; ?>
                                                 <?php if ( $has_multiple ) : ?>
                                                     <span style="color: #888; margin-left: 6px;">&middot; <?php echo esc_html( count( $variations ) . ' ' . __( 'variants', 'cube-payment-portal' ) ); ?></span>
                                                 <?php endif; ?>

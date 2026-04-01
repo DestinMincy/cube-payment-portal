@@ -220,6 +220,7 @@ class SPP_Public {
                 'sessionTimeout'   => (int) get_option( 'spp_portal_session_timeout', 30 ),
                 'allowStaffSelection' => (bool) get_option( 'spp_allow_staff_selection', false ),
                 'logoutUrl'        => wp_logout_url( SPP_Plugin::get_logout_redirect_url() ),
+                'debug'            => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
             )
         );
     }

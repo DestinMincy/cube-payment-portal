@@ -315,13 +315,13 @@ class SPP_Square_Client {
 
             // Handle rate limiting with Retry-After header.
             if ( 'rate_limited' === $error_code ) {
-                $error_data = $result->get_error_data();
-                $wait_seconds = isset( $error_data['retry_after'] ) ? $error_data['retry_after'] : 60;
-                // Cap at 30 seconds for sync operations.
-                $wait_seconds = min( $wait_seconds, 30 );
+                $error_data   = $result->get_error_data();
+                $wait_seconds = isset( $error_data['retry_after'] ) ? $error_data['retry_after'] : 10;
+                // Cap at 10 seconds — PHP max_execution_time is often 30s on shared hosts.
+                $wait_seconds = min( $wait_seconds, 10 );
             } else {
-                // Exponential backoff: 1s, 2s, 4s.
-                $wait_seconds = pow( 2, $attempt );
+                // Exponential backoff: 1s, 2s, 4s — capped at 5s to stay within execution limits.
+                $wait_seconds = min( pow( 2, $attempt ), 5 );
             }
 
             if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {

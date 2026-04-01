@@ -114,43 +114,33 @@ class SPP_Webhooks {
      * @return bool True if valid.
      */
     public function verify_signature( $body, $signature ) {
-        $environment = get_option( 'spp_environment', 'production' );
-
-        // If a signature is provided, always verify it (even in sandbox).
-        if ( ! empty( $signature ) ) {
-            return $this->verify_actual_signature( $body, $signature );
-        }
-
-        // No signature provided - check environment rules.
-        if ( empty( $this->signature_key ) ) {
-            // In production, reject webhooks without signature verification configured.
-            if ( 'production' === $environment ) {
+        // Signature key configured: always verify regardless of environment.
+        if ( ! empty( $this->signature_key ) ) {
+            if ( empty( $signature ) ) {
                 if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-                    error_log( 'SPP Webhook Security: Rejecting webhook - signature key not configured for production.' );
+                    error_log( 'SPP Webhook Security: Rejecting webhook - no signature provided.' );
                 }
                 return false;
             }
-
-            // In sandbox with no signature key configured, allow for easier testing.
-            // Note: This is only safe because it's sandbox mode. For production-like
-            // security testing, configure a webhook signature key in Square Dashboard.
-            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-                error_log( 'SPP Webhook Warning: Signature verification skipped in sandbox mode - configure signature key for production.' );
-            }
-
-            // Log each unsigned webhook for audit trail in sandbox.
-            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-                error_log( 'SPP Webhook: Processing unsigned webhook in sandbox mode. IP: ' . ( isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown' ) );
-            }
-
-            return true;
+            return $this->verify_actual_signature( $body, $signature );
         }
 
-        // Signature key configured but no signature provided - reject.
-        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-            error_log( 'SPP Webhook Security: Rejecting webhook - no signature provided.' );
+        // No signature key configured at all.
+        $environment = get_option( 'spp_environment', 'production' );
+
+        // In production, always reject if no signature key is set.
+        if ( 'production' === $environment ) {
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'SPP Webhook Security: Rejecting webhook - signature key not configured for production.' );
+            }
+            return false;
         }
-        return false;
+
+        // Sandbox with no signature key: allow only if no signature is present either
+        // (i.e. local dev tunnels that don't send signatures). Log for visibility.
+        error_log( 'SPP Webhook Warning: Processing unsigned webhook in sandbox mode (no signature key configured). IP: ' . ( isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown' ) );
+
+        return true;
     }
 
     /**

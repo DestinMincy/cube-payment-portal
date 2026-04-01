@@ -65,7 +65,7 @@ jQuery(document).ready(function ($) {
                 };
             },
             failure: function () {
-                console.error('[SPP Calendar] Failed to load events.');
+                sppCalendar && sppCalendar.debug && console.error('[SPP Calendar] Failed to load events.');
             }
         },
 

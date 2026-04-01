@@ -727,7 +727,8 @@ jQuery(document).ready(function($) {
                 html += '</tbody></table>';
                 $('#spp-history-content').html(html);
             } else {
-                $('#spp-history-content').html('<p style="color: #c62828;">' + (response.data.message || 'Error loading history.') + '</p>');
+                var $errP = $('<p>').css('color', '#c62828').text(response.data.message || '<?php echo esc_js( __( 'Error loading history.', 'cube-payment-portal' ) ); ?>');
+                $('#spp-history-content').empty().append($errP);
             }
         });
     });

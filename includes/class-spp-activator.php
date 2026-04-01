@@ -224,6 +224,7 @@ class SPP_Activator {
      */
     public static function migrate_tables() {
         global $wpdb;
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
         
         // Ensure bookings table exists (added in 1.0.6).
         if ( method_exists( 'SPP_Database', 'create_bookings_table' ) ) {
@@ -334,6 +335,7 @@ class SPP_Activator {
         if ( ! in_array( 'birthday', $customer_col_names, true ) ) {
             $wpdb->query( "ALTER TABLE `{$table_customers}` ADD COLUMN birthday VARCHAR(10) DEFAULT NULL AFTER address_country" );
         }
+        // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
     }
 
     /**

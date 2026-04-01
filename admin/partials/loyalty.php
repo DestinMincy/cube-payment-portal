@@ -614,12 +614,15 @@ jQuery(document).ready(function($) {
                     $('#spp-events-table tbody').html(html);
                 } else {
                     console.error('Events error:', response.data);
-                    $('#spp-events-table tbody').html('<tr><td colspan="4" style="text-align: center; color: #dc3232;">Error: ' + (response.data.message || 'Unknown error') + '</td></tr>');
+                    var $errRow = $('<tr><td colspan="4" style="text-align: center; color: #dc3232;"></td></tr>');
+                    $errRow.find('td').text('<?php echo esc_js( __( 'Error:', 'cube-payment-portal' ) ); ?> ' + (response.data.message || '<?php echo esc_js( __( 'Unknown error', 'cube-payment-portal' ) ); ?>'));
+                    $('#spp-events-table tbody').html($errRow);
                 }
             },
             error: function(xhr, status, error) {
-                console.error('AJAX error:', status, error);
-                $('#spp-events-table tbody').html('<tr><td colspan="4" style="text-align: center; color: #dc3232;">AJAX Error: ' + error + '</td></tr>');
+                var $errRow = $('<tr><td colspan="4" style="text-align: center; color: #dc3232;"></td></tr>');
+                $errRow.find('td').text('<?php echo esc_js( __( 'AJAX Error:', 'cube-payment-portal' ) ); ?> ' + error);
+                $('#spp-events-table tbody').html($errRow);
             }
         });
     }

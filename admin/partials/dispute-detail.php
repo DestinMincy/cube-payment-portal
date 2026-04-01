@@ -306,8 +306,18 @@ jQuery(document).ready(function($) {
         $('#dispute-reason').text(dispute.reason || '-');
         $('#dispute-card-brand').text(dispute.card_brand || '-');
         $('#dispute-created').text(formatDate(dispute.created_at));
-        $('#dispute-payment-id').html(dispute.payment_id ? '<code style="font-size: 11px;">' + dispute.payment_id + '</code>' : '-');
-        $('#dispute-location-id').html(dispute.location_id ? '<code style="font-size: 11px;">' + dispute.location_id + '</code>' : '-');
+        if (dispute.payment_id) {
+            var $payCode = $('<code>').css('font-size', '11px').text(dispute.payment_id);
+            $('#dispute-payment-id').empty().append($payCode);
+        } else {
+            $('#dispute-payment-id').text('-');
+        }
+        if (dispute.location_id) {
+            var $locCode = $('<code>').css('font-size', '11px').text(dispute.location_id);
+            $('#dispute-location-id').empty().append($locCode);
+        } else {
+            $('#dispute-location-id').text('-');
+        }
         
         // Suggested Evidence based on reason
         var suggestedTypes = getSuggestedEvidence(dispute.reason);

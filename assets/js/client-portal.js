@@ -209,7 +209,7 @@
                 }).then((response) => {
                     $target.replaceWith(response.html);
                 }).catch((error) => {
-                    console.warn('SPPPortal: Widget load failed for', componentId, error);
+                    sppPublic && sppPublic.debug && console.warn('SPPPortal: Widget load failed for', componentId, error);
                     $target.replaceWith(`<p class="spp-portal__text--muted spp-portal__text--sm">Unable to load. <a href="#" class="spp-portal__link" data-spp-refresh="${this.escapeHtml(componentId)}">Retry</a></p>`);
                 });
             });
@@ -1222,7 +1222,7 @@
                 const $container = $(container);
 
                 if (!$container.length) {
-                    console.error('SPPPortal: Content container not found:', container);
+                    sppPublic && sppPublic.debug && console.error('SPPPortal: Content container not found:', container);
                     return;
                 }
 
@@ -1280,7 +1280,7 @@
                     }
 
                 } catch (error) {
-                    console.error('SPPPortal: Failed to load view:', error);
+                    sppPublic && sppPublic.debug && console.error('SPPPortal: Failed to load view:', error);
                     SPPPortal.ui.hideLoading($container, `
                         <div class="spp-error-state">
                             <p>Failed to load content. Please try again.</p>
@@ -1325,7 +1325,7 @@
                 const $component = $(`#${componentId}, [data-spp-component="${componentId}"]`);
 
                 if (!$component.length) {
-                    console.error('SPPPortal: Component not found:', componentId);
+                    sppPublic && sppPublic.debug && console.error('SPPPortal: Component not found:', componentId);
                     return;
                 }
 
@@ -1361,7 +1361,7 @@
                     }));
 
                 } catch (error) {
-                    console.error('SPPPortal: Failed to refresh component:', error);
+                    sppPublic && sppPublic.debug && console.error('SPPPortal: Failed to refresh component:', error);
                     SPPPortal.ui.hideLoading($component);
                     SPPPortal.ui.showNotification('Failed to refresh content.', 'error');
                 }
@@ -1672,13 +1672,13 @@
          */
         initSquare: async function () {
             if (typeof Square === 'undefined') {
-                console.warn('Square Web SDK not loaded - payment features disabled.');
+                sppPublic && sppPublic.debug && console.warn('Square Web SDK not loaded - payment features disabled.');
                 this.showSquareLoadError('The Square payment SDK could not be loaded. Please refresh the page or try again later.');
                 return;
             }
 
             if (!sppPublic.applicationId || !sppPublic.locationId) {
-                console.warn('Square credentials not configured.');
+                sppPublic && sppPublic.debug && console.warn('Square credentials not configured.');
                 this.showSquareLoadError('Payment processing is not configured. Please contact the site administrator.');
                 return;
             }
@@ -1691,7 +1691,7 @@
                     await this.initCardForm();
                 }
             } catch (error) {
-                console.error('Failed to initialize Square:', error);
+                sppPublic && sppPublic.debug && console.error('Failed to initialize Square:', error);
                 const detail = error.message || 'Unknown error';
                 this.showSquareLoadError('Failed to initialize payment form. ' + detail);
                 this.ui.showNotification('Failed to initialize payment form: ' + detail, 'error', { timeout: 0 });
@@ -1730,7 +1730,7 @@
                 // Show container now that card is loaded
                 $('#spp-card-container').css('opacity', '1');
             } catch (error) {
-                console.error('Failed to initialize card form:', error);
+                sppPublic && sppPublic.debug && console.error('Failed to initialize card form:', error);
                 this.ui.showNotification('Failed to load card input. Please refresh the page.', 'error');
             }
         },
@@ -2133,7 +2133,7 @@
                     this.ui.showNotification(errorMessage, 'error');
                 }
             } catch (error) {
-                console.error('Add card error:', error);
+                sppPublic && sppPublic.debug && console.error('Add card error:', error);
                 this.ui.showNotification(error.message || 'An error occurred while processing your card.', 'error');
             } finally {
                 this.ui.setButtonLoading($submit, false);
@@ -2177,7 +2177,7 @@
                 await this.processPayment(sourceId, amount);
 
             } catch (error) {
-                console.error('Payment error:', error);
+                sppPublic && sppPublic.debug && console.error('Payment error:', error);
                 this.ui.showNotification(error.message || 'An error occurred while processing your payment.', 'error');
                 this.ui.setButtonLoading($submit, false);
             }
