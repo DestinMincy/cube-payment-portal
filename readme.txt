@@ -144,7 +144,7 @@ Yes. You can select your default location in **Settings > General**, and the adm
 
 = 1.1.7 =
 * Fixed: Renamed main plugin file to `cube-payment-portal.php` for WordPress.org compliance (directory/file name must match).
-* Fixed: GitHub auto-updater excluded from WordPress.org build via `.distignore`; plugin loader guards against its absence gracefully.
+* Changed: GitHub auto-updater removed; plugin updates are now handled exclusively through WordPress.org.
 * Fixed: WooCommerce payment gateway now performs real Square payment processing — previous stub accepted all orders without charging.
 * Fixed: WooCommerce refund handler now submits actual refund requests to Square instead of always returning true.
 * Fixed: Removed unsupported WooCommerce Subscriptions feature declarations from gateway `$supports` array.

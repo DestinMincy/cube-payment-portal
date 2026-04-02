@@ -506,6 +506,12 @@ class SPP_Activator {
                 update_option( $option_key, $page_id, false );
             }
         }
+
+        // Assign the portal page template to all portal pages.
+        if ( ! class_exists( 'SPP_Template_Loader' ) ) {
+            require_once SPP_PLUGIN_DIR . 'includes/class-spp-template-loader.php';
+        }
+        SPP_Template_Loader::apply_to_portal_pages();
     }
 
     /**

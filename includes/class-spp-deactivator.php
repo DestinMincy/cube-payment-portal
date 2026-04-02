@@ -42,8 +42,30 @@ class SPP_Deactivator {
         wp_clear_scheduled_hook( 'spp_token_refresh_check' );
         wp_clear_scheduled_hook( 'spp_invoice_sync' );
         wp_clear_scheduled_hook( 'spp_customer_sync' );
-        
+
+        // Permanently delete portal pages so they are recreated fresh on reactivation.
+        self::delete_pages();
+
         // Flush rewrite rules.
         flush_rewrite_rules();
+    }
+
+    /**
+     * Permanently delete portal pages and clear their stored IDs.
+     */
+    private static function delete_pages() {
+        $page_options = array(
+            'spp_portal_page_id',
+            'spp_login_page_id',
+            'spp_register_page_id',
+        );
+
+        foreach ( $page_options as $option ) {
+            $page_id = (int) get_option( $option, 0 );
+            if ( $page_id ) {
+                wp_delete_post( $page_id, true ); // true = bypass trash, force delete.
+            }
+            delete_option( $option );
+        }
     }
 }
