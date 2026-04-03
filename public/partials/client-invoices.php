@@ -288,7 +288,7 @@ $status_map = array(
                                             $total_price = ! empty( $item['total_money']['amount'] ) ? $item['total_money']['amount'] / 100 : ( $unit_price * $qty );
                                             $border_style = ( $current < $item_count ) ? 'border-bottom: 1px solid var(--spp-border-light); padding-bottom: var(--spp-space-3); margin-bottom: var(--spp-space-3);' : '';
                                         ?>
-                                            <div class="spp-flex spp-justify-between spp-items-start" style="<?php echo $border_style; ?>">
+                                            <div class="spp-flex spp-justify-between spp-items-start" style="<?php echo esc_attr( $border_style ); ?>">
                                                 <div style="flex: 1; padding-right: var(--spp-space-4);">
                                                     <div style="font-weight: 500; font-size: var(--spp-text-sm); color: var(--spp-text-main);"><?php echo esc_html( $item['name'] ?? 'Item' ); ?></div>
                                                     <div class="spp-portal__text--muted spp-portal__text--xs" style="margin-top: 2px;">

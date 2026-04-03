@@ -107,7 +107,7 @@ foreach ( $reward_tiers as $tier ) {
                     $can_redeem      = $points_balance >= $required_points;
                     $remaining       = $required_points - $points_balance;
                     ?>
-                    <div class="spp-portal__card" style="<?php echo $can_redeem ? 'border-left: 3px solid var(--spp-success, #22c55e);' : ''; ?>">
+                    <div class="spp-portal__card" style="<?php echo esc_attr( $can_redeem ? 'border-left: 3px solid var(--spp-success, #22c55e);' : '' ); ?>">
                         <div class="spp-flex spp-justify-between spp-items-center">
                             <div>
                                 <strong style="font-size: var(--spp-text-base);">

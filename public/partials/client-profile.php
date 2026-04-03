@@ -453,7 +453,7 @@ if ( ! empty( $phone ) ) {
             // Default to enabled if meta not set (opt-out model).
             $is_on = ( '' === $enabled || '1' === $enabled );
             ?>
-            <div class="spp-flex spp-justify-between spp-items-center" style="padding: 14px 0; <?php echo ( $key !== 'promotional' ) ? 'border-bottom: 1px solid var(--spp-border-light);' : ''; ?>">
+            <div class="spp-flex spp-justify-between spp-items-center" style="<?php echo esc_attr( 'padding: 14px 0;' . ( ( $key !== 'promotional' ) ? ' border-bottom: 1px solid var(--spp-border-light);' : '' ) ); ?>">
                 <div style="flex: 1; min-width: 0; padding-right: var(--spp-space-4);">
                     <span style="font-size: var(--spp-text-sm); font-weight: 500; display: block; margin-bottom: 2px;">
                         <?php echo esc_html( $type['label'] ); ?>
