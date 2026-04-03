@@ -1,552 +1,577 @@
-# Cube Payment Portal for WordPress
+<p align="left">
+  <img src="assets/images/icon.png" alt="Cube Payment Portal" width="250">
+</p>
 
-A comprehensive WordPress plugin that integrates Square's payment platform to provide a client payment portal, subscription management, invoicing, and business owner dashboard.
+# Cube Payment Portal
 
-![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue)
-![PHP](https://img.shields.io/badge/PHP-7.4%2B-purple)
-![License](https://img.shields.io/badge/License-GPL--2.0-green)
+[![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue)](https://wordpress.org)
+[![PHP](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://php.net)
+[![Square](https://img.shields.io/badge/Square-API-black)](https://developer.squareup.com)
+[![License](https://img.shields.io/badge/License-GPL--2.0-green)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Version](https://img.shields.io/badge/Version-1.1.7-orange)](https://github.com/DestinMincy/cube-payment-portal)
+
+<p align="left">
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=500&size=22&pause=2000&color=C0C0C0&width=600&lines=Accept+payments+directly+from+your+WordPress+site.;Give+clients+a+self-service+portal+powered+by+Square.;Sync+invoices%2C+subscriptions%2C+and+bookings+automatically." alt="Typing SVG">
+  </a>
+</p>
+
+A self-service client portal for WordPress, powered by Square. Clients can pay invoices, manage subscriptions, save payment methods, view transaction history, book appointments, and more — all without leaving your site.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Shortcodes](#shortcodes)
+- [Client Portal Guide](#client-portal-guide)
+- [WooCommerce Integration](#woocommerce-integration)
+- [Webhooks](#webhooks)
+- [Security](#security)
+- [Page Template](#page-template)
+- [Developer Reference](#developer-reference)
+- [Troubleshooting](#troubleshooting)
+- [Changelog](#changelog)
+
+---
 
 ## Features
 
-### For Clients
-- **Account Management** - Create accounts, update profile information
-- **Payment Methods** - Securely save and manage credit/debit cards
-- **Subscriptions** - View, pause, resume, upgrade/downgrade, or cancel subscriptions
-- **Invoices** - View and pay outstanding invoices
-- **Payment History** - Access complete transaction history with receipts
+### Client Portal
+| Feature | Description |
+|---------|-------------|
+| Dashboard | Welcome card, quick-action buttons, and live summary widgets |
+| Payment Methods | Save, view, and delete credit/debit cards (Square Web Payments SDK) |
+| Invoices | View, filter, and pay Square invoices with one click |
+| Subscriptions | View plans; pause, resume, upgrade, downgrade, or cancel |
+| Transactions | Full payment history with receipt links |
+| Appointments | Upcoming and past bookings from Square Appointments |
+| Loyalty & Rewards | Points balance and redemption options from Square Loyalty |
+| Gift Cards | View linked gift cards, balances, and activity history |
+| Profile | Edit name, email, address, notifications; country selector included |
 
-### For Business Owners
-- **Dashboard** - Revenue overview, transaction monitoring, customer insights
-- **Subscription Management** - Create and manage subscription plans
-- **Invoice Creation** - Generate and send invoices to clients
-- **Customer Management** - View and manage client accounts
-- **Reports** - Export data, filter by date range, track MRR
+### Admin Dashboard
+| Feature | Description |
+|---------|-------------|
+| Revenue Overview | Charts, MRR, outstanding balances, transaction volume |
+| Customer Management | All Square customers linked to WordPress accounts |
+| Invoice Management | View and filter all Square invoices |
+| Subscription Plans | Manage plans and subscribers |
+| Catalog & Inventory | Synced Square Item Library with stock monitoring |
+| Bookings | View all appointments, filter by service and staff |
+| Disputes | Track and manage payment disputes |
+| Loyalty | Customer enrollment and points data |
+| Gift Cards | Issuance, balances, and activity logs |
+| Feature Toggles | Enable/disable modules individually |
+| Sync Scheduler | Per-type sync frequency (15 min → daily) |
 
 ### Integrations
-- **WooCommerce** - Use as checkout payment gateway
-- **Square Dashboard** - Bidirectional sync for subscription plans
-- **Multi-Location** - Optional support for businesses with multiple locations
+- **Square** — Payments, invoices, subscriptions, catalog, bookings, loyalty, gift cards, disputes
+- **WooCommerce** — Payment gateway using saved Square cards; order and download history in portal
+- **Block/FSE Themes** — Full compatibility; uses the theme's own header and footer
+- **Classic Themes** — Full compatibility via `get_header()` / `get_footer()`
 
 ---
 
 ## Requirements
 
-| Requirement | Version |
+| Requirement | Minimum |
 |-------------|---------|
-| WordPress | 5.0 or higher |
-| PHP | 7.4 or higher |
+| WordPress | 5.0 |
+| PHP | 7.4 |
 | SSL Certificate | Required (HTTPS) |
-| Square Account | [Developer Account](https://developer.squareup.com) |
-| WooCommerce | Optional (for e-commerce) |
+| Square Account | [Free sign-up](https://squareup.com) |
+| WooCommerce | Optional — 5.0+ for e-commerce features |
 
 ---
 
 ## Installation
 
-1. Download the plugin ZIP file
-2. Go to **Plugins → Add New → Upload Plugin**
-3. Upload the ZIP file and click **Install Now**
-4. Click **Activate Plugin**
-5. Navigate to **Cube Payment Portal → Settings**
-6. Click **Connect with Square** to authorize your account
+### From WordPress Admin
+1. Go to **Plugins → Add New → Upload Plugin**.
+2. Upload `cube-payment-portal.zip` and click **Install Now**.
+3. Click **Activate Plugin**.
+
+### Manual
+1. Upload the `cube-payment-portal` folder to `/wp-content/plugins/`.
+2. Activate via **Plugins → Installed Plugins**.
+
+### Initial Setup
+1. Go to **Cube Payment Portal → Settings → API Configuration**.
+2. Enter your **Application ID** and **Application Secret** from the [Square Developer Dashboard](https://developer.squareup.com).
+3. Click **Connect to Square** to complete the OAuth flow.
+4. On the **General** tab, select your default **Square Location**.
+
+The plugin automatically creates three pages on activation:
+
+| Page | Shortcode | Purpose |
+|------|-----------|---------|
+| Client Portal | `[spp_client_portal]` | Full portal (login + dashboard) |
+| Portal Login | `[spp_login_form]` | Standalone login form |
+| Portal Registration | `[spp_register_form]` | Standalone registration form |
+
+> **Note:** Deactivating the plugin deletes these pages. They are recreated fresh on reactivation.
 
 ---
 
 ## Configuration
 
-### Initial Setup
+### API Configuration
 
-1. **Connect to Square**
-   - Go to **Cube Payment Portal → Settings**
-   - Click **Connect with Square**
-   - Authorize the plugin to access your Square account
-   - Verify connection status shows "Connected"
-
-2. **Set Default Location**
-   - Select your primary business location
-   - This is required even for single-location businesses
-
-3. **Create Portal Pages**
-   - Create a new page for the Client Portal
-   - Add the shortcode `[spp_client_portal]`
-   - Assign this page in Settings → General Settings
-
-### Settings Overview
-
-#### API Configuration
 | Setting | Description |
 |---------|-------------|
-| Environment | Switch between Sandbox (testing) and Production |
 | Application ID | Your Square Application ID |
-| Connect with Square | OAuth connection button |
-| Connection Status | Shows connected account details |
+| Application Secret | Your Square Application Secret |
+| Connect to Square | Initiates the OAuth authorisation flow |
+| Connection Status | Shows the connected Square account name and location |
 
-#### General Settings
+> **Sandbox mode:** Define `SPP_DEVELOPER_MODE` in `wp-config.php` to reveal sandbox environment options for testing.
+
+```php
+// wp-config.php
+define( 'SPP_DEVELOPER_MODE', true );
+```
+
+### General Settings
+
 | Setting | Description |
 |---------|-------------|
-| Client Portal Page | Page displaying the client portal |
-| Owner Dashboard Page | Page for business owner dashboard |
-| Default Currency | USD, CAD, GBP, etc. |
-| Sandbox Mode | Enable for testing without real transactions |
+| Default Location | Primary Square location for payments and syncing |
+| Default Currency | USD, CAD, GBP, AUD, etc. |
+| Portal Accent Color | Hex colour applied to buttons and highlights |
+| Custom CSS | Additional CSS injected into the portal stylesheet |
 
-#### Client Portal Settings
+### Client Portal Settings
+
 | Setting | Description |
 |---------|-------------|
-| Enable Registration | Allow new clients to sign up |
-| Require Email Verification | Confirm email before access |
-| Max Cards Per Client | Limit saved payment methods (default: 5) |
-| Allow Card Deletion | Let clients remove saved cards |
+| Enable Registration | Allow new clients to register from the portal |
+| Require Email Verification | Confirm email address before granting access |
+| Max Cards Per Client | Limit on saved payment methods (default: 5) |
+| Allow Card Deletion | Let clients remove their saved cards |
+| Welcome Message | Custom greeting shown on the dashboard |
+| Quick Actions | Configure which shortcut buttons appear on the dashboard |
+| Dashboard Widgets | Configure and reorder the summary widget cards |
 
-#### Subscription Settings
-| Setting | Description |
-|---------|-------------|
-| Sync Direction | WordPress→Square, Square→WordPress, or Both |
-| Auto-sync Interval | Hourly or Daily |
-| Default Trial Period | Days for free trials (0 for none) |
-| Proration Mode | How mid-cycle changes are billed |
+### Feature Toggles
 
-#### Location Settings (Optional)
-| Setting | Description |
-|---------|-------------|
-| Enable Multi-Location | Activate location support |
-| Default Location | Primary location for payments |
-| Location Selection | How clients are assigned to locations |
+Each module can be enabled or disabled independently:
+
+| Module | Default |
+|--------|---------|
+| Invoices | On |
+| Subscriptions | On |
+| Bookings | Off |
+| Loyalty & Rewards | Off |
+| Gift Cards | Off |
+| Disputes | Off |
+| Catalog | Off |
+| Inventory | Off |
+
+### Sync Scheduler
+
+Configure independent sync frequencies for each data type:
+
+| Data Type | Options | Default |
+|-----------|---------|---------|
+| Customers | 15 min / 30 min / Hourly / 6 Hours / Daily / Disabled | Hourly |
+| Invoices | 15 min / 30 min / Hourly / 6 Hours / Daily / Disabled | Hourly |
+| Subscriptions | 15 min / 30 min / Hourly / 6 Hours / Daily / Disabled | Hourly |
+| Transactions | 15 min / 30 min / Hourly / 6 Hours / Daily / Disabled | 6 Hours |
+| Catalog | 15 min / 30 min / Hourly / 6 Hours / Daily / Disabled | Daily |
+| Orders | 15 min / 30 min / Hourly / 6 Hours / Daily / Disabled | Daily |
+| Gift Card Activities | 15 min / 30 min / Hourly / 6 Hours / Daily / Disabled | 6 Hours |
 
 ---
 
 ## Shortcodes
 
-### Client Portal
-```
-[spp_client_portal]
-```
-Displays the complete client portal including login, registration, dashboard, payment methods, and subscription management.
+### `[spp_client_portal]`
+Full client portal — handles login, registration, and the authenticated dashboard in one shortcode.
 
-**Parameters:**
-| Parameter | Description | Default |
+| Attribute | Description | Default |
 |-----------|-------------|---------|
-| `redirect_url` | URL to redirect after login | Current page |
+| `redirect_url` | URL to redirect to after login | Current page |
 
-### Payment Form
-```
-[spp_payment_form amount="50.00" description="Service Payment"]
-```
-Displays a quick payment form for one-time payments.
+### `[spp_login_form]`
+Standalone login form. Redirects already-logged-in users to the portal.
 
-**Parameters:**
-| Parameter | Description | Default |
+| Attribute | Description | Default |
 |-----------|-------------|---------|
-| `amount` | Fixed payment amount | Required |
-| `description` | Payment description | Optional |
+| `redirect_to` | URL after successful login | Portal page |
+| `show_logo` | Show site logo above the form | `true` |
+| `show_remember` | Show "Remember Me" checkbox | `true` |
+| `show_register` | Show link to registration page | `false` |
+| `contact_url` | URL for "Need help?" link | Empty |
 
-### Payment Button
-```
-[spp_payment_button amount="25.00" text="Pay Now" style="primary"]
-```
-Displays a simple payment button.
+### `[spp_register_form]`
+Standalone registration form.
 
-**Parameters:**
-| Parameter | Description | Default |
+| Attribute | Description | Default |
+|-----------|-------------|---------|
+| `redirect_to` | URL after successful registration | Portal page |
+| `show_logo` | Show site logo above the form | `true` |
+
+### `[spp_payment_form]`
+One-time payment form with Square Web Payments SDK card entry.
+
+| Attribute | Description | Default |
+|-----------|-------------|---------|
+| `amount` | Fixed payment amount in dollars | Required |
+| `description` | Payment description shown on receipt | Empty |
+
+### `[spp_payment_button]`
+Minimal pay button that opens the payment form in a modal.
+
+| Attribute | Description | Default |
 |-----------|-------------|---------|
 | `amount` | Payment amount | Required |
-| `text` | Button text | "Pay" |
-| `style` | Button style (primary/secondary) | "primary" |
+| `text` | Button label | `Pay` |
+| `style` | `primary` or `secondary` | `primary` |
 
-### Subscription Plans
-```
-[spp_subscription_plans columns="3"]
-```
-Displays available subscription plans in a grid.
+### `[spp_subscription_plans]`
+Subscription plan grid pulled from Square.
 
-**Parameters:**
-| Parameter | Description | Default |
+| Attribute | Description | Default |
 |-----------|-------------|---------|
-| `plan_ids` | Comma-separated plan IDs | All active |
-| `columns` | Grid columns (1-4) | 3 |
+| `plan_ids` | Comma-separated Square plan IDs | All active plans |
+| `columns` | Grid columns (1–4) | `3` |
 
-### Subscribe Button
-```
-[spp_subscribe_button plan_id="PLAN_ID" text="Subscribe"]
-```
-Button to subscribe to a specific plan.
+### `[spp_subscribe_button]`
+Subscribe button for a specific plan.
 
-**Parameters:**
-| Parameter | Description | Default |
+| Attribute | Description | Default |
 |-----------|-------------|---------|
-| `plan_id` | Square plan ID | Required |
-| `text` | Button text | "Subscribe" |
+| `plan_id` | Square catalog subscription plan ID | Required |
+| `text` | Button label | `Subscribe` |
 
-### My Subscriptions
-```
-[spp_my_subscriptions show_history="true"]
-```
-Displays logged-in client's subscriptions.
+### `[spp_my_subscriptions]`
+Displays the logged-in client's subscriptions.
 
-**Parameters:**
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `show_history` | Show billing history | "false" |
+### `[spp_my_bookings]`
+Displays the logged-in client's upcoming and past bookings.
+
+### `[spp_loyalty_points]`
+Displays the logged-in client's loyalty points balance.
 
 ---
 
 ## Client Portal Guide
 
-### Registration
-1. Navigate to the Client Portal page
-2. Click **Create Account**
-3. Enter name, email, and password
-4. Verify email if required
-5. Log in to access the portal
+### For Clients — Getting Started
+
+1. Navigate to the Client Portal page on your site.
+2. Click **Create Account** (if registration is enabled) or **Sign In**.
+3. After logging in you land on the dashboard — a summary of your account.
+
+### Paying an Invoice
+
+1. Click **Invoices** in the sidebar (or the **Pay Invoice** quick-action button).
+2. Find the invoice and click **Pay Now**.
+3. Confirm the amount and select or enter a payment card.
+4. Click **Pay** — you receive an email receipt automatically.
 
 ### Managing Payment Methods
-1. Go to **My Payment Methods**
-2. Click **Add New Card**
-3. Enter card details (processed securely by Square)
-4. Card is saved for future payments
+
+1. Click **Payment Methods** in the sidebar.
+2. Click **Add New Card** — the Square card form appears.
+3. Enter your card details. The card is tokenised by Square client-side and saved to your account.
+4. To remove a card, click the delete icon next to it.
 
 ### Managing Subscriptions
-Clients can self-manage their subscriptions:
 
-| Action | Description |
-|--------|-------------|
-| **View Details** | See plan info, billing schedule, payment method |
-| **Change Plan** | Upgrade or downgrade to different plan |
-| **Update Card** | Change payment method for subscription |
-| **Pause** | Temporarily stop billing (if enabled) |
-| **Resume** | Restart a paused subscription |
-| **Cancel** | Cancel at end of current billing period |
-| **View History** | See all past payments |
-
-### Paying Invoices
-1. Go to **My Invoices**
-2. Click on an unpaid invoice
-3. Review invoice details
-4. Click **Pay Now** to pay with saved card or new card
+| Action | How |
+|--------|-----|
+| View details | Click the subscription card to expand |
+| Change plan | Click **Change Plan** and select a new plan |
+| Update billing card | Click **Update Card** |
+| Pause | Click **Pause Subscription** |
+| Resume | Click **Resume** on a paused subscription |
+| Cancel | Click **Cancel Subscription** |
 
 ---
 
 ## WooCommerce Integration
 
-When WooCommerce is installed and active, Cube Payment Portal automatically registers as a payment gateway.
+When WooCommerce is installed and active, Cube Payment Portal registers automatically as a payment gateway.
 
-### Enabling at Checkout
-1. Go to **WooCommerce → Settings → Payments**
-2. Enable **Cube Payment Portal**
-3. Configure gateway settings
+### Enabling the Gateway
 
-### Features
-- Pay with saved cards from portal account
-- Save new cards during checkout
-- Digital wallets (Apple Pay, Google Pay)
-- WooCommerce Subscriptions compatibility
+1. Go to **WooCommerce → Settings → Payments**.
+2. Enable **Cube Payment Portal**.
+3. Customers who are logged in and have saved cards in their portal account can select a card at checkout.
+4. New cards entered at checkout are saved to the portal account.
 
-### Shared Customer Data
-- WooCommerce customers linked to portal accounts
-- Saved cards available at checkout
-- Order history synced with portal
+### Refunds
 
----
+Refunds initiated from **WooCommerce → Orders** are submitted to Square automatically and the refund ID is stored against the order.
 
-## Subscription Plans
+### Client Portal Order History
 
-### Creating Plans (WordPress)
-1. Go to **Square Portal → Subscription Plans**
-2. Click **Add New Plan**
-3. Configure:
-   - Plan name and description
-   - Price and billing frequency
-   - Free trial period (optional)
-4. Save and sync to Square
-
-### Creating Plans (Square Dashboard)
-Plans created in Square Dashboard automatically sync to WordPress via webhooks.
-
-### Billing Frequencies
-- Weekly
-- Monthly
-- Quarterly
-- Annually
-
-### Plan Changes
-When clients change plans, proration is handled according to your settings:
-- **Prorate Immediately** - Credit remaining time, charge new plan
-- **Change at Renewal** - Continue current plan until next billing date
-- **No Proration** - Charge full new plan price immediately
-
----
-
-## Invoicing
-
-### Creating Invoices
-1. Go to **Square Portal → Invoices**
-2. Click **Create Invoice**
-3. Select client
-4. Add line items
-5. Set due date
-6. Click **Send**
-
-### Invoice Features
-- Multiple line items per invoice
-- Automatic email delivery
-- Payment reminder emails
-- Auto-pay from saved cards (if enabled)
-- Manual payment recording
-
-### Invoice Statuses
-| Status | Description |
-|--------|-------------|
-| Draft | Not yet sent |
-| Unpaid | Sent, awaiting payment |
-| Partially Paid | Partial payment received |
-| Paid | Fully paid |
-| Canceled | Invoice canceled |
-| Refunded | Payment refunded |
-
----
-
-## Multi-Location Support
-
-For businesses with multiple Square locations.
-
-### Enabling
-1. Go to **Settings → Location Settings**
-2. Toggle **Enable Multi-Location**
-3. Click **Sync Locations** to fetch from Square
-4. Configure location assignment method
-
-### Location Assignment Options
-| Option | Description |
-|--------|-------------|
-| Admin Assigns | Only admins set client locations |
-| Client Selects | Clients choose during registration |
-| WooCommerce Based | Based on billing/shipping address |
-| Auto-detect | Nearest location using geo-data |
-
-### Dashboard Filtering
-When enabled, the Owner Dashboard allows filtering all reports by location.
+Logged-in WooCommerce customers can view their order history and downloadable files from the **portal dashboard** without visiting the WooCommerce My Account page.
 
 ---
 
 ## Webhooks
 
-The plugin automatically handles Square webhooks for real-time updates.
+Square webhooks keep your data up to date in real time between scheduled syncs.
 
-### Webhook URL
-Your webhook URL is displayed in **Settings → Webhook Configuration**.
+### Setup
 
-### Monitored Events
-- `payment.completed` - Payment successful
-- `payment.failed` - Payment failed
-- `refund.created` - Refund processed
-- `subscription.created` - New subscription
-- `subscription.updated` - Subscription changed
-- `invoice.payment_made` - Invoice paid
-- `catalog.version.updated` - Plan changes
+1. Go to **Cube Payment Portal → Settings → Webhooks**.
+2. Copy the **Webhook Endpoint URL**.
+3. In the [Square Developer Dashboard](https://developer.squareup.com), open your application and go to **Webhooks → Subscriptions**.
+4. Add the endpoint URL and subscribe to the events listed below.
+5. Copy the **Signature Key** Square generates and paste it into the plugin's Webhook settings.
 
-### Setup in Square
-1. Go to [Square Developer Dashboard](https://developer.squareup.com)
-2. Select your application
-3. Go to **Webhooks**
-4. Add your webhook URL
-5. Select events to monitor
-6. Copy signature key to plugin settings
+### Supported Events
+
+| Square Event | Effect |
+|--------------|--------|
+| `payment.completed` | Records transaction, updates invoice status |
+| `payment.updated` | Updates payment status |
+| `refund.created` | Records refund against transaction |
+| `invoice.payment_made` | Marks invoice as paid |
+| `invoice.updated` | Syncs invoice status changes |
+| `subscription.created` | Creates subscription record |
+| `subscription.updated` | Updates subscription status |
+| `catalog.version.updated` | Triggers catalog re-sync |
+| `booking.created` | Creates booking record |
+| `booking.updated` | Updates booking status |
+| `gift_card_activity.created` | Records gift card activity in real time |
+| `customer.created` | Creates customer record |
+| `customer.updated` | Updates customer profile |
 
 ---
 
 ## Security
 
 ### PCI Compliance
-Card data is tokenized client-side using Square's Web Payments SDK. Card numbers never touch your server.
+Card data is tokenised entirely client-side by the [Square Web Payments SDK](https://developer.squareup.com/docs/web-payments/overview). Raw card numbers never reach your server. You operate outside PCI scope.
 
-### Data Protection
-- OAuth tokens encrypted using WordPress salts
-- All forms use WordPress nonces
-- Role-based access control
-- HTTPS required for all operations
+### Authentication & Authorisation
+- OAuth 2.0 with CSRF state-parameter protection.
+- OAuth tokens encrypted with AES-256-CBC before storage.
+- Every AJAX handler verifies a WordPress nonce.
+- Admin actions require `manage_options`. Client actions are gated to the `spp_client` role.
+- Configurable session timeout and rate limiting.
+
+### Webhook Verification
+HMAC-SHA256 signature verification on every incoming Square webhook event. Verification is **always enforced** when a signature key is configured, regardless of environment (sandbox or production).
+
+### IP Spoofing Protection
+Only `REMOTE_ADDR` is trusted for IP detection by default. To trust a reverse proxy, define:
+
+```php
+// wp-config.php
+define( 'SPP_TRUSTED_PROXY_IP', '10.0.0.1' ); // Your proxy's IP
+```
 
 ### User Roles
+
 | Role | Capabilities |
 |------|--------------|
-| `spp_client` | Access client portal, manage own data |
-| `administrator` | Full access to all features |
+| `spp_client` | Access own portal data, manage own payment methods and profile |
+| `spp_client_placeholder` | No access — placeholder for Square customers pending account claim |
+| `administrator` | Full access to all plugin features and settings |
+
+---
+
+## Page Template
+
+The plugin registers a **"Client Portal (Full Width)"** page template that:
+
+- Is automatically assigned to all portal pages on activation.
+- Works with **block/FSE themes** — WordPress renders the theme's own block template, the plugin strips the content-area width constraints via CSS.
+- Works with **classic themes** — `get_header()` / `get_footer()` are called, keeping the theme's navigation and footer intact.
+- Adds `body.spp-portal-template` so targeted CSS can neutralise theme layout constraints without affecting the header or footer.
+
+---
+
+## Developer Reference
+
+### Constants
+
+| Constant | Description |
+|----------|-------------|
+| `SPP_VERSION` | Plugin version string |
+| `SPP_PLUGIN_DIR` | Absolute path to plugin directory (trailing slash) |
+| `SPP_PLUGIN_URL` | URL to plugin directory (trailing slash) |
+| `SPP_PLUGIN_BASENAME` | Plugin basename (e.g. `cube-payment-portal/cube-payment-portal.php`) |
+| `SPP_MINIMUM_PHP_VERSION` | Minimum required PHP version |
+| `SPP_MINIMUM_WP_VERSION` | Minimum required WordPress version |
+| `SPP_DEVELOPER_MODE` | Define to reveal sandbox and developer settings |
+| `SPP_TRUSTED_PROXY_IP` | Define to trust `X-Forwarded-For` from a specific proxy IP |
+| `SPP_SKIP_SSL_CHECK` | Define to bypass the SSL requirement check (dev only) |
+
+### Actions
+
+```php
+// After a client registers
+do_action( 'spp_client_registered', $user_id, $square_customer_id );
+
+// After a payment is completed
+do_action( 'spp_payment_completed', $payment_id, $user_id, $amount );
+
+// After a subscription is created
+do_action( 'spp_subscription_created', $subscription_id, $user_id );
+
+// After a subscription is cancelled
+do_action( 'spp_subscription_canceled', $subscription_id, $user_id );
+
+// After a gift card activity arrives via webhook
+do_action( 'spp_gift_card_activity_created', $activity_id, $activity );
+```
+
+### Filters
+
+```php
+// Disable all plugin stylesheets (load your own)
+add_filter( 'spp_disable_styles', '__return_true' );
+
+// Modify which menu locations are checked for primary nav integration
+add_filter( 'spp_menu_locations', function( $locations ) {
+    $locations[] = 'my-custom-location';
+    return $locations;
+} );
+```
+
+### Custom CSS Variables
+
+Override the portal's design tokens in your theme stylesheet or the Custom CSS field:
+
+```css
+:root {
+    --spp-primary:           #006aff;
+    --spp-primary-hover:     #0055cc;
+    --spp-primary-gradient:  linear-gradient(135deg, #006aff, #00d2ff);
+    --spp-success:           #10b981;
+    --spp-warning:           #f59e0b;
+    --spp-error:             #ef4444;
+    --spp-text-main:         #1a1a2e;
+    --spp-text-muted:        #6b7280;
+    --spp-bg-secondary:      #f8fafc;
+    --spp-border-light:      #e5e7eb;
+    --spp-radius-lg:         12px;
+    --spp-font-body:         'Inter', system-ui, sans-serif;
+    --spp-font-heading:      'Lexend', system-ui, sans-serif;
+}
+```
 
 ---
 
 ## Troubleshooting
 
-### Connection Issues
-**"Failed to connect to Square"**
-- Verify SSL certificate is valid
-- Check Application ID is correct
-- Ensure OAuth credentials match environment
+### "Failed to connect to Square"
+- Confirm your site has a valid SSL certificate and is accessible over HTTPS.
+- Check the Application ID matches the environment (sandbox IDs start with `sandbox-`).
+- Ensure no security plugin is blocking the OAuth redirect.
 
-### Payment Failures
-**"Card declined"**
-- Card may have insufficient funds
-- Card may be expired
-- Bank may be blocking transaction
+### "Card declined" or "Invalid card token"
+- The card token expires after a few minutes — refresh the page and try again.
+- In sandbox mode, use [Square test card numbers](https://developer.squareup.com/docs/testing/test-values) only.
+- In production, the client's bank may be declining — they should contact their bank.
 
-**"Invalid card token"**
-- Page may have been open too long (tokens expire)
-- Refresh page and try again
+### Invoices / subscriptions not syncing
+- Confirm the webhook URL is registered in Square and the signature key matches.
+- Check that WP-Cron is running (`wp cron event list` via WP-CLI).
+- Increase sync frequency in **Settings → Sync Scheduler**.
 
-### Sync Issues
-**"Plans not syncing"**
-- Check webhook URL is configured in Square
-- Verify signature key matches
-- Check cron jobs are running
+### Portal pages not appearing after activation
+- If the pages were manually deleted, use the **Recreate Pages** button in **Settings → General**.
+- Deactivate and reactivate the plugin to trigger a fresh page creation.
 
-### WooCommerce Not Showing
-**"Cube Payment Portal not available at checkout"**
-- Ensure WooCommerce is active
-- Check gateway is enabled in WooCommerce settings
-- Verify SSL is active
-
----
-
-## Hooks & Filters
-
-### Actions
-```php
-// After client registration
-do_action('spp_client_registered', $user_id, $square_customer_id);
-
-// After payment processed
-do_action('spp_payment_completed', $payment_id, $user_id, $amount);
-
-// After subscription created
-do_action('spp_subscription_created', $subscription_id, $user_id);
-
-// After subscription canceled
-do_action('spp_subscription_canceled', $subscription_id, $user_id);
-```
-
-### Filters
-```php
-// Modify client portal output
-apply_filters('spp_portal_content', $content, $user_id);
-
-// Customize subscription plans display
-apply_filters('spp_subscription_plans_args', $args);
-
-// Disable plugin CSS
-add_filter('spp_disable_styles', '__return_true');
-
-// Modify payment form fields
-apply_filters('spp_payment_form_fields', $fields);
-```
-
----
-
-## CSS Customization
-
-The plugin uses minimal "skeleton" CSS to inherit your theme's styling. To customize:
-
-### CSS Variables
-```css
-:root {
-    --spp-spacing-sm: 0.5rem;
-    --spp-spacing-md: 1rem;
-    --spp-spacing-lg: 2rem;
-    --spp-border-radius: inherit;
-    --spp-transition: 0.2s ease;
-}
-```
-
-### Disable Plugin CSS
-```php
-add_filter('spp_disable_styles', '__return_true');
-```
-
-Then enqueue your own stylesheet with custom styles.
-
----
-
-## Frequently Asked Questions
-
-**Q: Is this plugin PCI compliant?**
-A: Yes. Card data is tokenized by Square's SDK before reaching your server. You never handle raw card numbers.
-
-**Q: Can clients change their subscription plan?**
-A: Yes. Clients can upgrade or downgrade plans directly from their portal. Business owners are notified but approval is not required.
-
-**Q: Does this work with WooCommerce Subscriptions?**
-A: Yes. The plugin is compatible with WooCommerce Subscriptions for recurring product purchases.
-
-**Q: What happens when a subscription payment fails?**
-A: Square automatically sends an invoice with a payment link to the customer's email.
-
-**Q: Can I use this without WooCommerce?**
-A: Absolutely. The plugin works as a standalone payment portal. WooCommerce integration is optional.
-
-**Q: How do I test without processing real payments?**
-A: Enable Sandbox Mode in settings and use Square's test card numbers.
-
----
-
-## Support
-
-- **Documentation**: See `/docs` folder for detailed guides
-- **Issues**: Report bugs via the plugin support forum
-- **Square API**: [Square Developer Documentation](https://developer.squareup.com/docs)
+### WooCommerce gateway not visible at checkout
+- Confirm WooCommerce is active and version 5.0 or higher.
+- Go to **WooCommerce → Settings → Payments** and enable the gateway.
+- Ensure the site has SSL — the gateway is hidden on non-HTTPS sites.
 
 ---
 
 ## Changelog
 
+### 1.1.7
+- Fixed: Renamed main plugin file to `cube-payment-portal.php` for WordPress.org compliance.
+- Changed: GitHub auto-updater removed; updates now delivered via WordPress.org.
+- Fixed: WooCommerce gateway now charges real Square payments — previous version was a stub that accepted all orders without charging.
+- Fixed: WooCommerce refund handler now submits actual refund requests to Square.
+- Fixed: Removed unsupported WooCommerce Subscriptions declarations from gateway `$supports` array.
+- Added: Plugin page template compatible with both classic and block/FSE themes using the theme's own header and footer.
+- Added: Portal pages automatically deleted on deactivation and recreated on reactivation with portal template pre-assigned.
+- Added: `SPP_Template_Loader` instantiated on every request so `template_include` and `body_class` filters are active at runtime.
+- Security: Webhook HMAC verification enforced unconditionally when a signature key is configured.
+- Security: Impersonation audit logs write unconditionally regardless of `WP_DEBUG`.
+- Security: IP detection hardened — only `REMOTE_ADDR` trusted by default; `X-Forwarded-For` is opt-in.
+- Security: XSS fixed in admin bookings-services, dispute-detail, loyalty, and gift-card templates.
+- Security: `extract()` replaced with explicit variable assignments in shortcode renderer.
+- Security: Debug console calls gated behind `WP_DEBUG`-derived flags.
+- Security: Inline CSS output in client portal partials wrapped with `esc_attr()`.
+- Improved: API retry backoff capped at 5 s; rate-limit wait capped at 10 s.
+- Improved: DDL migration queries wrapped with `phpcs:disable` / `phpcs:enable`.
+
 ### 1.1.6
-- Changed: Default environment switched from Sandbox to Production for end users
-- Added: `SPP_DEVELOPER_MODE` constant to gate sandbox/developer settings
-- Improved: Streamlined API Configuration tab with prominent "Connect to Square" OAuth button
-- Improved: Environment selector and sandbox token fields hidden unless developer mode is enabled
-- Fixed: Docker entrypoint now wired up for automatic plugin activation on first install
+- Changed: Default environment is now Production for new installations.
+- Added: `SPP_DEVELOPER_MODE` constant gates sandbox and developer-only settings.
+- Improved: Streamlined API Configuration tab with prominent Connect to Square button.
+- Improved: Environment selector and sandbox token fields hidden unless developer mode is enabled.
+- Fixed: Docker entrypoint wired up for automatic plugin activation.
 
 ### 1.1.5
-- Security: Added Subresource Integrity (SRI) hashes for all CDN-loaded scripts
-- Security: Fixed potential XSS in error message display (switched .html() to .text())
-- Security: Wrapped debug logging calls with WP_DEBUG checks
-- Improved: Client portal glassmorphism card design and hover states
-- Improved: Password strength indicator on registration form
-- Improved: Inline form validation for profile fields
-- Improved: Unsaved changes warning when navigating away from profile edits
-- Improved: Result count display after filtering subscriptions and invoices
-- Improved: Country dropdown replaced text input on profile page
-- Improved: Select element styling with proper padding and text visibility
-- Improved: Invoice card hover effect now covers full row including Pay Now button
-- Added: Auto-update toggle in plugin settings and on the Plugins page
-- Added: Plugin update status display on the General settings tab
-- Fixed: Profile save handler now collects select element values
-- Fixed: Dark mode CSS changed from auto-detect to opt-in only
+- Security: SRI hashes added for all CDN-loaded scripts.
+- Security: XSS fixed in error message display (`.html()` → `.text()`).
+- Security: All `error_log()` calls gated behind `WP_DEBUG`.
+- Improved: Glassmorphism card design and hover states in client portal.
+- Improved: Password strength indicator on registration form.
+- Improved: Inline form validation for profile fields.
+- Improved: Unsaved-changes warning when navigating away from profile edits.
+- Improved: Result count after filtering subscriptions and invoices.
+- Improved: Country dropdown replaced free-text input on profile page.
+- Improved: Invoice row hover covers full row including Pay Now button.
+- Added: Auto-update toggle in plugin settings and on the Plugins page.
+- Added: Plugin update status on General settings tab.
+- Fixed: Profile save handler collects `<select>` values correctly.
+- Fixed: Portal dark mode changed to opt-in only (`.spp-portal--dark` class).
 
 ### 1.1.4
-- Added: Booking management with Square Appointments integration
-- Added: Loyalty program points display in client portal
-- Added: Gift card management and balance checking
-- Added: Dispute tracking and management dashboard
-- Added: Notification system with appointment and invoice reminders
-- Added: Menu integration with smart auto-detection and 3-tier fallback
-- Added: Privacy and GDPR compliance (data exporter/eraser)
+- Added: Booking management — view upcoming and past Square Appointments from the portal.
+- Added: Loyalty programme — points balance and redemption options from Square Loyalty.
+- Added: Gift card management — linked cards, balances, and activity history.
+- Added: Dispute tracking dashboard for admins.
+- Added: Notification system — appointment and invoice reminder emails.
+- Added: Smart theme menu integration with three-tier detection and fallback.
+- Added: GDPR compliance — WordPress personal data exporter and eraser, privacy policy disclosure.
 
 ### 1.1.0
-- Added: WooCommerce payment gateway integration
-- Added: Subscription plan management with bidirectional Square sync
-- Added: Invoice sync and client-facing payment links
-- Added: Catalog and inventory sync from Square
-- Added: Feature toggle system for modular functionality
-- Added: Webhook processing for real-time Square events
+- Added: WooCommerce payment gateway using saved Square cards.
+- Added: Subscription plan management with bidirectional Square sync.
+- Added: Invoice sync — import all Square invoices and allow client payments.
+- Added: Catalog and inventory sync from Square Item Library.
+- Added: Feature toggle system — enable/disable modules individually.
+- Added: Webhook processing — real-time Square events.
+- Added: Configurable per-type sync scheduler.
 
 ### 1.0.0
-- Initial release
-- Client portal with login, registration, and dashboard
-- Payment processing via Square Web Payments SDK
-- Customer management with Square sync
-- Transaction history and receipt viewing
-- Payment method (card) management
-- OAuth 2.0 authorization flow
-- Sandbox mode for testing
+- Initial release.
+- Client portal with login, registration, and dashboard.
+- Payment processing via Square Web Payments SDK (client-side tokenisation).
+- Customer management with Square sync.
+- Transaction history with receipt links.
+- Saved payment method (card) management.
+- OAuth 2.0 authorisation flow with CSRF protection.
+- Sandbox mode for testing.
 
 ---
 
 ## License
 
-This plugin is licensed under the GPL-2.0 License. See `LICENSE` file for details.
+GPL-2.0 or later — see [LICENSE](LICENSE) for full text.
+
+---
+
+<p align="center">
+  <img src="assets/images/dlm-logo.png" alt="Destin L. Mincy" width="120"><br>
+  <sub>Powered by <a href="https://destinlmincy.com">Destin L. Mincy</a></sub>
+</p>
