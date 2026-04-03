@@ -93,6 +93,9 @@ class SPP_Plugin {
         require_once SPP_PLUGIN_DIR . 'public/class-spp-public.php';
         require_once SPP_PLUGIN_DIR . 'public/class-spp-client-portal.php';
 
+        // Page template loader (registers template_include + body_class filters).
+        require_once SPP_PLUGIN_DIR . 'includes/class-spp-template-loader.php';
+
         // Menu integration.
         require_once SPP_PLUGIN_DIR . 'includes/class-spp-menu-integration.php';
 
@@ -242,6 +245,9 @@ class SPP_Plugin {
         // Shortcodes.
         $client_portal = new SPP_Client_Portal();
         $this->loader->add_action( 'init', $client_portal, 'register_shortcodes' );
+
+        // Portal page template — intercepts template_include and sets body class.
+        new SPP_Template_Loader();
 
         // Navbar login/signup & user dropdown.
         $menu_integration = new SPP_Menu_Integration();

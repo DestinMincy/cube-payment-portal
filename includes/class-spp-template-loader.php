@@ -76,13 +76,22 @@ class SPP_Template_Loader {
             return $template;
         }
 
+        // Block/FSE themes render templates through the block system — calling
+        // block_template_part() after wp_head() means block styles never load,
+        // so the header collapses. Let the theme render its own full template;
+        // the body class + CSS neutralizes content-area width constraints.
+        if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
+            return $template;
+        }
+
+        // Classic themes: serve the plugin's standalone PHP template which calls
+        // get_header() / get_footer() to render the theme's own nav and footer.
         $plugin_template = SPP_PLUGIN_DIR . self::TEMPLATE_FILE;
 
         if ( file_exists( $plugin_template ) ) {
             return $plugin_template;
         }
 
-        // Plugin template file missing — fall back to WordPress default.
         return $template;
     }
 

@@ -4187,3 +4187,194 @@ body.spp-modal-open {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* ==========================================================================
+   Theme Neutralization — enforced when served via the plugin page template
+   ========================================================================== */
+
+/*
+ * Theme Neutralization — active when the plugin page template is used.
+ *
+ * The body class .spp-portal-template is added by SPP_Template_Loader::add_body_class().
+ * These rules strip the theme's content-area width caps, padding, and float
+ * layouts so the portal's own .spp-portal container controls all sizing.
+ *
+ * Note: dark mode is intentionally NOT auto-detected here. Portal dark mode
+ * is opt-in via .spp-portal--dark to prevent half-dark rendering.
+ */
+body.spp-portal-template {
+    background: var(--spp-bg-secondary, #f8fafc) !important;
+}
+
+/* ── Classic theme content wrappers ─────────────────────────────────────── */
+/* Covers Twenty* classic, Astra, GeneratePress, Kadence, OceanWP, Divi, etc.
+   Scoped to avoid touching site-header / site-footer elements. */
+body.spp-portal-template #content,
+body.spp-portal-template .content-area,
+body.spp-portal-template #primary,
+body.spp-portal-template .main-content,
+body.spp-portal-template .page-content,
+body.spp-portal-template .entry-content,
+body.spp-portal-template .post-content,
+body.spp-portal-template article.hentry {
+    max-width: none !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    float: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Hide theme page titles — collapsed completely so they leave no gap */
+body.spp-portal-template .entry-header,
+body.spp-portal-template .page-header,
+body.spp-portal-template .entry-title,
+body.spp-portal-template .page-title,
+body.spp-portal-template .wp-block-post-title {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+}
+
+/* FSE: collapse all top spacing in the main content area.
+ *
+ * The empty gap comes from three sources visible in DevTools:
+ *   1. <main> itself gets margin-block-start: 1.2rem from the flow layout rule
+ *   2. div.wp-block-group.has-global-padding inside <main> has padding-top
+ *      set via --wp--style--root--padding-top (applied by has-global-padding)
+ *   3. The same div gets another margin-block-start: 1.2rem as a flow child
+ *
+ * We zero all three, scoped to <main> so the header/footer are untouched.
+ */
+body.spp-portal-template main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-block-start: 0 !important;
+}
+
+/* Every direct block child of <main> — the group wrapper div */
+body.spp-portal-template main > * {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-block-start: 0 !important;
+    /* Override the CSS custom property has-global-padding uses for vertical padding */
+    --wp--style--root--padding-top: 0 !important;
+}
+
+/* The post-content block itself */
+body.spp-portal-template .wp-block-post-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-block-start: 0 !important;
+}
+
+/* Gutenberg's flow-layout rule: :where(body .is-layout-flow) > * { margin-block-start: 1.2rem }
+   Override with higher specificity for everything inside <main> */
+body.spp-portal-template main .is-layout-flow > *,
+body.spp-portal-template main.is-layout-flow > * {
+    margin-block-start: 0 !important;
+}
+
+/* ── Block / FSE theme neutralization ───────────────────────────────────── */
+/*
+ * FSE themes control content width via .is-layout-constrained and the CSS
+ * custom properties --wp--style--global--content-size / wide-size.
+ *
+ * IMPORTANT: all selectors are scoped to the Post Content template part
+ * (.wp-block-post-content) so the theme's header and footer template parts
+ * keep their own layout, padding, and width completely untouched.
+ */
+
+/* The Post Content block itself */
+body.spp-portal-template .wp-block-post-content {
+    max-width: none !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Group blocks and constrained-layout children INSIDE post content only */
+body.spp-portal-template .wp-block-post-content .wp-block-group,
+body.spp-portal-template .wp-block-post-content .wp-block-group__inner-container {
+    max-width: none !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Strip constrained-layout max-width only within post content */
+body.spp-portal-template .wp-block-post-content .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Override Gutenberg's width custom properties scoped to post content */
+body.spp-portal-template .wp-block-post-content {
+    --wp--style--global--content-size: 100% !important;
+    --wp--style--global--wide-size: 100% !important;
+}
+
+/* ── Portal layout responsive sizing (mobile-first) ─────────────────────── */
+/*
+ * The .spp-portal container controls the sidebar + content layout.
+ * We give it outer breathing room that grows with the viewport,
+ * and cap it so it never sprawls uncomfortably on ultrawide screens.
+ */
+
+/* Mobile (default): full width, modest padding so content breathes */
+body.spp-portal-template .spp-portal {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body.spp-portal-template .spp-portal-content {
+    padding: var(--spp-space-4); /* 1rem — compact but not cramped on mobile */
+}
+
+/* Small tablet (600px+): add side breathing room */
+@media (min-width: 600px) {
+    body.spp-portal-template .spp-portal-content {
+        padding: var(--spp-space-5); /* 1.5rem */
+    }
+}
+
+/* Tablet (900px+): sidebar visible, content gets more room */
+@media (min-width: 900px) {
+    body.spp-portal-template .spp-portal-content {
+        padding: var(--spp-space-6); /* 2rem */
+    }
+}
+
+/* Desktop (1200px+): cap width and centre the whole portal */
+@media (min-width: 1200px) {
+    body.spp-portal-template .spp-portal {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    body.spp-portal-template .spp-portal-content {
+        padding: var(--spp-space-8) var(--spp-space-6); /* 3rem top/bottom, 2rem sides */
+    }
+}
+
+/* Large desktop (1600px+): wider cap, generous content padding */
+@media (min-width: 1600px) {
+    body.spp-portal-template .spp-portal {
+        max-width: 1600px;
+    }
+
+    body.spp-portal-template .spp-portal-content {
+        padding: var(--spp-space-8);
+    }
+}
